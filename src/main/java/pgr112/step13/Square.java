@@ -4,6 +4,10 @@ import java.awt.*;
 
 public class Square extends Rectangle {
 
+    public Square(){
+        super();
+    }
+
     // When users enters values in constructor, it sends the parameters to the parent class.
     public Square(double side, Color color, boolean filled, MovablePoint topLeft){
         super(side, side, color, filled, topLeft);

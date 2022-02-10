@@ -103,30 +103,78 @@ public class JDBCOps {
             }
 
             String rectangle = "SELECT * FROM rectangle";
-            ResultSet rS = stmt.executeQuery(rectangle);
-            while(rS.next()){
+            ResultSet rr = stmt.executeQuery(rectangle);
+            while(rr.next()){
                 var r = new Rectangle();
-                r.setWidth(rS.getDouble("width"));
-                r.setLength(rS.getDouble("length"));
-                r.setColor(new Color(rS.getInt("r"),
-                        rS.getInt("g"),
-                        rS.getInt("b")));
-                r.setFilled(rS.getBoolean("filled"));
-                String str = rS.getString("topLeft");
+                r.setWidth(rr.getDouble("width"));
+                r.setLength(rr.getDouble("length"));
+                r.setColor(new Color(rr.getInt("r"),
+                        rr.getInt("g"),
+                        rr.getInt("b")));
+                r.setFilled(rr.getBoolean("filled"));
+                String str = rr.getString("topLeft");
                 String[] strArray = str.split(",");
                 double x = Double.parseDouble(strArray[0]);
                 double y = Double.parseDouble(strArray[1]);
                 r.setTopLeft(new MovablePoint(x, y));
                 r.setBottomRight(new MovablePoint(
-                        x+rS.getDouble("width"),
-                            y-rS.getDouble("length")));
+                        x+rr.getDouble("width"),
+                            y-rr.getDouble("length")));
                 shapesFromDb.add(r);
             }
+
+            String square = "SELECT * FROM square";
+            ResultSet rs = stmt.executeQuery(square);
+            while(rs.next()){
+                var s = new Square();
+                s.setSide(rs.getDouble("sides"));
+                s.setColor(new Color(rs.getInt("r"),
+                        rs.getInt("g"),
+                        rs.getInt("b")));
+                s.setFilled(rs.getBoolean("filled"));
+                String str = rs.getString("topLeft");
+                String[] strArray = str.split(",");
+                double x = Double.parseDouble(strArray[0]);
+                double y = Double.parseDouble(strArray[1]);
+                s.setTopLeft(new MovablePoint(x, y));
+                shapesFromDb.add(s);
+            }
+
 
         }catch (SQLException sqlE){
             sqlE.printStackTrace();
         }
         return shapesFromDb;
+    }
+
+    public ArrayList<Shape> getSquaresByAreaGT(double area){
+        ArrayList<Shape> areaShapes= new ArrayList<>();
+
+        try(Connection con = DriverManager
+                .getConnection("jdbc:mysql://localhost:3306/shapes?useSSL=false", "oopuser", "root")){
+
+            Statement stmt = con.createStatement();
+            String getSquaresByArea = "SELECT * FROM square " +
+                    "WHERE area < " + area;
+            ResultSet sa = stmt.executeQuery(getSquaresByArea);
+            while(sa.next()){
+                var c = new Square();
+                c.setSide(sa.getDouble("sides"));
+                c.setColor(new Color(sa.getInt("r"),
+                        sa.getInt("g"),
+                        sa.getInt("b")));
+                c.setFilled(sa.getBoolean("filled"));
+                String str = sa.getString("topLeft");
+                String[] strArray = str.split(",");
+                double x = Double.parseDouble(strArray[0]);
+                double y = Double.parseDouble(strArray[1]);
+                c.setTopLeft(new MovablePoint(x, y));
+                areaShapes.add(c);
+            }
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        return areaShapes;
     }
 
 }

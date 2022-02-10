@@ -16,7 +16,14 @@ public class Main {
         operations.insertShape(c1);
         operations.insertShape(s1);
         operations.insertShape(r1);
+
+        var s2 = new Square(45, new Color(87, 29, 90), true, new MovablePoint(15, 15));
+        var s3 = new Square(70, new Color(79, 70, 35), true, new MovablePoint(45, 1));
+        var s4 = new Square(10, new Color(58, 252, 253), true, new MovablePoint(1, 29));
+        operations.insertShape(s2);
+        operations.insertShape(s3);
+        operations.insertShape(s4);
 */
-        System.out.println(operations.getAllShapes());
+        System.out.println(operations.getSquaresByAreaGT(30));
     }
 }
