@@ -1,0 +1,42 @@
+ISBN: 9788202645625
+ Author: Tore Renberg
+ Title: Tollak til Ingeborg
+ Number of pages: 167
+ Genre: OTHER
+---
+ISBN: 9788205538214
+ Author: Zeshan Shakar
+ Title: Gul bok
+ Number of pages: 286
+ Genre: OTHER
+---
+ISBN: 9788248926146
+ Author: Erika Fatland
+ Title: Høyt - en reise i Himalaya
+ Number of pages: 634
+ Genre: OTHER
+---
+ISBN: 9788203364181
+ Author: Jo Nesbø
+ Title: Kniv
+ Number of pages: 519
+ Genre: CRIME
+---
+ISBN: 9788203375316
+ Author: Margaret Atwood
+ Title: Gileads døtre
+ Number of pages: 472
+ Genre: FANTASY
+---
+ISBN: 9781407132082
+ Author: Suzanne Collins
+ Title: The hunger games
+ Number of pages: 374
+ Genre: ACTION
+---
+ISBN: 9788205394841
+ Author: Knut Hamsun
+ Title: Markens grøde
+ Number of pages: 357
+ Genre: CLASSIC
+---
