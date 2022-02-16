@@ -125,12 +125,7 @@ public class MyRingArrayQueue<T> implements MyQueue<T> {
             //normal case
             return (tail - head) + 1;
         } else {
-            int size = 0;
-            //add size based on all elements after head
-            size += (data.length - head);
-            //then add all from 0 til tail
-            size += tail + 1;
-
+            int size = (data.length - head) + tail + 1 ;
             return size;
         }
     }

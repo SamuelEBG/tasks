@@ -1,8 +1,9 @@
-package pg42sg.task02b;
+package pg42sg.task02d;
+
 
 import org.pg4200.les02.list.MyList;
 
-public class MyBiDirectionalLinkedList<T> implements MyList<T> {
+public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
 
     private class ListNode{
         T value;
@@ -11,6 +12,7 @@ public class MyBiDirectionalLinkedList<T> implements MyList<T> {
     }
     private ListNode head;
     private ListNode tail;
+    private ListNode middle;
     private int size;
 
     @Override
@@ -42,7 +44,7 @@ public class MyBiDirectionalLinkedList<T> implements MyList<T> {
             ListNode tempNode; // Create a temporary node that we will initialize in the loops below.
 
             if(index <= size()/2){ // If the index is equal or less to halv the size
-                                    // Then we choose to iterate through the array from the head.
+                // Then we choose to iterate through the array from the head.
                 tempNode = head;    // Set the tempnode to be the head, index 0.
                 counter = 0;        // Counter is set to 0.
                 while(counter != index -1){ // While counter is not index size -1
@@ -50,18 +52,19 @@ public class MyBiDirectionalLinkedList<T> implements MyList<T> {
                     counter++;                  // head.next, which will be element in index 1.
                 }
                 /*
-                    We have iterated through and found the index where we wnat to insert the element.
-                    The tempnode is set to being the node .next to the index of where we want to insert
+                    We have iterated through and found the index where we want to insert the element.
+                    The tempnode is set to being the node .previous (because loop has ended before the index where we
+                    want to insert a node) to the index of where we want to insert
                     the element, so when we use tempNode.next, we refer to the element to the right
                     of the index we want to insert.
                  */
                 node.next = tempNode.next; // This is our node at our desired index, so node.next is the same
-                                            // thing as tempnode.next, because tempnode.next is the element to the left
-                                            // of our desired index.
+                // thing as tempnode.next, because tempnode.next is the element to the left
+                // of our desired index.
                 node.previous = tempNode;   // As seen here, node.previous is our tempNode.
                 node.next.previous = node;  // Now we change our node.next objects .previous to being our node.
                 tempNode.next = node;       // Last we change tempnode.next to be our node, which removes
-                                            // the relationship between node.next and node.previous.
+                // the relationship between node.next and node.previous.
             } else {
                 /*
                     Now we iterate from the back, we take conter to be size()-1, which will be same as the tail.
@@ -80,7 +83,7 @@ public class MyBiDirectionalLinkedList<T> implements MyList<T> {
                 node.previous = tempNode.previous; // The actual nodes previous node is the same as the tempNodes previous
                 node.next = tempNode;           // The actual nodes next node is the tempNode specified in the while-loop-
                 node.previous.next = node;      // Now we destroy the link between node.previus and node.next
-                                                // And insert the element in the index in the middle.
+                // And insert the element in the index in the middle.
             }
         }
         size++;
@@ -107,23 +110,23 @@ public class MyBiDirectionalLinkedList<T> implements MyList<T> {
                 }
                 // If not, we go to the next element.
                 current = current.next; // Set current to be the next element, which for the first loop
-                                        // is head.next, next time it will be node.next.
+                // is head.next, next time it will be node.next.
                 counter++;
             }
         } else {
-          current = tail;
-          counter = size()-1; // Set counter to be size -1 to have it start at the end of the indexes
-          while(current != null){
+            current = tail;
+            counter = size()-1; // Set counter to be size -1 to have it start at the end of the indexes
+            while(current != null){
 
-              if(counter == index){
+                if(counter == index){
 
-                  return current.value;
-              }
+                    return current.value;
+                }
 
-              current = current.previous;
+                current = current.previous;
 
-              counter --;
-          }
+                counter --;
+            }
         }
         assert false;
         return null;
@@ -136,12 +139,43 @@ public class MyBiDirectionalLinkedList<T> implements MyList<T> {
             throw new IndexOutOfBoundsException("Index out of bounds");
         }
 
+        ListNode tempNode;
+        int counter;
 
         if(index == 0){
             if(head.next != null){
                 // This will now become the new head
+                head = head.next;
+            }else{
+                head = null;
+                tail = null;
+            }
+        } else if(index == size){
+            tail.previous = tail;
+        } else {
+
+            if(index <= size()/2){
+                tempNode = head;
+                counter = 0;
+
+                while(counter != index-1){
+                    tempNode = tempNode.next;
+                    counter++;
+                }
+                tempNode.next.next.previous = tempNode;
+                tempNode.next = tempNode.next.next;
+            } else{
+                tempNode = tail;
+                counter = size()-1;
+                while(counter != index){
+                    tempNode = tempNode.previous;
+                    counter--;
+                }
+                tempNode = tempNode.previous;
+                tempNode.next.next = tempNode.next;
             }
         }
+        size--;
 
     }
 
@@ -149,7 +183,6 @@ public class MyBiDirectionalLinkedList<T> implements MyList<T> {
     public boolean isEmpty() {
         return MyList.super.isEmpty();
     }
-
 
     @Override
     public int size() {
