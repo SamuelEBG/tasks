@@ -15,8 +15,10 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
     private ListNode middle;
     private int size;
 
+
     @Override
     public void add(int index, T value) {
+
 
         if(index < 0 || index > size){
             throw new IndexOutOfBoundsException("Index out of bound");
@@ -31,59 +33,103 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
             assert size == 0; //Adding 1 element.
             head = node;  // head is now node
             tail = node;  // tail is also node, because the objects left and right are both head and tail
+            middle = node;
         } else if (index == 0){
             node.next = head; // This nodes .next is now the current head, we push the 0 index node one index to the left.
             head = node;    // Now we change the new node that is in index 0 to being the head.
             head.next.previous = head; // And change the formers .previous to the current head.
+            middle = node;
         } else if(index == size){
             tail.next = node; // Adding element at the last index, the currents tail.next is the node
             node.previous = tail; // Change the nodes .previous to being the former tail.
             tail = node; // Now we can set the tail to being the current node.
-        } else {
+                if(size%2 == 0){
+                    middle.next = middle;
+                }
+        } else if(index <= (size * 0.25) || index >= (size * 0.75)) {
+            int counter;
+            ListNode tempNode;
+                if(index <= (size * 0.25)){
+                    tempNode = head;
+                    counter = 0;
+                        while (counter != index -1){
+                            tempNode = tempNode.next;
+                            counter++;
+                        }
+                    node.next = tempNode.next;
+                    node.previous = tempNode;
+                    tempNode.next.previous = node;
+                    tempNode.next = node;
+                        if((size&2) == 0){
+                            middle.previous = middle;
+                        }
+                } else {
+                    tempNode = tail;
+                    counter = size()-1;
+                        while(counter != index){
+                            tempNode = tempNode.previous;
+                            counter--;
+                        }
+                    node.previous = tempNode.previous;
+                    node.next = tempNode;
+                    node.previous.next = node;
+                    if(size%2 == 0){
+                        middle.next = middle;
+                    }
+                }
+
+        }else{
             int counter; // Counter for each index.
             ListNode tempNode; // Create a temporary node that we will initialize in the loops below.
 
-            if(index <= size()/2){ // If the index is equal or less to halv the size
+            if(index <= middleTracker()){ // If the index is equal or less to halv the size
                 // Then we choose to iterate through the array from the head.
-                tempNode = head;    // Set the tempnode to be the head, index 0.
-                counter = 0;        // Counter is set to 0.
-                while(counter != index -1){ // While counter is not index size -1
-                    tempNode = tempNode.next; // We set the tempnode to be the next element, in this case
-                    counter++;                  // head.next, which will be element in index 1.
+                    tempNode = middle;                // Set the tempnode to be the head, index 0.
+                    counter = middleTracker();                    // Counter is set to 0.
+                    while (counter != index) {  // While counter is not index size
+                        tempNode = tempNode.previous;   // We set the tempNode to be the next element, in this case
+                        counter--;                  // head.next, which will be element in index 1.
+                    }
+                        /*
+                            We have iterated through and found the index where we want to insert the element.
+                            The tempNode is set to being the node .previous (because loop has ended before the index where we
+                            want to insert a node) to the index of where we want to insert
+                            the element, so when we use tempNode.next, we refer to the element to the right
+                            of the index we want to insert.
+                         */
+                    node.previous = tempNode.previous;;  // This is our node at our desired index, so node.next is the same
+                                                // thing as tempNode.next, because tempNode.next is the element to the left
+                                                // of our desired index.
+                    node.next = tempNode;       // As seen here, node.previous is our tempNode.
+                    node.previous.next = node;  // Now we change our node.next objects .previous to being our node.
+                                                // Last we change tempNode.next to be our node, which removes
+                                                // the relationship between node.next and node.previous.
+                if((size&2) == 0){
+                    middle.next = middle;
                 }
-                /*
-                    We have iterated through and found the index where we want to insert the element.
-                    The tempnode is set to being the node .previous (because loop has ended before the index where we
-                    want to insert a node) to the index of where we want to insert
-                    the element, so when we use tempNode.next, we refer to the element to the right
-                    of the index we want to insert.
-                 */
-                node.next = tempNode.next; // This is our node at our desired index, so node.next is the same
-                // thing as tempnode.next, because tempnode.next is the element to the left
-                // of our desired index.
-                node.previous = tempNode;   // As seen here, node.previous is our tempNode.
-                node.next.previous = node;  // Now we change our node.next objects .previous to being our node.
-                tempNode.next = node;       // Last we change tempnode.next to be our node, which removes
-                // the relationship between node.next and node.previous.
+
             } else {
-                /*
-                    Now we iterate from the back, we take conter to be size()-1, which will be same as the tail.
-                    Tempnode is set to tail. So when the while loop iterates through the array searching
-                    for index that is equal to size()-1, when it finds the correct size, say 14,
-                    the while-loop breaks, and the previous execution of the while-loop set the tempnode to be
-                    tempnode.previous, which results in the tempnode being the index befor the index we want to
-                    insert our element.
-                 */
-                tempNode = tail;
-                counter = size()-1;
-                while(counter != index){  // This loop will run untill the counter is at the index we define in param
-                    tempNode = tempNode.previous;   // These arguments will be true when the index is -1 from the
-                    counter--;                      // parameter in the while-loop.
+                    /*
+                        Now we iterate from the back, we take counter to be size()-1, which will be same as the tail.
+                        TempNode is set to tail. So when the while loop iterates through the array searching
+                        for index that is equal to size()-1, when it finds the correct size, say 14,
+                        the while-loop breaks, and the previous execution of the while-loop set the tempNode to be
+                        tempNode.previous, which results in the tempNode being the index before the index we want to
+                        insert our element.
+                     */
+                tempNode = middle;
+                counter = middleTracker();
+                while(counter != index -1){            // This loop will run until the counter is at the index we define in param
+                    tempNode = tempNode.next;       // These arguments will be true when the index is -1 from the
+                    counter++;                      // parameter in the while-loop.
                 }
-                node.previous = tempNode.previous; // The actual nodes previous node is the same as the tempNodes previous
-                node.next = tempNode;           // The actual nodes next node is the tempNode specified in the while-loop-
-                node.previous.next = node;      // Now we destroy the link between node.previus and node.next
-                // And insert the element in the index in the middle.
+                node.next = tempNode.next;  // The actual nodes previous node is the same as the tempNodes previous
+                node.previous = tempNode;               // The actual nodes next node is the tempNode specified in the while-loop-
+                tempNode.next.previous = node;          // Now we destroy the link between node.previous and node.next
+                tempNode.next = node;                                    // And insert the element in the index in the middle.
+                    if((size&2) == 0){
+                        middle.previous = middle;
+                    }
             }
         }
         size++;
@@ -176,7 +222,11 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
             }
         }
         size--;
+    }
 
+    public int middleTracker(){
+        int middleInt = (int) Math.ceil((size * 0.50)-1);
+        return middleInt;
     }
 
     @Override

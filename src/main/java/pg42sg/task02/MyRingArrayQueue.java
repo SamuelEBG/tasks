@@ -64,7 +64,7 @@ public class MyRingArrayQueue<T> implements MyQueue<T> {
                     biggerArray[head + j] = data[j];
                 }
 
-                tail = data.length - 1;
+                tail = data.length;
                 head = 0;
                 data = biggerArray;
             }
@@ -86,12 +86,6 @@ public class MyRingArrayQueue<T> implements MyQueue<T> {
             head = -1;
             tail = -1;
         } else {
-            /*
-                Removing this line will still make all tests pass, as it
-                is not a functional bug: it only impacts performance.
-                It is done to avoid "memory leaks" in which we keep unused
-                objects that cannot be garbage-collected.
-             */
             data[head] = null;
             head++;
             if(head >= data.length){
@@ -104,13 +98,13 @@ public class MyRingArrayQueue<T> implements MyQueue<T> {
     @Override
     public T peek() {
         if(isEmpty()){
-            throw new RuntimeException();
+            throw new RuntimeException("Array is empty");
         }
         return (T) data[head];
     }
     public T peekTail(){
         if(isEmpty()){
-            throw new RuntimeException();
+            throw new RuntimeException("Array is empty");
         }
         return (T) data[tail];
     }
