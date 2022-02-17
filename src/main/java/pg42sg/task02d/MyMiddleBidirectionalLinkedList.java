@@ -43,9 +43,11 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
             tail.next = node; // Adding element at the last index, the currents tail.next is the node
             node.previous = tail; // Change the nodes .previous to being the former tail.
             tail = node; // Now we can set the tail to being the current node.
+
                 if(size%2 == 0){
-                    middle.next = middle;
+                    middle = middle.next;
                 }
+
         } else if(index <= (size * 0.25) || index >= (size * 0.75)) {
             int counter;
             ListNode tempNode;
@@ -61,7 +63,7 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
                     tempNode.next.previous = node;
                     tempNode.next = node;
                         if((size&2) == 0){
-                            middle.previous = middle;
+                            middle = middle.previous;
                         }
                 } else {
                     tempNode = tail;
@@ -74,7 +76,7 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
                     node.next = tempNode;
                     node.previous.next = node;
                     if(size%2 == 0){
-                        middle.next = middle;
+                        middle = middle.next;
                     }
                 }
 
@@ -105,7 +107,7 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
                                                 // Last we change tempNode.next to be our node, which removes
                                                 // the relationship between node.next and node.previous.
                 if((size&2) == 0){
-                    middle.next = middle;
+                    middle = middle.next;
                 }
 
             } else {
@@ -128,7 +130,7 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
                 tempNode.next.previous = node;          // Now we destroy the link between node.previous and node.next
                 tempNode.next = node;                                    // And insert the element in the index in the middle.
                     if((size&2) == 0){
-                        middle.previous = middle;
+                        middle = middle.previous;
                     }
             }
         }
