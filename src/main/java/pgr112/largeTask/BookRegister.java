@@ -15,7 +15,7 @@ public class BookRegister {
     //private ArrayList<BookSolution> books;
     private int numberOfBooks;
 
-    private final String path = "src/main/java/pgr112/largeTask/books.txt";
+    private final String path = "tasks/src/main/java/pgr112/largeTask/books.txt";
 
     public void scanBooks () throws FileNotFoundException {
         this.books = new ArrayList<>();
