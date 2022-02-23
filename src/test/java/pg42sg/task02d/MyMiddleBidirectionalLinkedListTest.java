@@ -37,8 +37,8 @@ public class MyMiddleBidirectionalLinkedListTest extends MyListTestTemplate {
         data.add("t");
 
         String value = "lägre än 25 prosänt";
-        data.add(5, value);
+        data.add(4, value);
 
-        assertEquals("lägre än 25 prosänt", data.get(5));
+        assertEquals("lägre än 25 prosänt", data.get(4));
     }
 }

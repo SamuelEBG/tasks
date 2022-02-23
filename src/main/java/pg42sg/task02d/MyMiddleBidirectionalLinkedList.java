@@ -44,14 +44,12 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
             node.previous = tail; // Change the nodes .previous to being the former tail.
             tail = node; // Now we can set the tail to being the current node.
 
-                if(size%2 == 0){
-                    middle = middle.next;
-                }
+                moveMiddleNext();
 
-        } else if(index <= (size * 0.25) || index >= (size * 0.75)) {
+        } else if(index < (size * 0.25) || index > (size * 0.75)) {
             int counter;
             ListNode tempNode;
-                if(index <= (size * 0.25)){
+                if(index < (size * 0.25)){
                     tempNode = head;
                     counter = 0;
                         while (counter != index -1){
@@ -62,9 +60,7 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
                     node.previous = tempNode;
                     tempNode.next.previous = node;
                     tempNode.next = node;
-                        if((size&2) == 0){
-                            middle = middle.previous;
-                        }
+                        moveMiddlePrevious();
                 } else {
                     tempNode = tail;
                     counter = size()-1;
@@ -75,9 +71,7 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
                     node.previous = tempNode.previous;
                     node.next = tempNode;
                     node.previous.next = node;
-                    if(size%2 == 0){
-                        middle = middle.next;
-                    }
+                    moveMiddleNext();
                 }
 
         }else{
@@ -106,9 +100,7 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
                     node.previous.next = node;  // Now we change our node.next objects .previous to being our node.
                                                 // Last we change tempNode.next to be our node, which removes
                                                 // the relationship between node.next and node.previous.
-                if((size&2) == 0){
-                    middle = middle.next;
-                }
+                moveMiddleNext();
 
             } else {
                     /*
@@ -129,9 +121,7 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
                 node.previous = tempNode;               // The actual nodes next node is the tempNode specified in the while-loop-
                 tempNode.next.previous = node;          // Now we destroy the link between node.previous and node.next
                 tempNode.next = node;                                    // And insert the element in the index in the middle.
-                    if((size&2) == 0){
-                        middle = middle.previous;
-                    }
+                    moveMiddlePrevious();
             }
         }
         size++;
@@ -194,15 +184,18 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
             if(head.next != null){
                 // This will now become the new head
                 head = head.next;
+                moveMiddlePrevious();
             }else{
+                middle = null;
                 head = null;
                 tail = null;
             }
         } else if(index == size){
             tail.previous = tail;
-        } else {
+            moveMiddlePrevious();
+        } else if(index < (size * 0.25) || index > (size * 0.75)) {
 
-            if(index <= size()/2){
+            if(index < (size * 0.25)){
                 tempNode = head;
                 counter = 0;
 
@@ -212,6 +205,7 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
                 }
                 tempNode.next.next.previous = tempNode;
                 tempNode.next = tempNode.next.next;
+                moveMiddlePrevious();
             } else{
                 tempNode = tail;
                 counter = size()-1;
@@ -221,9 +215,22 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
                 }
                 tempNode = tempNode.previous;
                 tempNode.next.next = tempNode.next;
+                moveMiddlePrevious();
             }
         }
         size--;
+    }
+
+    public void moveMiddleNext(){
+        if((size&2) == 0){
+            middle = middle.next;
+        }
+    }
+
+    public void moveMiddlePrevious(){
+        if((size&2) == 0){
+            middle = middle.previous;
+        }
     }
 
     public int middleTracker(){
