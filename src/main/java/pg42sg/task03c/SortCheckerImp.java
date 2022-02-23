@@ -2,8 +2,6 @@ package pg42sg.task03c;
 
 import org.pg4200.ex03.SortChecker;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SortCheckerImp implements SortChecker {
 
@@ -54,26 +52,23 @@ public class SortCheckerImp implements SortChecker {
             for the sorted array to be a copy of the original array.
 
          */
-        for(int i = 0; i < original.length; i++){
 
-            T value = original[i];
+        for (T t : original) {
+
             int countOriginal = 0;
             int countSorted = 0;
 
-            for(int k = 0; k < original.length; k++){
-                if(original[k].equals(value)){
+            for (int k = 0; k < original.length; k++) { // Iterate through both arrays and check if they
+                if (original[k].equals(t)) {   // Have the same amount of instances of the checkIndex value.
                     countOriginal++;
                 }
-
-                if(sorted[k].equals(value)){
+                if (sorted[k].equals(t)) {
                     countSorted++;
-
                 }
             }
-            if(countOriginal != countSorted){
-                return false;
-            }
-        }
+            if (countOriginal != countSorted) return false; // If both arrays contained the same amount of
+        }                                           // the checkIndex value, the array moves on to the next index
+                                                    //
 
         /*
         if(original.length == sorted.length){

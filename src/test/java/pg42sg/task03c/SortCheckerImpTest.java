@@ -22,6 +22,10 @@ class SortCheckerImpTest extends SortCheckerTestTemplate {
 
         boolean ok = checker.isSortedCopy(original, sorted);
         assertFalse(ok);
+    }
+
+    @Test
+    public void arrayOfStrings(){
 
     }
 

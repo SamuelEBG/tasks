@@ -2,14 +2,16 @@ package pg42sg.task03b;
 
 import java.util.Comparator;
 
-    // Implement the class GameUser, where it is possible
-    // to create a GameUser with String Id and int points.
+    // Implement the interface Comparable, this makes the objects
+    // GameUser comparable.
 public class GameUserComparator implements Comparator<GameUser> {
 
     // Override the compare function to return positive number if
         // GameUser o1 has more points than B, or if they are equal
         // it returns the id with lexicographically the greatest value,
         // which means the highest binary number of the first digit
+
+        // Here we specify the comparable logic, we overwrite the compare method.
     @Override
     public int compare(GameUser a, GameUser b) {
             // If the first player has a greater score than player B, the
