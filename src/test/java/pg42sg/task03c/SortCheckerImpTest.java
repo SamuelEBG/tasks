@@ -8,12 +8,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SortCheckerImpTest extends SortCheckerTestTemplate {
 
-    @Test
-    void isSortedCopy() {
-    }
+    SortCheckerImp checker = getNewInstance();
 
     @Override
-    protected SortChecker getNewInstance() {
+    protected SortCheckerImp getNewInstance() {
         return new SortCheckerImp();
     }
+
+    @Test
+    public void maybeFail(){
+        Integer[] original = {3,2,6,4,1};
+        Integer[] sorted = {1,2,3,4,5};
+
+        boolean ok = checker.isSortedCopy(original, sorted);
+        assertFalse(ok);
+
+    }
+
 }
