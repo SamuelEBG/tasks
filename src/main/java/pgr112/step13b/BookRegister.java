@@ -14,13 +14,13 @@ public class BookRegister {
 
     public void scanBooks () throws FileNotFoundException {
         System.out.println("Scanning starting" + "\n");
-        String path = "tasks/src/main/java/pgr112/step13b/books.txt";
+        String path = "src/main/java/pgr112/step13b/books.txt";
         File file = new File(path);
         Scanner input = new Scanner(file);
 
         while(input.hasNextLine()){
             Book book = new Book();
-            book.setIsbn(input.nextLine());
+            book.setIsbn(Integer.parseInt(input.nextLine()));
             book.setTitle(input.nextLine());
             book.setAuthor(input.nextLine());
             book.setNumberOfpages(Integer.parseInt(input.nextLine()));
@@ -43,7 +43,7 @@ public class BookRegister {
             scanBooks();
         }
         catch (FileNotFoundException ballefjong){
-            System.out.println("oopsiedaise");
+            System.out.println("File path wrong, book file not found");
             ballefjong.getStackTrace();
         }
     }
@@ -54,6 +54,7 @@ public class BookRegister {
         scanBooksException();
         displayMenu();
         BookRegister br = new BookRegister();
+        Program sqlRun = new Program();
         Scanner inputs = new Scanner(System.in);
         Scanner userChoices = new Scanner(System.in);
         int input = inputs.nextInt();
@@ -68,7 +69,7 @@ public class BookRegister {
                 System.out.println("Add a book here");
                 Book userBook = new Book();
                 System.out.println("Set an ISBN");
-                userBook.setIsbn(userChoices.next());
+                userBook.setIsbn(userChoices.nextInt());
                 System.out.println("Choose a title");
                 String title = userChoices.next();
                 title += userChoices.nextLine();
@@ -85,16 +86,16 @@ public class BookRegister {
                 System.out.println(userBook.getTitle() + " Added to the register \n" );
             }else if(input == 3){
                 System.out.println("What book do you want to modify? Specify by ISBN.");
-                String userInput = userChoices.next();
+                int userInput = userChoices.nextInt();
                 for (Book book : books) {
-                    if (userInput.equalsIgnoreCase(book.getIsbn())) {
+                    if (book.getIsbn() == userInput) {
                         System.out.println("What information do you want to modify?");
                         System.out.println("ISBN - Author - Title - Pages - Genre");
                         String modify = userChoices.next().toLowerCase();
                         switch (modify) {
                             case "isbn" -> {
                                 System.out.println("Enter a new ISBN");
-                                book.setIsbn(userChoices.next());
+                                book.setIsbn(userChoices.nextInt());
                                 System.out.println("The ISBN for " + book.getTitle() + " has been set to " + book.getIsbn());
                             }
                             case "author" -> {
@@ -147,19 +148,19 @@ public class BookRegister {
 
             }else if(input == 6){
                 System.out.println("Search for a book by entering its ISBN");
-                String isbn = userChoices.next();
+                int isbn = userChoices.nextInt();
                 for (Book book : books) {
-                    if (isbn.equalsIgnoreCase(book.getIsbn())) {
+                    if (book.getIsbn() == isbn) {
                         System.out.println(book);
                     }
                 }
 
             }else if(input == 7){
                 System.out.println("Enter the ISBN of the book you want to remove");
-                String remover = userChoices.next();
+                int remover = userChoices.nextInt();
                 String removed;
                 for(int i = 0; i < books.size(); i++){
-                    if(remover.equalsIgnoreCase(books.get(i).getIsbn())){
+                    if(books.get(i).getIsbn() == remover){
                         removed = books.get(i).getTitle();
                         books.remove(i);
                         System.out.println(removed + " has been removed from the register");
@@ -167,6 +168,8 @@ public class BookRegister {
                     }
                 }
             }else if(input == 8){
+                System.out.println("inserting to database");
+                System.out.println(books.size());
 
             }
             displayMenu();
@@ -227,10 +230,13 @@ public class BookRegister {
     }
 
     public ArrayList<Book> allRegisteredBooks(){
+        ArrayList<Book> result = new ArrayList<>(this.books);
+        /*
         ArrayList<Book> result = new ArrayList<>();
         for(Book b : this.books){
             result.add(b);
         }
+         */
         return result;
     }
 
@@ -259,14 +265,14 @@ public class BookRegister {
         books.remove(book);
     }
 
-    public void removeBookByISBN(String isbn){
+    public void removeBookByISBN(int isbn){
         // Removes a book under conditions if the book has getIsbn that equalsIgnoreCase the isbn in the parameter.
-        books.removeIf(book -> book.getIsbn().equalsIgnoreCase(isbn));
+        books.removeIf(book -> book.getIsbn() == isbn);
 
         // Old version that explains what above version does.
         /*
         for(Book book : books){
-            if(book.getIsbn().equalsIgnoreCase(isbn)){
+            if(isbn == book.getIsbn()){
                 books.remove(book);
             }
         }

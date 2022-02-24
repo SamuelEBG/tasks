@@ -14,7 +14,7 @@ public class Book {
         );
     }
 
-    private String isbn;
+    private int isbn;
     private String title;
     private String author;
     private int numberOfPages = 1;
@@ -27,7 +27,7 @@ public class Book {
     // Seccond method including parameter for user to specify genre.
 
     public Book(){
-        this.isbn = "";
+        this.isbn = 0;
         this.title = "";
         this.author = "";
         this.numberOfPages = 0;
@@ -43,7 +43,7 @@ public class Book {
         this.genre = "";
     }
 
-    public Book(String isbn,String title, String author,int pages, String genre ){
+    public Book(int isbn,String title, String author,int pages, String genre ){
         this.isbn = isbn;
         this.title = title;
         this.author = author;
@@ -89,11 +89,11 @@ public class Book {
         this.genre = genre;
     }
 
-    public String getIsbn() {
+    public int getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(String isbn) {
+    public void setIsbn(int isbn) {
         this.isbn = isbn;
     }
 }
