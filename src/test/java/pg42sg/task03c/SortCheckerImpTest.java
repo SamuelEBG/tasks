@@ -14,7 +14,7 @@ class SortCheckerImpTest extends SortCheckerTestTemplate {
     protected SortCheckerImp getNewInstance() {
         return new SortCheckerImp();
     }
-
+/*
     @Test
     public void maybeFail(){
         Integer[] original = {3,2,6,4,1};
@@ -26,7 +26,10 @@ class SortCheckerImpTest extends SortCheckerTestTemplate {
 
     @Test
     public void arrayOfStrings(){
-
+        String[] original = {"abc", "abd", "abb", "bca", "bda", "bbb", "ccd"};
+        String[] sorted = {"abb","abc", "",};
     }
 
+
+ */
 }

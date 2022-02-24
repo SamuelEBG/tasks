@@ -73,7 +73,9 @@ public class BookRegister {
                 System.out.println("Set an ISBN");
                 userBook.setIsbn(userChoices.next());
                 System.out.println("Choose a title");
-                userBook.setTitle(userChoices.next());
+                String title = userChoices.next();
+                title += userChoices.nextLine();
+                userBook.setTitle(title);
                 System.out.println("Choose an author");
                 userBook.setAuthor(userChoices.next());
                 System.out.println("Set a number of pages");
