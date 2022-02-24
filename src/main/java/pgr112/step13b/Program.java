@@ -24,7 +24,7 @@ public class Program {
         // So the DBMS can just run the prepared statement without having to compile it first.
         // Prepared statements always treat client-supplied data as content of a parameter and never as a part of an SQL statement.
         // So this is a way of protecting against SQL injections.
-        String addBookStatement = "INSERT INTO books(?, ?, ?, ?, ?)";
+        String addBookStatement = "INSERT INTO books VALUES(?, ?, ?, ?, ?)";
         // These question marks will be called upon later down in the code, that is where we will enter
         // the information to be passed into the DBMS.
         try(Connection con = DriverManager
@@ -47,8 +47,8 @@ public class Program {
                     System.out.println("Not allowed to read horror books, shame on you!");
                     con.rollback(save1);
                 }
-                con.commit();
             }
+            con.commit();
 
             /*
             String insertSql = "INSERT INTO books(isbn, title, author, pages, genre)"

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -50,7 +51,7 @@ public class BookRegister {
 
     // br.allRegisteredBooks().stream().forEach(System.out::println);
 
-    public void bookMenu(){
+    public void bookMenu() throws SQLException {
         scanBooksException();
         displayMenu();
         BookRegister br = new BookRegister();
@@ -169,6 +170,7 @@ public class BookRegister {
                 }
             }else if(input == 8){
                 System.out.println("inserting to database");
+                sqlRun.addBook(books);
                 System.out.println(books.size());
 
             }
