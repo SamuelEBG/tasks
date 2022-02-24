@@ -1,42 +1,78 @@
-ISBN: 9788202645625
- Author: Tore Renberg
- Title: Tollak til Ingeborg
- Number of pages: 167
- Genre: OTHER
+ISBN: 38634
+Author: Tore Renberg
+Title: Tollak til Ingeborg
+Number of pages: 167
+Genre: OTHER
 ---
-ISBN: 9788205538214
- Author: Zeshan Shakar
- Title: Gul bok
- Number of pages: 286
- Genre: OTHER
+ISBN: 82465
+Author: Zeshan Shakar
+Title: Gul bok
+Number of pages: 286
+Genre: OTHER
 ---
-ISBN: 9788248926146
- Author: Erika Fatland
- Title: Høyt - en reise i Himalaya
- Number of pages: 634
- Genre: OTHER
+ISBN: 91284
+Author: Erika Fatland
+Title: Høyt - en reise i Himalaya
+Number of pages: 634
+Genre: OTHER
 ---
-ISBN: 9788203364181
- Author: Jo Nesbø
- Title: Kniv
- Number of pages: 519
- Genre: CRIME
+ISBN: 15375
+Author: Jo Nesbø
+Title: Kniv
+Number of pages: 519
+Genre: CRIME
 ---
-ISBN: 9788203375316
- Author: Margaret Atwood
- Title: Gileads døtre
- Number of pages: 472
- Genre: FANTASY
+ISBN: 73445
+Author: Margaret Atwood
+Title: Gileads døtre
+Number of pages: 472
+Genre: FANTASY
 ---
-ISBN: 9781407132082
- Author: Suzanne Collins
- Title: The hunger games
- Number of pages: 374
- Genre: ACTION
+ISBN: 17634
+Author: Suzanne Collins
+Title: The hunger games
+Number of pages: 374
+Genre: ACTION
 ---
-ISBN: 9788205394841
- Author: Knut Hamsun
- Title: Markens grøde
- Number of pages: 357
- Genre: CLASSIC
+ISBN: 94736
+Author: Knut Hamsun
+Title: Markens grøde
+Number of pages: 357
+Genre: CLASSIC
+---
+ISBN: 93745
+Author: JRR Tolkien
+Title: Harry Potter and the Wises Schtein
+Number of pages: 8734
+Genre: HORROR
+---
+ISBN: 93847
+Author: Dan Brown
+Title: 1984
+Number of pages: 5
+Genre: ROMANCE
+---
+ISBN: 75846
+Author: Brad Pitt
+Title: Fight Club
+Number of pages: 857
+Genre: ROMANCE
+---
+ISBN: 18273
+Author: JRR Tolkien
+Title: Harry Potter and Hermione
+Number of pages: 823
+Genre: CRIME
+---
+ISBN: 93837
+Author: Mikael Niemi
+Title: Populärmusik från Vittoula
+Number of pages: 567
+Genre: CLASSIC
+---
+ISBN: 23425
+Author: wqdäqwdäqw' 'ä '' ä'ä; drop tables;
+Title: asiqwodikqwdä'äääää 'ä ' 'ä 'ä
+Number of pages: 293402
+Genre: hora
 ---

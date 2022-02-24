@@ -10,15 +10,12 @@ import java.util.Scanner;
 public class BookRegister {
 
     private ArrayList<Book> books;
-    //private ArrayList<BookSolution> books;
     private int numberOfBooks;
 
     public void scanBooks () throws FileNotFoundException {
-        this.books = new ArrayList<>();
         System.out.println("Scanning starting" + "\n");
         String path = "tasks/src/main/java/pgr112/step13b/books.txt";
         File file = new File(path);
-        // ArrayList<Book> booksArray = new ArrayList<>();
         Scanner input = new Scanner(file);
 
         while(input.hasNextLine()){
@@ -61,7 +58,7 @@ public class BookRegister {
         Scanner userChoices = new Scanner(System.in);
         int input = inputs.nextInt();
 
-        while(input != 8) {
+        while(input != 69) {
             if(input == 1){
                 System.out.println(books.size());
                 for (Book book : books) System.out.println(book.toString());
@@ -77,7 +74,9 @@ public class BookRegister {
                 title += userChoices.nextLine();
                 userBook.setTitle(title);
                 System.out.println("Choose an author");
-                userBook.setAuthor(userChoices.next());
+                String author = userChoices.next();
+                author += userChoices.nextLine();
+                userBook.setAuthor(author);
                 System.out.println("Set a number of pages");
                 userBook.setNumberOfpages(userChoices.nextInt());
                 System.out.println("Set a genre, write with big letters");
@@ -167,6 +166,8 @@ public class BookRegister {
                         break;
                     }
                 }
+            }else if(input == 8){
+
             }
             displayMenu();
             input = inputs.nextInt();
@@ -199,6 +200,7 @@ public class BookRegister {
         menu.add("Search for book by author");
         menu.add("Search for book by ISBN");
         menu.add("Remove a book");
+        menu.add("Add all books to Database");
         menu.add("Exit the program");
 
         for(int i = 1; i < 9; i ++){
@@ -253,16 +255,21 @@ public class BookRegister {
     }
 
     public void removeBook(Book book){
-        if(books.contains(book)){
-            books.remove(book);
-        }
+        // Use the list method .remove if book in parameter exists in books array.
+        books.remove(book);
     }
 
     public void removeBookByISBN(String isbn){
+        // Removes a book under conditions if the book has getIsbn that equalsIgnoreCase the isbn in the parameter.
+        books.removeIf(book -> book.getIsbn().equalsIgnoreCase(isbn));
+
+        // Old version that explains what above version does.
+        /*
         for(Book book : books){
             if(book.getIsbn().equalsIgnoreCase(isbn)){
                 books.remove(book);
             }
         }
+         */
     }
 }
