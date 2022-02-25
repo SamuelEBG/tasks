@@ -10,12 +10,12 @@ import java.util.Scanner;
 
 public class BookRegister {
 
-    private ArrayList<Book> books;
+    private final ArrayList<Book> books;
     private int numberOfBooks;
 
     public void scanBooks () throws FileNotFoundException {
         System.out.println("Scanning starting" + "\n");
-        String path = "src/main/java/pgr112/step13b/books.txt";
+        String path = "tasks/src/main/java/pgr112/step13b/books.txt";
         File file = new File(path);
         Scanner input = new Scanner(file);
 
@@ -54,7 +54,6 @@ public class BookRegister {
     public void bookMenu() throws SQLException {
         scanBooksException();
         displayMenu();
-        BookRegister br = new BookRegister();
         Program sqlRun = new Program();
         Scanner inputs = new Scanner(System.in);
         Scanner userChoices = new Scanner(System.in);
@@ -64,7 +63,7 @@ public class BookRegister {
             if(input == 1){
                 System.out.println(books.size());
                 for (Book book : books) System.out.println(book.toString());
-                System.out.println("Going back to meny");
+                System.out.println("Going back to menu");
 
             }else if(input == 2) {
                 System.out.println("Add a book here");
@@ -108,11 +107,11 @@ public class BookRegister {
                             }
                             case "title" -> {
                                 System.out.println("Type a new title");
-                                String oldtitle = book.getTitle();
+                                String oldTitle = book.getTitle();
                                 String title = userChoices.next();
                                 title += userChoices.nextLine();
                                 book.setTitle(title);
-                                System.out.println("The title for the book " + oldtitle + "has been set to " + book.getTitle());
+                                System.out.println("The title for the book " + oldTitle + "has been set to " + book.getTitle());
                             }
                             case "pages" -> {
                                 System.out.println("Enter a new amount of pages");
