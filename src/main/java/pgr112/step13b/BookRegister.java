@@ -173,6 +173,9 @@ public class BookRegister {
                 sqlRun.addBook(books);
                 System.out.println(books.size());
 
+            }else if(input == 9){
+                System.out.println("Enter a maximum amount of pages you want to sort books by.");
+                System.out.println(sqlRun.getBookByPageLength(userChoices.nextInt()));
             }
             displayMenu();
             input = inputs.nextInt();
@@ -206,9 +209,10 @@ public class BookRegister {
         menu.add("Search for book by ISBN");
         menu.add("Remove a book");
         menu.add("Add all books to Database");
+        menu.add("Get books by pages from database");
         menu.add("Exit the program");
 
-        for(int i = 1; i < 9; i ++){
+        for(int i = 1; i < 10; i ++){
             System.out.println("" + i + "->" + menu.get(i - 1));
         }
     }

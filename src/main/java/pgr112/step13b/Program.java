@@ -8,11 +8,43 @@ public class Program {
     public Program(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-
         }
         catch(ClassNotFoundException exception){
             exception.printStackTrace();
         }
+    }
+
+    public ArrayList<Book> getBookByPageLength(int pages) throws SQLException{
+            // Method for getting pages less than the number in the parameter.
+        if(pages <= 0) {
+            System.out.println("a book can't have negative pages, don't be silly.");
+        }
+        ArrayList<Book> tempBooks = new ArrayList<>();
+        ResultSet rs = null; // This is the result of the query
+        String pagesQuery = "SELECT * FROM books " +
+                "WHERE pages < ?";
+        try (Connection con = DriverManager
+                .getConnection("jdbc:mysql://localhost:3306/books?useSSL=false", "oopuser", "root");
+             //
+             PreparedStatement getBooksByPage = con.prepareStatement(pagesQuery, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+            // Savepoint save1 = con.setSavepoint();
+            getBooksByPage.setInt(1, pages); // Setter method in the query is set to the value from the parameter.
+            if (!getBooksByPage.execute()) {
+                System.out.println("No books with that amount of pages");
+            } else {
+                rs = getBooksByPage.getResultSet();
+                while(rs.next()){
+                    var b = new Book();
+                    b.setIsbn(rs.getInt("isbn"));
+                    b.setAuthor(rs.getString("author"));
+                    b.setTitle(rs.getString("title"));
+                    b.setNumberOfpages(rs.getInt("pages"));
+                    b.setGenre(rs.getString("genre"));
+                    tempBooks.add(b);
+                }
+            }
+        }
+        return tempBooks;
     }
 
     public void addBook(ArrayList<Book> books) throws SQLException{
@@ -29,7 +61,7 @@ public class Program {
         // the information to be passed into the DBMS.
         try(Connection con = DriverManager
                 .getConnection("jdbc:mysql://localhost:3306/books?useSSL=false", "oopuser", "root");
-        PreparedStatement insertBook = con.prepareStatement(addBookStatement);
+        PreparedStatement insertBook = con.prepareStatement(addBookStatement)
         ){
             con.setAutoCommit(false);
             Savepoint save1 = con.setSavepoint();
