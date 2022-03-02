@@ -18,7 +18,7 @@ public class Program {
     public static ArrayList<String> fileReader(){
         ArrayList<String> files = new ArrayList<>();
         try{
-            String filePath = "src/main/java/pgr112/step11/shapes.txt"; //path to the file that is to be read
+            String filePath = "tasks/src/main/java/pgr112/step13/shapes.txt"; //path to the file that is to be read
             File file = new File(filePath); // create new file with that filePath
             Scanner scanner = new Scanner(file); //input the file into a scanner object
 
@@ -168,7 +168,7 @@ public class Program {
 
     public boolean filledOrNot(){
         Scanner yesOrNo = new Scanner(System.in);
-        String choice = "";
+        String choice;
         while(true){
             choice = yesOrNo.nextLine();
             if(choice.equalsIgnoreCase("yes")){
@@ -183,12 +183,24 @@ public class Program {
 
     public Color inputColor(String shape){
         Scanner color = new Scanner(System.in);
-        System.out.println("Give the " + shape + " a color by entering R, G, B integers, start with the R value");
+        System.out.println("Give the " + shape + " a color by entering R, G, B integers between 0-255, start with the R value");
         int r = Integer.parseInt(color.nextLine());
+        if(r < 0 || r > 255){
+            System.out.println("Apparently you´re too dumb to follow instructions, value is set to a random number.");
+            r = (int) (Math.random() * 255);
+        }
         System.out.println("Enter a G value");
         int g = Integer.parseInt(color.nextLine());
+        if(g < 0 || g > 255){
+            System.out.println("Apparently you´re too dumb to follow instructions, value is set to a random number.");
+            g = (int) (Math.random() * 255);
+        }
         System.out.println("Enter a B value");
         int b = Integer.parseInt(color.nextLine());
+        if(b < 0 || b > 255){
+            System.out.println("Apparently you´re too dumb to follow instructions, value is set to a random number.");
+            b = (int) (Math.random() * 255);
+        }
         System.out.printf("Color set to %s, %s, %s%n", r, g, b);
         return new Color(r, g, b);
     }

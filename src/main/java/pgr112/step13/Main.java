@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args){
-        //var p1 = new Program();
-        //p1.run();
+        var p1 = new Program();
+        p1.run();
         JDBCOps operations = new JDBCOps();
 /*
         var c1 = new Circle(5, Color.RED, true, new MovablePoint(2.0, 2.0));
@@ -24,6 +24,7 @@ public class Main {
         operations.insertShape(s3);
         operations.insertShape(s4);
 */
-        System.out.println(operations.getSquaresByAreaGT(30));
+        //System.out.println(operations.getSquaresByAreaGT(30));
+
     }
 }

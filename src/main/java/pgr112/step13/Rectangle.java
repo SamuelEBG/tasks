@@ -25,13 +25,13 @@ public class Rectangle extends Shape {
     }
 
     public Rectangle(double width, double length, Color color, boolean filled,
-                     MovablePoint topLeft) { //Does not have bottomRight parameter since it's calculated from topleft coordinates.
+                     MovablePoint topLeft) { //Does not have bottomRight parameter since it's calculated from topLeft coordinates.
 
         super(color, filled);
         this.width = width;
         this.length = length;
         this.topLeft = topLeft;
-        this.bottomRight = new MovablePoint(topLeft.getX()+width, topLeft.getY()-length ); //get coordinates from topleft
+        this.bottomRight = new MovablePoint(topLeft.getX()+width, topLeft.getY()-length ); //get coordinates from topLeft
         if(topLeft.getX()>bottomRight.getX()||                                                  //add width to X value, and length to Y value
                 topLeft.getY()< bottomRight.getY()){                                            //to get matching bottom right coordinates.
             throw new IllegalArgumentException(
