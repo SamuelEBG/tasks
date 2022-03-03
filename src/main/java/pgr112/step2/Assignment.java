@@ -2,10 +2,10 @@ package pgr112.step2;
 
 import java.util.Locale;
 
-public class Step2 {
+public class Assignment{
 
     public static void main(String[] args){
-        var test = new Step2();
+        var test = new Assignment();
         String lol = test.isNumberSmallMediumOrBig(-99999);
         System.out.println(lol);
         String[] arrayOfStrings = {"haj", "på", "daj", "det", "här", "är", "massa", "Strings"};
@@ -19,11 +19,11 @@ public class Step2 {
     public String isNumberSmallMediumOrBig(int number){
         String result;
         if(number < 100){
-            result = "Number is small";
-        } else if(number < 1000){
-            result = "Number is medium";
+            result = "Small";
+        } else if(number > 1000){
+            result = "Big";
         }else
-        result = "Big ol number";
+        result = "Medium";
 
         return result;
     }
@@ -42,11 +42,14 @@ public class Step2 {
     }
 
     public void printFirstSentence(char[] chars){
-        for (char aChar : chars) {
-            if (aChar == '.') {
-                break;
+        boolean exit = false;
+        int index = 0;
+        while(!exit && index < chars.length){
+            if(chars[index] == '.'){
+                exit = true;
             }
-            System.out.println(aChar);
+            System.out.print(chars[index]);
+            index++;
         }
     }
     public void printCourseName(String courseCode){
@@ -101,6 +104,14 @@ public class Step2 {
             sum += i;
         }
         return sum;
-
     }
+
+    public void printAllStringsNotCoronaCaseInsensitive(String[] strings){
+        for(String s : strings){
+            if(!s.equalsIgnoreCase("Corona")){
+                System.out.println(s);
+            }
+        }
+    }
+
 }

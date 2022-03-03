@@ -47,7 +47,7 @@ public class Program {
     }
     public Optional<Person> getSamplePerson(String name){
         for(Person a : personSet){
-            if(a.getName()==name){
+            if(a.getName().equals(name)){
                 return Optional.of(a);
             }
         }
