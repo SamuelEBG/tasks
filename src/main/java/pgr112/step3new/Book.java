@@ -13,6 +13,12 @@ public class Book {
     public void addChapter(Chapter chapter){
         this.chapters.add(chapter);
     }
+    public void allChapters(){
+        System.out.println("Chapters for " + this.title);
+        for(int i = 0; i < chapters.size();i++){
+            System.out.println(i+1 + " - " + chapters.get(i));
+        }
+    }
 
     public int readingTime(){
         int sum = 0;

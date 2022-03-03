@@ -45,5 +45,8 @@ public class Main {
         book1.addChapter(ch6);
         System.out.println(book1.readingTime());
         System.out.println(storage.booksWithReadingTimeLessThan(500));
+
+        System.out.println("-----------------");
+        book1.allChapters();
     }
 }
