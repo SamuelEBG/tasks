@@ -25,7 +25,6 @@ class MixedSortTest extends SortTestTemplate {
         for(int i = 0; i < array.length; i++){
             array[i] = random.nextInt(8787);
         }
-
         sorter.sort(array);
         for(int j = 0; j < array.length-1;j++){
             assertTrue(array[j] <= array[j+1], Arrays.toString(array));
