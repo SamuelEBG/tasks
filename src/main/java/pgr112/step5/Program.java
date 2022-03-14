@@ -43,7 +43,7 @@ public class Program {
     // ---------------------------File Writer
 
     // Same principal as the reading methods. First method is
-    // creating a array, and together with scanner putting inputs
+    // creating an array, and together with scanner putting inputs
     // from the user into the array. Filename is stored within the method
     // because it is later used as a parameter when sent to the
     // writer. After array is filled.
@@ -77,7 +77,7 @@ public class Program {
         FileWriter writer = new FileWriter(filePath); //create a writer to a filepath.
         System.out.println("Writer stared");
 
-        for(String line : contents){ // forloop that runs against contents of array.
+        for(String line : contents){ // for loop that runs against contents of array.
             writer.write(line + "\n"); // print each content "line" to the .txt file
         }
         System.out.println("Done writing");

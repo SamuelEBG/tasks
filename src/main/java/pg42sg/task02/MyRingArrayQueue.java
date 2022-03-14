@@ -8,18 +8,17 @@ public class MyRingArrayQueue<T> implements MyQueue<T> {
 
     private int head = -1;
     private int tail = -1;
-
-    public MyRingArrayQueue() {
-        this(10);
-    }
-
+    // First constructor with a int parameter for deciding capacity,
     public MyRingArrayQueue(int capacity) {
-        data = new Object[capacity];
+        this.data = new Object[capacity]; // Initializes the array with a fixed size.
+    }
+    // Second constructor without parameters.
+    public MyRingArrayQueue() {
+        this(10);  // Call the first constructor with parameter of capacity 10.
     }
 
     @Override
     public void enqueue(Object value) {
-
         /*
         Structure of this if else loop is:
         Check if array is empty, or full if indexes with a wrapped around tail.
@@ -50,26 +49,48 @@ public class MyRingArrayQueue<T> implements MyQueue<T> {
                 }
             }
         } else {
+            //If there has been deQueue, so that head has moved from 0,
+            // And enQueue has moved tail to 0 >, we add to tail (which has not yet reached head)
             if (tail < head -1) {
                 tail++;
             } else {
+                /* Now tail has reached head, but both head and tail positions
+                    Are not 0 and data.length.
+                    So we need to re-align head and tail so that head==0
+                    and tail==data.length-1, and double the size of the array.
+                 */
                 Object[] biggerArray = new Object[data.length * 2];
-
+                    /*
+                        First we removed the head section, take data.length, remove the
+                        integer that is up until head, which will remove the tail section, since that is
+                        from index 0 up until the head index-1.
+                        Now we iterate from 0, until the head index-1, which is i < indexesAfterHead.
+                        Add each index to the new array will result in the head section
+                        having moved to array[0] and up until the index where we start adding tail.
+                     */
                 int indexesAfterHead = data.length - head;
                 for (int i = 0; i < indexesAfterHead; i++) {
-                    biggerArray[i] = data[head + i];
+                    biggerArray[i] = data[head + i]; // Add each element from head and upwards to array starting from 0.
+                }
+                    /*
+                        Now we have to add the remaining tail section.
+                        Start from j=0 and iterate until reached tail, here we dont
+                        stop 1 index before because we want to get right up until tail,
+                        otherwise we miss 1 index since we start from 0.
+
+                     */
+                for (int j = 0; j <= tail; j++) {
+                    biggerArray[indexesAfterHead + j] = data[j];
+                    // Populate the new array from our predefined counter until
+                    // Where our tail was in our previous array which is <= tail.
                 }
 
-                for (int j = 0; j < indexesAfterHead; j++) {
-                    biggerArray[head + j] = data[j];
-                }
-
-                tail = data.length;
-                head = 0;
-                data = biggerArray;
+                tail = data.length; // New tail is the length of our last array.
+                head = 0;   // Head is now at 0
+                data = biggerArray; // our data array is now our new array.
             }
         }
-        data[tail] = value;
+        data[tail] = value; // Value that is enQueued is added to tail.
     }
 
 
@@ -102,6 +123,7 @@ public class MyRingArrayQueue<T> implements MyQueue<T> {
         }
         return (T) data[head];
     }
+
     public T peekTail(){
         if(isEmpty()){
             throw new RuntimeException("Array is empty");
@@ -119,8 +141,7 @@ public class MyRingArrayQueue<T> implements MyQueue<T> {
             //normal case
             return (tail - head) + 1;
         } else {
-            int size = (data.length - head) + tail + 1 ;
-            return size;
+            return (data.length - head) + (tail + 1);
         }
     }
 

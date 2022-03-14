@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public class Program {
-    private HashSet<Person> personSet;
+    private final HashSet<Person> personSet;
 
     public Program(){
         personSet = new HashSet<>();
@@ -31,6 +31,7 @@ public class Program {
             personSet.add(new Person(age, name));
         }
     }
+
     public void getPersonsOverAge(int age){
         for(Person a : personSet){
             if(age < a.getAge()){
@@ -45,6 +46,7 @@ public class Program {
         Set<Person> fewPeople = Set.of(new Person(3, "snorre"), new Person(24, "balle"));
         personSet.addAll(fewPeople);
     }
+
     public Optional<Person> getSamplePerson(String name){
         for(Person a : personSet){
             if(a.getName().equals(name)){

@@ -4,7 +4,7 @@ import org.pg4200.les03.sort.MySort;
 
 public class MixedSort implements MySort {
 
-    private final int bubbleLimit = 4;
+    private final int bubbleLimit = 12;
 
     @Override
     public <T extends Comparable<T>> void sort(T[] array) {
@@ -35,18 +35,14 @@ public class MixedSort implements MySort {
             we decide to do a bubble sort, this method will run and sort the
             array directly, and then return.
         */
-
         if (high - low < this.bubbleLimit) {
             bubbleSort(low, high, array);
             return;
         }
-
-
         /*
             If low is equal or greater than (cannot happen?) high, then the subarea
             of the array is at the point where it does not need to be sorted.
         */
-
         if (low >= high) {
             return;
         }
@@ -54,9 +50,7 @@ public class MixedSort implements MySort {
             Now we need a middle to be able to split the array into 2 parts to sort
             each part of the array.
         */
-
         int middle = low + (high - low) / 2;
-
         /*
             Splitting array to the left for each recursion,
             Notice how middle is set to "high" which splits it further down
@@ -77,7 +71,6 @@ public class MixedSort implements MySort {
         for(int i = low; i <= high; i++){
             buffer[i] = array[i];
         }
-
         int i = low; // Iterating through left portion, starting at 0,
         int j = middle + 1; // Iterating through right portion, starting at middle.
         int k = low; // For original array, starting at 0, this is were we place
@@ -98,13 +91,11 @@ public class MixedSort implements MySort {
             }
             k++; // Whatever side we add from we also have to increase the index of the original array.
         }
-
         while(i <= middle){
             array[k] = buffer[i];
             i++;
             k++;
         }
-
 /*
         int i = low;
 

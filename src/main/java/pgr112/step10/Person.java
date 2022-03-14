@@ -6,11 +6,10 @@ public class Person {
     private int age;
     private String name;
 
-     public Person(int age, String name){
+    public Person(int age, String name){
         this.age = age;
         this.name = name;
     }
-
 
     @Override
     public String toString(){
@@ -19,7 +18,7 @@ public class Person {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (o == this) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
         return age == person.age && Objects.equals(name, person.name);

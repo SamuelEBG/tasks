@@ -37,7 +37,7 @@ public class Task2 {
         }
     }
 
-    public static void storyCreator(int choice){
+    public void storyCreator(int choice){
         try {
             System.out.println("Scanning starting" + "\n");
             String readPath = "src/main/java/pgr112/largeTask/story.txt";
@@ -52,7 +52,7 @@ public class Task2 {
                 while (reader.hasNextLine()) {
                     String line = reader.nextLine();
                     if (line.contains("__")) {
-                        line = line.replace("__", adjectivArray());
+                        line = line.replace("__", adjectiveArray());
                         writer.write(line + "\n");
                         System.out.println(line);
                     } else {
@@ -100,7 +100,7 @@ public class Task2 {
         }
     }
 
-    public static String adjectivArray() {
+    public String adjectiveArray() {
         String rndStr = "";
         try {
             String adjectives = "src/main/java/pgr112/largeTask/adjectiv.txt";

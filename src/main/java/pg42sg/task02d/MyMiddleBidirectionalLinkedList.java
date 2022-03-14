@@ -23,9 +23,10 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
         if(index < 0 || index > size){
             throw new IndexOutOfBoundsException("Index out of bound");
         }
-
+        ListNode tempNode;
         ListNode node = new ListNode();
         node.value = value;
+        int counter;
 
         if(head == null) {
             // Add to an empty list
@@ -47,8 +48,6 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
                 moveMiddleNext();
 
         } else if(index < (size * 0.25) || index > (size * 0.75)) {
-            int counter;
-            ListNode tempNode;
                 if(index < (size * 0.25)){
                     tempNode = head;
                     counter = 0;
@@ -75,8 +74,6 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
                 }
 
         }else{
-            int counter; // Counter for each index.
-            ListNode tempNode; // Create a temporary node that we will initialize in the loops below.
 
             if(index <= middleTracker()){ // If the index is equal or less to halv the size
                 // Then we choose to iterate through the array from the head.
@@ -101,7 +98,6 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
                                                 // Last we change tempNode.next to be our node, which removes
                                                 // the relationship between node.next and node.previous.
                 moveMiddleNext();
-
             } else {
                     /*
                         Now we iterate from the back, we take counter to be size()-1, which will be same as the tail.
@@ -217,11 +213,34 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
                 tempNode.next.next = tempNode.next;
                 moveMiddlePrevious();
             }
+        } else {
+            tempNode = middle;
+            counter = middleTracker();
+            if(index <= middleTracker()){
+                while(counter != index){
+                    tempNode = tempNode.previous;
+                    counter--;
+                }
+                tempNode = tempNode.previous;
+                tempNode.next.next = tempNode.next;
+                moveMiddlePrevious();
+            } else{
+                while(counter != index-1){
+                    tempNode = tempNode.next;
+                    counter++;
+                }
+                tempNode.next.next.previous = tempNode;
+                tempNode.next = tempNode.next.next;
+                moveMiddlePrevious();
+            }
         }
         size--;
     }
 
     public void moveMiddleNext(){
+        // Moves the middle node to the right of there has been 2 add/delete from last
+        // edit of the array, so will move middle every second edit, same with
+        // next method, but that will move it to the left.
         if((size&2) == 0){
             middle = middle.next;
         }
