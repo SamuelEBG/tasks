@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class BookRegister {
 
     private final ArrayList<Book> books;
-    private int numberOfBooks;
 
     public void scanBooks () throws FileNotFoundException {
         System.out.println("Scanning starting" + "\n");
@@ -21,7 +20,7 @@ public class BookRegister {
 
         while(input.hasNextLine()){
             Book book = new Book();
-            book.setIsbn(Integer.parseInt(input.nextLine()));
+            book.setIsbn((input.nextLine()));
             book.setTitle(input.nextLine());
             book.setAuthor(input.nextLine());
             book.setNumberOfpages(Integer.parseInt(input.nextLine()));
@@ -48,6 +47,27 @@ public class BookRegister {
             ballefjong.getStackTrace();
         }
     }
+    public void addBookFromMenu(){
+        Scanner input = new Scanner(System.in);
+        System.out.println("Add a book here");
+        Book userBook = new Book();
+        System.out.println("Set an ISBN");
+        userBook.setIsbn(input.nextLine());
+        System.out.println("Choose a title");
+        String title = input.next();
+        title += input.nextLine();
+        userBook.setTitle(title);
+        System.out.println("Choose an author");
+        String author = input.next();
+        author += input.nextLine();
+        userBook.setAuthor(author);
+        System.out.println("Set a number of pages");
+        userBook.setNumberOfpages(input.nextInt());
+        System.out.println("Set a genre, write with big letters");
+        userBook.setGenre(input.next());
+        books.add(userBook);
+        System.out.println(userBook.getTitle() + " Added to the register \n");
+    }
 
     // br.allRegisteredBooks().stream().forEach(System.out::println);
 
@@ -56,133 +76,112 @@ public class BookRegister {
         displayMenu();
         Program sqlRun = new Program();
         Scanner inputs = new Scanner(System.in);
-        Scanner userChoices = new Scanner(System.in);
-        int input = inputs.nextInt();
+        String choices = inputs.nextLine();
 
-        while(input != 69) {
-            switch (input) {
-                case 1 -> {
-                    System.out.println(books.size());
+        while(!choices.equals("69")) {
+            switch (choices) {
+                case "1" -> {
                     for (Book book : books) System.out.println(book.toString());
-                    System.out.println("Going back to menu");
+                    System.out.println("Amount of books " + books.size());
+                    inputs.nextLine();
                 }
-                case 2 -> {
-                    System.out.println("Add a book here");
-                    Book userBook = new Book();
-                    System.out.println("Set an ISBN");
-                    userBook.setIsbn(userChoices.nextInt());
-                    System.out.println("Choose a title");
-                    String title = userChoices.next();
-                    title += userChoices.nextLine();
-                    userBook.setTitle(title);
-                    System.out.println("Choose an author");
-                    String author = userChoices.next();
-                    author += userChoices.nextLine();
-                    userBook.setAuthor(author);
-                    System.out.println("Set a number of pages");
-                    userBook.setNumberOfpages(userChoices.nextInt());
-                    System.out.println("Set a genre, write with big letters");
-                    userBook.setGenre(userChoices.next());
-                    books.add(userBook);
-                    System.out.println(userBook.getTitle() + " Added to the register \n");
-                    break;
-                }
-                case 3 -> {
+                case "2" -> addBookFromMenu();
+                case "3" -> {
                     System.out.println("What book do you want to modify? Specify by ISBN.");
-                    int userInput = userChoices.nextInt();
+                    String isbn = inputs.nextLine();
                     for (Book book : books) {
-                        if (book.getIsbn() == userInput) {
+                        if (book.getIsbn().equalsIgnoreCase(isbn)) {
                             System.out.println("What information do you want to modify?");
                             System.out.println("ISBN - Author - Title - Pages - Genre");
-                            String modify = userChoices.next().toLowerCase();
+                            String modify = inputs.next().toLowerCase();
                             switch (modify) {
                                 case "isbn" -> {
                                     System.out.println("Enter a new ISBN");
-                                    book.setIsbn(userChoices.nextInt());
+                                    book.setIsbn(inputs.nextLine());
                                     System.out.println("The ISBN for " + book.getTitle() + " has been set to " + book.getIsbn());
                                 }
                                 case "author" -> {
                                     System.out.println("Enter a new author");
-                                    String author = userChoices.next();
-                                    author += userChoices.nextLine();
+                                    String author = inputs.next();
+                                    author += inputs.nextLine();
                                     book.setAuthor(author);
                                     System.out.println("The author for the book " + book.getTitle() + "has been set to " + book.getAuthor());
                                 }
                                 case "title" -> {
                                     System.out.println("Type a new title");
                                     String oldTitle = book.getTitle();
-                                    String title = userChoices.next();
-                                    title += userChoices.nextLine();
+                                    String title = inputs.next();
+                                    title += inputs.nextLine();
                                     book.setTitle(title);
                                     System.out.println("The title for the book " + oldTitle + "has been set to " + book.getTitle());
                                 }
                                 case "pages" -> {
                                     System.out.println("Enter a new amount of pages");
-                                    int pages = userChoices.nextInt();
+                                    int pages = inputs.nextInt();
                                     book.setNumberOfpages(pages);
                                     System.out.println("The number of pages for " + book.getTitle() + "has been set to " + pages);
                                 }
                                 case "genre" -> {
                                     System.out.println("Enter a new genre");
-                                    book.setGenre(userChoices.next());
+                                    book.setGenre(inputs.next());
                                     System.out.println("The genre for " + book.getTitle() + " has been changed to " + book.getGenre());
                                 }
                             }
                         }
                     }
                 }
-                case 4 -> {
+                case "4" -> {
                     System.out.println("Enter a genre to search for books with that genre");
-                    String choice = userChoices.next();
+                    String choice = inputs.next();
                     for (Book book : books) {
                         if (choice.equalsIgnoreCase(book.getGenre())) {
                             System.out.println(book);
                         }
                     }
                 }
-                case 5 -> {
+                case "5" -> {
                     System.out.println("Enter an author to search for books by that author");
-                    String author = userChoices.next();
+                    String author = inputs.next();
                     for (Book book : books) {
                         if (author.equalsIgnoreCase(book.getAuthor())) {
                             System.out.println(book);
                         }
                     }
                 }
-                case 6 -> {
+                case "6" -> {
                     System.out.println("Search for a book by entering its ISBN");
-                    int isbn = userChoices.nextInt();
+                    String isbn = inputs.nextLine();
                     for (Book book : books) {
-                        if (book.getIsbn() == isbn) {
+                        if (book.getIsbn().equalsIgnoreCase(isbn)) {
                             System.out.println(book);
                         }
                     }
                 }
-                case 7 -> {
+                case "7" -> {
                     System.out.println("Enter the ISBN of the book you want to remove");
-                    int remover = userChoices.nextInt();
-                    String removed;
+                    String bookToRemove = inputs.nextLine();
+                    String removedBook;
                     for (int i = 0; i < books.size(); i++) {
-                        if (books.get(i).getIsbn() == remover) {
-                            removed = books.get(i).getTitle();
+                        if (books.get(i).getIsbn().equalsIgnoreCase(bookToRemove)) {
+                            removedBook = books.get(i).getTitle();
                             books.remove(i);
-                            System.out.println(removed + " has been removed from the register");
+                            System.out.println(removedBook + " has been removed from the register");
                             break;
                         }
                     }
                 }
-                case 8 -> {
+                case "8" -> {
                     System.out.println("inserting to database");
                     sqlRun.addBook(books);
                     System.out.println(books.size());
                 }
-                case 9 -> {
+                case "9" -> {
                     System.out.println("Enter a maximum amount of pages you want to sort books by.");
-                    System.out.println(sqlRun.getBookByPageLength(userChoices.nextInt()));
+                    System.out.println(sqlRun.getBookByPageLength(inputs.nextInt()));
                 }
             }
             displayMenu();
-            input = inputs.nextInt();
+            choices = inputs.nextLine();
         }
         String filePath = "tasks/src/main/java/pgr112/step13b/newbooks.txt";
         newWriter(filePath, books);
@@ -193,7 +192,7 @@ public class BookRegister {
         try{
             FileWriter writer = new FileWriter(filePath);
             for (Book book : books) {
-                writer.write(book.toString());
+                writer.write(book.toString() + "\n");
             }
             writer.close();
         }
@@ -223,31 +222,28 @@ public class BookRegister {
 
     public BookRegister(){
         this.books = new ArrayList<>();
-        this.numberOfBooks = 0;
     }
 
     public int getNumberOfBooks() {
+        int numberOfBooks = 0;
+        for(Book ignored : books){
+            numberOfBooks++;
+        }
         return numberOfBooks;
     }
 
-    public boolean addBook(Book book){
-        if(numberOfBooks <= 19){
+    public void addBook(Book book){
             books.add(book);
-            numberOfBooks++;
-            return true;
-        }
-        return false;
     }
 
     public ArrayList<Book> allRegisteredBooks(){
-        ArrayList<Book> result = new ArrayList<>(this.books);
         /*
         ArrayList<Book> result = new ArrayList<>();
         for(Book b : this.books){
             result.add(b);
         }
          */
-        return result;
+        return new ArrayList<>(this.books);
     }
 
     public ArrayList<Book> booksInGenre(String genre){
@@ -275,9 +271,9 @@ public class BookRegister {
         books.remove(book);
     }
 
-    public void removeBookByISBN(int isbn){
+    public void removeBookByISBN(String isbn){
         // Removes a book under conditions if the book has getIsbn that equalsIgnoreCase the isbn in the parameter.
-        books.removeIf(book -> book.getIsbn() == isbn);
+        books.removeIf(book -> book.getIsbn().equalsIgnoreCase(isbn));
 
         // Old version that explains what above version does.
         /*

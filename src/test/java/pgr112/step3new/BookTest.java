@@ -1,24 +1,21 @@
 package pgr112.step3new;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pgr112.step3new.*;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BookTest {
+public class BookTest {
 
-    @Test
-    void addChapter() {
+    BookStorage br;
+
+    @BeforeEach
+        void setup(){
+        br = new BookStorage();
     }
 
-    @Test
-    void allChapters() {
-    }
-
-    // Method that can be used to create a bookStorage object that contains 5 books.
     private BookStorage initializeBookStorage(){
-        BookStorage br = new BookStorage();
 
         br.addBook(new Book("Harry Potter and the idiots stone", "J.R.R Tolkien", 550, Genre.PORN));
         br.addBook(new Book("1984", "TMZ", 1337, Genre.LEVELINGGUIDE));
@@ -29,52 +26,51 @@ class BookTest {
         return br;
     }
 
+
+    // Method that can be used to create a bookStorage object that contains 5 books.
+
     @Test
-    void readingTime() {
+    public void getBookByPages() {
         // Create a bookStorage object which contains the 5 books
         // and then create an array with those books
-        BookStorage readingTime = initializeBookStorage();
+        BookStorage pages = initializeBookStorage();
         // Now create an arraylist of Book, fill it with all
         // books in storage, which we have a method for.
-        ArrayList<Book> all = readingTime.allBooksInStorage();
+        ArrayList<Book> all = pages.allBooksInStorage();
 
         assertEquals(67, all.get(2).getNumberOfPages());
-
     }
 
     @Test
-    void testToString() {
+    public void changePagesInBook(){
+        Book testBook = new Book("stupid title", "dumb ass author", 723, Genre.FICTION);
+
+        assertEquals(723, testBook.getNumberOfPages());
+
+        testBook.setNumberOfPages(500);
+
+        assertEquals(500, testBook.getNumberOfPages());
     }
 
     @Test
-    void getGenre() {
+    public void changeAuthorInBook(){
+        Book testBook = new Book("50 shades of grey", "J.R.R Tolkien", 723, Genre.FICTION);
+
+        assertEquals("J.R.R Tolkien", testBook.getAuthor());
+
+        testBook.setAuthor("Dan Brown");
+
+        assertEquals("Dan Brown", testBook.getAuthor());
     }
 
     @Test
-    void setGenre() {
-    }
+    public void amountOfBooksInStorage(){
 
-    @Test
-    void getTitle() {
-    }
+        BookStorage storage = initializeBookStorage();
 
-    @Test
-    void setTitle() {
-    }
+        ArrayList<Book> tempArray = storage.allBooksInStorage();
 
-    @Test
-    void getAuthor() {
-    }
+        assertEquals(5, storage.amountOfBooksInStorage());
 
-    @Test
-    void setAuthor() {
-    }
-
-    @Test
-    void getNumberOfPages() {
-    }
-
-    @Test
-    void setNumberOfPages() {
     }
 }

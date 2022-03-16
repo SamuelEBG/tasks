@@ -5,16 +5,12 @@ public class Book {
 
     @Override
     public String toString(){
-        return ("ISBN: " + getIsbn() + '\n' +
-                "Author: " + getAuthor() + '\n' +
-                "Title: " + getTitle() + '\n' +
-                "Number of pages: " + getNumberOfPages() + '\n' +
-                "Genre: " +  getGenre() + '\n' +
-                "---" + '\n'
-        );
+        return String.format(
+                "Title: %s - Author: %s - Pages: %s - Genre: %s",
+                this.title, this.author, this.numberOfPages, this.genre);
     }
 
-    private int isbn;
+    private String isbn;
     private String title;
     private String author;
     private int numberOfPages = 1;
@@ -27,7 +23,7 @@ public class Book {
     // Seccond method including parameter for user to specify genre.
 
     public Book(){
-        this.isbn = 0;
+        this.isbn = "";
         this.title = "";
         this.author = "";
         this.numberOfPages = 0;
@@ -43,7 +39,7 @@ public class Book {
         this.genre = "";
     }
 
-    public Book(int isbn,String title, String author,int pages, String genre ){
+    public Book(String isbn, String title, String author, int pages, String genre ){
         this.isbn = isbn;
         this.title = title;
         this.author = author;
@@ -53,14 +49,8 @@ public class Book {
         this.genre = genre;
     }
 
-
-
-    public String printBook(){
-        return this.title + " - " + this.author;
-    }
-
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public void setTitle(String title) {
@@ -74,7 +64,7 @@ public class Book {
     }
 
     public int getNumberOfPages() {
-        return numberOfPages;
+        return this.numberOfPages;
     }
 
     public void setNumberOfpages(int numberOfpages) {
@@ -82,18 +72,18 @@ public class Book {
     }
 
     public String getGenre() {
-        return genre;
+        return this.genre;
     }
 
     public void setGenre(String genre) {
         this.genre = genre;
     }
 
-    public int getIsbn() {
-        return isbn;
+    public String getIsbn() {
+        return this.isbn;
     }
 
-    public void setIsbn(int isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 }

@@ -35,7 +35,7 @@ public class Program {
                 rs = getBooksByPage.getResultSet();
                 while(rs.next()){
                     var b = new Book();
-                    b.setIsbn(rs.getInt("isbn"));
+                    b.setIsbn(rs.getString("isbn"));
                     b.setAuthor(rs.getString("author"));
                     b.setTitle(rs.getString("title"));
                     b.setNumberOfpages(rs.getInt("pages"));
@@ -69,7 +69,7 @@ public class Program {
             // with their information.
             for(int i = 0; i < books.size(); i++){
                 // The first parameter is the setter method for the SQL prepared statement.
-                insertBook.setInt(1, books.get(i).getIsbn());
+                insertBook.setString(1, books.get(i).getIsbn());
                 insertBook.setString(2, books.get(i).getTitle());
                 insertBook.setString(3, books.get(i).getAuthor());
                 insertBook.setInt(4, books.get(i).getNumberOfPages());
