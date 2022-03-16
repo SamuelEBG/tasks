@@ -17,10 +17,12 @@ public class BookStorage {
         return this.books.size();
     }
 
-    public void allBooksInStorage(){
+    public ArrayList<Book> allBooksInStorage(){
+        ArrayList<Book> result = new ArrayList<>();
         for(Book b : books){
-            System.out.println(b);
+            result.add(b);
         }
+        return result;
     }
 
     public ArrayList<Book> booksByGenre(Genre genre){
