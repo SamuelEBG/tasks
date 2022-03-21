@@ -119,5 +119,4 @@ public class Task2 {
         }
         return rndStr;
     }
-
 }

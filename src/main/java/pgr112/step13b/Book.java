@@ -1,6 +1,10 @@
 package pgr112.step13b;
 
 
+import pgr112.step3new.Chapter;
+
+import java.util.ArrayList;
+
 public class Book {
 
     @Override
@@ -47,6 +51,26 @@ public class Book {
             this.numberOfPages = pages;
         }
         this.genre = genre;
+    }
+
+    public int readingTime(){
+        int sum = 0;
+        for(Chapter c : chapters){
+            sum += c.getReadingTime();
+        }
+        return sum;
+    }
+
+    private ArrayList<Chapter> chapters = new ArrayList<>();
+
+    public void addChapter(Chapter chapter){
+        this.chapters.add(chapter);
+    }
+    public void allChapters(){
+        System.out.println("Chapters for " + this.title);
+        for(int i = 0; i < chapters.size();i++){
+            System.out.println(i+1 + " - " + chapters.get(i));
+        }
     }
 
     public String getTitle() {

@@ -69,6 +69,50 @@ public class BookRegister {
         System.out.println(userBook.getTitle() + " Added to the register \n");
     }
 
+    public void modifyByIsbn(String isbn){
+        Scanner inputs = new Scanner(System.in);
+        for (Book book : books) {
+            if (book.getIsbn().equalsIgnoreCase(isbn)) {
+                System.out.println("What information do you want to modify?");
+                System.out.println("ISBN - Author - Title - Pages - Genre");
+                String modify = inputs.next().toLowerCase();
+                switch (modify) {
+                    case "isbn" -> {
+                        System.out.println("Enter a new ISBN");
+                        book.setIsbn(inputs.nextLine());
+                        System.out.println("The ISBN for " + book.getTitle() + " has been set to " + book.getIsbn());
+                    }
+                    case "author" -> {
+                        System.out.println("Enter a new author");
+                        String author = inputs.next();
+                        author += inputs.nextLine();
+                        book.setAuthor(author);
+                        System.out.println("The author for the book " + book.getTitle() + "has been set to " + book.getAuthor());
+                    }
+                    case "title" -> {
+                        System.out.println("Type a new title");
+                        String oldTitle = book.getTitle();
+                        String title = inputs.next();
+                        title += inputs.nextLine();
+                        book.setTitle(title);
+                        System.out.println("The title for the book " + oldTitle + "has been set to " + book.getTitle());
+                    }
+                    case "pages" -> {
+                        System.out.println("Enter a new amount of pages");
+                        int pages = inputs.nextInt();
+                        book.setNumberOfpages(pages);
+                        System.out.println("The number of pages for " + book.getTitle() + "has been set to " + pages);
+                    }
+                    case "genre" -> {
+                        System.out.println("Enter a new genre");
+                        book.setGenre(inputs.next());
+                        System.out.println("The genre for " + book.getTitle() + " has been changed to " + book.getGenre());
+                    }
+                }
+            }
+        }
+    }
+
     // br.allRegisteredBooks().stream().forEach(System.out::println);
 
     public void bookMenu() throws SQLException {
@@ -89,46 +133,7 @@ public class BookRegister {
                 case "3" -> {
                     System.out.println("What book do you want to modify? Specify by ISBN.");
                     String isbn = inputs.nextLine();
-                    for (Book book : books) {
-                        if (book.getIsbn().equalsIgnoreCase(isbn)) {
-                            System.out.println("What information do you want to modify?");
-                            System.out.println("ISBN - Author - Title - Pages - Genre");
-                            String modify = inputs.next().toLowerCase();
-                            switch (modify) {
-                                case "isbn" -> {
-                                    System.out.println("Enter a new ISBN");
-                                    book.setIsbn(inputs.nextLine());
-                                    System.out.println("The ISBN for " + book.getTitle() + " has been set to " + book.getIsbn());
-                                }
-                                case "author" -> {
-                                    System.out.println("Enter a new author");
-                                    String author = inputs.next();
-                                    author += inputs.nextLine();
-                                    book.setAuthor(author);
-                                    System.out.println("The author for the book " + book.getTitle() + "has been set to " + book.getAuthor());
-                                }
-                                case "title" -> {
-                                    System.out.println("Type a new title");
-                                    String oldTitle = book.getTitle();
-                                    String title = inputs.next();
-                                    title += inputs.nextLine();
-                                    book.setTitle(title);
-                                    System.out.println("The title for the book " + oldTitle + "has been set to " + book.getTitle());
-                                }
-                                case "pages" -> {
-                                    System.out.println("Enter a new amount of pages");
-                                    int pages = inputs.nextInt();
-                                    book.setNumberOfpages(pages);
-                                    System.out.println("The number of pages for " + book.getTitle() + "has been set to " + pages);
-                                }
-                                case "genre" -> {
-                                    System.out.println("Enter a new genre");
-                                    book.setGenre(inputs.next());
-                                    System.out.println("The genre for " + book.getTitle() + " has been changed to " + book.getGenre());
-                                }
-                            }
-                        }
-                    }
+                    modifyByIsbn(isbn);
                 }
                 case "4" -> {
                     System.out.println("Enter a genre to search for books with that genre");
