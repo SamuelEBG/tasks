@@ -33,7 +33,7 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
      This method is called with a key and value we want to add to the treeMap.
      First we check so the key is not null.
      Then we call the put method, if the root parameter that is entered
-     is null, it will set the key and value to root.
+     is null, it will set the key and value to root, the first node in the tree.
      Next time this method is called it will start comparing against
      the previous element, which will be root, and so on and so on.
      */
@@ -45,7 +45,8 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
     }
 
     private TreeNode put(K key, V value, TreeNode subtreeRoot){
-            // root's values are set and after that the comparing can begin.
+            // First input into the tree will be the root, aka the subtreeRoot passed in the
+            // argument is root.
         if(subtreeRoot == null) {
             TreeNode node = new TreeNode();
             node.firstKey = key;
@@ -53,9 +54,23 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
             size++;
             return node;
         }
-            // Compare the first key with the existing subtreeRoot.
+            // Compare the key with the subtreeRoot first key.
         int firstKeyCompare = key.compareTo(subtreeRoot.firstKey);
-            // Is the key smaller? We recurse down the tree to the left
+            // If our key is equal to the subtrees first key, we replace
+            // its value with our value, because tree maps do not accept
+            // same keys.
+        if(firstKeyCompare == 0){
+            subtreeRoot.firstValue = value;
+            return subtreeRoot;
+        }
+            /* If the second key is null, we know that we have arrived at a leaf,
+               because our implementation will always have 2 keys or more.
+               Now, if our key is less than the first key, we don't want to turn it into
+               a new child node, we want to move the first key (that is bigger than our key),
+               to the right, and make it our second key, and then add our smaller key to
+               the left in the node.
+               If not, we add our key to the right, since it is larger than our first key.
+            */
         if(subtreeRoot.secondKey == null){
             size++;
             if(firstKeyCompare < 0){
@@ -69,28 +84,31 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
             }
             return subtreeRoot;
         }
-
-        int secondKeyCompare = key.compareTo(subtreeRoot.secondKey);
-
-        if(firstKeyCompare == 0){
-            subtreeRoot.firstValue = value;
+            // We have covered the other scenarios and then only thing left is
+            // that our key is smaller than the first key, we iterate down the tree to the
+            // left recursively.
+        if (firstKeyCompare < 0){
+            subtreeRoot.left = put(key, value, subtreeRoot.left);
             return subtreeRoot;
         }
-
+            // None of the first key comparisons matched, we now try the second key.
+        int secondKeyCompare = key.compareTo(subtreeRoot.secondKey);
+            // If our key is greater than the second key then we know we need to iterate
+            // to the right, so we call our put method recursively again.
+        if(secondKeyCompare > 0){
+            subtreeRoot.right = put(key, value, subtreeRoot.right);
+        }
+            // Is our key equal to the second key? Then we change its value, because again,
+            // not allowed with same key values.
         if(secondKeyCompare == 0){
             subtreeRoot.secondValue = value;
             return subtreeRoot;
         }
-
-        if (firstKeyCompare < 0){
-            subtreeRoot.left = put(key, value, subtreeRoot.left);
+            // Is the key larger than the first key and smaller than the second key?
+            // Then it is in the middle of those two keys, then we iterate down the middle.
+        if(secondKeyCompare < 0){
+            subtreeRoot.middle = put(key, value, subtreeRoot.middle);
             return subtreeRoot;
-        } else if (firstKeyCompare > 0){
-            if(secondKeyCompare < 0){
-                subtreeRoot.middle = put(key, value, subtreeRoot.middle);
-            }
-        } else {
-            subtreeRoot.right = put(key, value, subtreeRoot.right);
         }
 
         /*
@@ -137,7 +155,8 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
     }
 
     protected TreeNode delete(K key, TreeNode subtreeRoot){
-
+            // Once we have called the subtree far enough that the value is null,
+            // we return null and start going back upwards.
         if (subtreeRoot == null) {
             return null;
         }
@@ -151,9 +170,29 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
             // If the key is equal to the first key, and second is null
             // we know that we have arrived at a leaf node.
         if(compareFirstKey == 0){
-            if(subtreeRoot.secondKey == null){
-                size--;
-                return null;
+            size--;
+            if(subtreeRoot.left == null && subtreeRoot.middle == null){
+                if(subtreeRoot.secondKey == null){
+                    return null;
+                }else {
+                    subtreeRoot.firstKey = subtreeRoot.secondKey;
+                    subtreeRoot.firstValue = subtreeRoot.secondValue;
+                    subtreeRoot.secondKey = null;
+                    subtreeRoot.secondValue = null;
+                    return subtreeRoot;
+                }
+            }
+            if(subtreeRoot.middle == null){
+                TreeNode max = max(subtreeRoot.left);
+                if(max.secondKey == null){
+                    subtreeRoot.firstKey = max.firstKey;
+                    subtreeRoot.firstValue = max.firstValue;
+                } else {
+                    subtreeRoot.firstKey = max.secondKey;
+                    subtreeRoot.firstValue = max.secondValue;
+                }
+                subtreeRoot.left = deleteMax(subtreeRoot.left);
+                return subtreeRoot;
             }
         }
 
@@ -165,9 +204,47 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
         }
 
         if(compareSecondKey == 0){
-            TreeNode max = max(subtreeRoot.middle);
-
+            size--;
+            if(subtreeRoot.right == null && subtreeRoot.middle == null){
+                return null;
+            }
+            if(subtreeRoot.middle == null){
+                TreeNode min = min(subtreeRoot.right);
+                subtreeRoot.secondKey = min.firstKey;
+                subtreeRoot.secondValue = min.firstValue;
+                subtreeRoot.right = deleteMin(subtreeRoot.right);
+                return subtreeRoot;
+            }
         }
+        return subtreeRoot;
+    }
+
+    private TreeNode min(TreeNode subtreeRoot){
+        if(subtreeRoot.left == null){
+            return subtreeRoot;
+        }
+        return min(subtreeRoot.left);
+    }
+
+    private TreeNode deleteMin(TreeNode subtreeRoot){
+
+        if(subtreeRoot == null){
+            return subtreeRoot;
+        }
+
+        if(subtreeRoot.left == null && subtreeRoot.right == null){
+            if(subtreeRoot.secondKey != null){
+                subtreeRoot.firstKey = subtreeRoot.secondKey;
+                subtreeRoot.firstValue = subtreeRoot.secondValue;
+                subtreeRoot.secondKey = null;
+                subtreeRoot.secondValue = null;
+                return subtreeRoot;
+            } else {
+                return null;
+            }
+        }
+
+        subtreeRoot.left = deleteMin(subtreeRoot.left);
         return subtreeRoot;
     }
 
@@ -178,8 +255,63 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
         return max(subtreeRoot.right);
     }
 
+    private TreeNode deleteMax(TreeNode subtreeRoot){
+
+        if(subtreeRoot == null){
+            return subtreeRoot;
+        }
+
+        if(subtreeRoot.right == null && subtreeRoot.left == null){
+            if(subtreeRoot.secondKey != null){
+                subtreeRoot.firstKey = subtreeRoot.secondKey;
+                subtreeRoot.firstValue = subtreeRoot.secondValue;
+                subtreeRoot.secondKey = null;
+                subtreeRoot.secondValue = null;
+                return subtreeRoot;
+            } else{
+                return null;
+            }
+        }
+
+        subtreeRoot.right = deleteMax(subtreeRoot.right);
+        return subtreeRoot;
+    }
+
     @Override
-    public Object get(Comparable key) {
+    public V get(K key){
+        Objects.requireNonNull(key);
+        return get(key, root);
+    }
+
+    private V get(K key, TreeNode subtreeRoot){
+
+        if(subtreeRoot == null){
+            return null;
+        }
+
+        int firstKeyCompare = key.compareTo(subtreeRoot.firstKey);
+
+        if(firstKeyCompare < 0){
+            return get(key, subtreeRoot.left);
+        }
+        if(firstKeyCompare == 0){
+            return subtreeRoot.firstValue;
+        }
+
+        int secondKeyCompare = key.compareTo(subtreeRoot.secondKey);
+
+        if(secondKeyCompare > 0){
+            return get(key,subtreeRoot.right);
+        }
+
+        if(secondKeyCompare == 0){
+            return subtreeRoot.secondValue;
+        }
+
+        if(secondKeyCompare < 0){
+            return get(key, subtreeRoot.middle);
+        }
+
         return null;
     }
 

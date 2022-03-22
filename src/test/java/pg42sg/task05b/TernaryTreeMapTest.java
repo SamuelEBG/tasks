@@ -13,8 +13,5 @@ class TernaryTreeMapTest extends MyMapTestTemplate {
         return new TernaryTreeMap<>();
     }
 
-    @Test
-    public void mongoTest(){
 
-    }
 }
