@@ -337,7 +337,7 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
                 } else {
                     return null;
                 }
-            } else if(subtreeRoot.middle != null){
+            } else {
                TreeNode min = min(subtreeRoot.middle);
                subtreeRoot.firstKey = min.firstKey;
                subtreeRoot.firstValue = min.firstValue;
@@ -385,7 +385,7 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
                 } else {
                     return null;
                 }
-            } else if(subtreeRoot.middle != null){
+            } else {
                 TreeNode max = max(subtreeRoot.middle);
                 if(max.secondKey == null){
                     subtreeRoot.secondKey = max.firstKey;
