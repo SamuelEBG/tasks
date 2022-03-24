@@ -318,7 +318,7 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
         }
 
         if(subtreeRoot.left == null){
-            if(subtreeRoot.left == null && subtreeRoot.middle == null){
+            if(subtreeRoot.middle == null){
                 if(subtreeRoot.right != null){
                     TreeNode min = min(subtreeRoot.right);
                     subtreeRoot.firstKey = subtreeRoot.secondKey;
@@ -357,21 +357,45 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
         return max(subtreeRoot.right);
     }
 
-    private TreeNode deleteMax(TreeNode subtreeRoot){
+    private TreeNode deleteMax(TreeNode subtreeRoot) {
 
-        if(subtreeRoot == null){
+        if (subtreeRoot == null) {
             return null;
         }
 
-        if(subtreeRoot.right == null && subtreeRoot.left == null){
-            if(subtreeRoot.secondKey != null){
-                // subtreeRoot.firstKey = subtreeRoot.secondKey;
-                // subtreeRoot.firstValue = subtreeRoot.secondValue;
-                subtreeRoot.secondKey = null;
-                subtreeRoot.secondValue = null;
+        if (subtreeRoot.right == null) {
+            if (subtreeRoot.middle == null) {
+                if (subtreeRoot.left != null) {
+                  TreeNode max = max(subtreeRoot.left);
+                  subtreeRoot.secondKey = subtreeRoot.firstKey;
+                  subtreeRoot.secondValue = subtreeRoot.firstValue;
+                  if(max.secondKey == null){
+                      subtreeRoot.firstKey = max.firstKey;
+                      subtreeRoot.firstValue = max.firstValue;
+                  } else{
+                      subtreeRoot.firstKey = max.secondKey;
+                      subtreeRoot.firstValue = max.secondValue;
+                  }
+                  subtreeRoot.left = deleteMax(subtreeRoot.left);
+                  return subtreeRoot;
+                } else if(subtreeRoot.secondKey != null){
+                    subtreeRoot.secondKey = null;
+                    subtreeRoot.secondValue = null;
+                    return subtreeRoot;
+                } else {
+                    return null;
+                }
+            } else if(subtreeRoot.middle != null){
+                TreeNode max = max(subtreeRoot.middle);
+                if(max.secondKey == null){
+                    subtreeRoot.secondKey = max.firstKey;
+                    subtreeRoot.secondValue = max.firstValue;
+                } else {
+                    subtreeRoot.secondKey = max.secondKey;
+                    subtreeRoot.secondValue = max.secondValue;
+                }
+                subtreeRoot.middle = deleteMax(subtreeRoot.middle);
                 return subtreeRoot;
-            } else{
-                return null;
             }
         }
         subtreeRoot.right = deleteMax(subtreeRoot.right);
