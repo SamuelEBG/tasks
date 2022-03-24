@@ -2,10 +2,11 @@ package pg42sg.task05b;
 
 import org.pg4200.les05.MyMapTreeBased;
 
-import javax.swing.tree.TreeNode;
 import java.util.Objects;
 
 public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBased<K, V> {
+
+    // TO DO, delete max and swap up middle or left value when 2 node is being deleted and there is parent node
 
     /*
         A protected class of TreeNode so that we can create TreeNode
@@ -13,15 +14,16 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
         edit or remove in the TreeMap.
      */
     protected class TreeNode{
-
-        private K firstKey;
-        private K secondKey;
-        private V firstValue;
-        private V secondValue;
-
         private TreeNode left;
         private TreeNode middle;
         private TreeNode right;
+
+        private K firstKey;
+        private K secondKey;
+
+        private V firstValue;
+        private V secondValue;
+
     }
     // From the root of the tree we can access all the nodes.
     // So first node will be the root of the tree.
@@ -183,12 +185,22 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
                 if(subtreeRoot.secondKey == null){
                     return null;
                 }else {
-                        // Leaf with 2 keys, replace first key and value with second key and value.
-                    subtreeRoot.firstKey = subtreeRoot.secondKey;
-                    subtreeRoot.firstValue = subtreeRoot.secondValue;
-                    subtreeRoot.secondKey = null;
-                    subtreeRoot.secondValue = null;
-                    return subtreeRoot;
+                    if(subtreeRoot.right != null){
+                        TreeNode min = min(subtreeRoot.right);
+                        subtreeRoot.firstKey = subtreeRoot.secondKey;
+                        subtreeRoot.firstValue = subtreeRoot.secondValue;
+                        subtreeRoot.secondKey = min.firstKey;
+                        subtreeRoot.secondValue = min.firstValue;
+                        subtreeRoot.right = deleteMin(subtreeRoot.right);
+                        return subtreeRoot;
+                    } else {
+                            // Leaf with 2 keys, replace first key and value with second key and value.
+                        subtreeRoot.firstKey = subtreeRoot.secondKey;
+                        subtreeRoot.firstValue = subtreeRoot.secondValue;
+                        subtreeRoot.secondKey = null;
+                        subtreeRoot.secondValue = null;
+                        return subtreeRoot;
+                    }
                 }
             }
                 // If there is no middle, find the largest left node and
@@ -212,6 +224,12 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
                 // in our middle will be larger than our largest first key, we take
                 // the smallest middle node, since that will be the closest key value to the first key.
                 TreeNode min = min(subtreeRoot.middle);
+                subtreeRoot.firstKey = min.firstKey;
+                subtreeRoot.firstValue = min.firstValue;
+                    // Now we delete that smallest middle node
+                subtreeRoot.middle = deleteMin(subtreeRoot.middle);
+                return subtreeRoot;
+                /*
                 if(min.secondKey == null){
                     subtreeRoot.firstKey = min.firstKey;
                     subtreeRoot.firstValue = min.firstValue;
@@ -219,9 +237,7 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
                     subtreeRoot.firstKey = min.secondKey;
                     subtreeRoot.firstValue = min.secondValue;
                 }
-                    // Now we delete that smallest middle node
-                subtreeRoot.middle = deleteMin(subtreeRoot.middle);
-                return subtreeRoot;
+                 */
             }
         }
 
@@ -231,6 +247,7 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
             subtreeRoot.right = delete(key, subtreeRoot.right);
             return subtreeRoot;
         }
+
             // Second key is a little different, since we do not have to
             // take into consideration if there is a second key or not.
             // If we are at this stage we know that the node has 2 keys, since our
@@ -241,6 +258,20 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
                 // If both children are null, we are at a leaf, we remove the second key value
                 // and return the node with the remaining key and value, which will be the first key.
             if(subtreeRoot.right == null && subtreeRoot.middle == null){
+                if(subtreeRoot.left != null){
+                    TreeNode max = max(subtreeRoot.left);
+                    subtreeRoot.secondKey = subtreeRoot.firstKey;
+                    subtreeRoot.secondValue = subtreeRoot.firstValue;
+                    if(max.secondKey == null){
+                        subtreeRoot.firstKey = max.firstKey;
+                        subtreeRoot.firstValue = max.firstValue;
+                    } else {
+                        subtreeRoot.firstKey = max.secondKey;
+                        subtreeRoot.firstValue = max.secondValue;
+                    }
+                    subtreeRoot.left = deleteMax(subtreeRoot.left);
+                    return subtreeRoot;
+                }
                 subtreeRoot.secondKey = null;
                 subtreeRoot.secondValue = null;
                 return subtreeRoot;
@@ -268,6 +299,7 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
                 return subtreeRoot;
             }
         }
+        subtreeRoot.middle = delete(key, subtreeRoot.middle);
         return subtreeRoot;
     }
 
@@ -282,18 +314,35 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
     private TreeNode deleteMin(TreeNode subtreeRoot){
 
         if(subtreeRoot == null){
-            return subtreeRoot;
+            return null;
         }
 
-        if(subtreeRoot.left == null && subtreeRoot.right == null){
-            if(subtreeRoot.secondKey != null){
-                subtreeRoot.firstKey = subtreeRoot.secondKey;
-                subtreeRoot.firstValue = subtreeRoot.secondValue;
-                subtreeRoot.secondKey = null;
-                subtreeRoot.secondValue = null;
-                return subtreeRoot;
-            } else {
-                return null;
+        if(subtreeRoot.left == null){
+            if(subtreeRoot.left == null && subtreeRoot.middle == null){
+                if(subtreeRoot.right != null){
+                    TreeNode min = min(subtreeRoot.right);
+                    subtreeRoot.firstKey = subtreeRoot.secondKey;
+                    subtreeRoot.firstValue = subtreeRoot.secondValue;
+                    subtreeRoot.secondKey = min.firstKey;
+                    subtreeRoot.secondValue = min.firstValue;
+                    subtreeRoot.right = deleteMin(subtreeRoot.right);
+                    return subtreeRoot;
+
+                } else if(subtreeRoot.secondKey != null){
+                    subtreeRoot.firstKey = subtreeRoot.secondKey;
+                    subtreeRoot.firstValue = subtreeRoot.secondValue;
+                    subtreeRoot.secondKey = null;
+                    subtreeRoot.secondValue = null;
+                    return subtreeRoot;
+                } else {
+                    return null;
+                }
+            } else if(subtreeRoot.middle != null){
+               TreeNode min = min(subtreeRoot.middle);
+               subtreeRoot.firstKey = min.firstKey;
+               subtreeRoot.firstValue = min.firstValue;
+               subtreeRoot.middle = deleteMin(subtreeRoot.middle);
+               return subtreeRoot;
             }
         }
 
@@ -311,13 +360,13 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
     private TreeNode deleteMax(TreeNode subtreeRoot){
 
         if(subtreeRoot == null){
-            return subtreeRoot;
+            return null;
         }
 
         if(subtreeRoot.right == null && subtreeRoot.left == null){
             if(subtreeRoot.secondKey != null){
-                subtreeRoot.firstKey = subtreeRoot.secondKey;
-                subtreeRoot.firstValue = subtreeRoot.secondValue;
+                // subtreeRoot.firstKey = subtreeRoot.secondKey;
+                // subtreeRoot.firstValue = subtreeRoot.secondValue;
                 subtreeRoot.secondKey = null;
                 subtreeRoot.secondValue = null;
                 return subtreeRoot;
@@ -350,20 +399,23 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
             return subtreeRoot.firstValue;
         }
 
-        int secondKeyCompare = key.compareTo(subtreeRoot.secondKey);
+        if(subtreeRoot.secondKey == null){
+            return null;
+        } else{
+            int secondKeyCompare = key.compareTo(subtreeRoot.secondKey);
 
-        if(secondKeyCompare > 0){
-            return get(key,subtreeRoot.right);
+            if(secondKeyCompare > 0){
+                return get(key,subtreeRoot.right);
+            }
+
+            if(secondKeyCompare == 0){
+                return subtreeRoot.secondValue;
+            }
+
+            if(secondKeyCompare < 0){
+                return get(key, subtreeRoot.middle);
+            }
         }
-
-        if(secondKeyCompare == 0){
-            return subtreeRoot.secondValue;
-        }
-
-        if(secondKeyCompare < 0){
-            return get(key, subtreeRoot.middle);
-        }
-
         return null;
     }
 
