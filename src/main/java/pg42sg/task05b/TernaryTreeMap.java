@@ -114,42 +114,8 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
             subtreeRoot.middle = put(key, value, subtreeRoot.middle);
             return subtreeRoot;
         }
-
-        /*
-        if(firstKeyCompare < 0){
-            subtreeRoot.left = put(key, value, subtreeRoot.left); // Recursive method
-            return subtreeRoot;
-            // Is the key equal to the subtree key? Then we replace, remember, no double keys.
-            // Instead, value is replacing old value in current key.
-        } else if(firstKeyCompare == 0){
-            subtreeRoot.firstValue = value;
-            // Is the key bigger? Then we can add another key to the node (secondKey).
-        } else if(firstKeyCompare > 0){
-                // If there is no secondKey, we add this key, update key and value
-            if(subtreeRoot.secondKey == null){
-                size++;
-                subtreeRoot.secondKey = key;
-                subtreeRoot.secondValue = value;
-                // If not, we make a new comparison, and start the same process but for this key.
-            } else {
-                // New compare, still comparing the key we want to add but to the secondKey this time.
-                int secondKeyCompare = key.compareTo(subtreeRoot.secondKey);
-                    // Is it smaller? Create a middle.
-                if(secondKeyCompare < 0){
-                    subtreeRoot.middle = put(key, value, subtreeRoot.middle);
-                    // Is it equal? We replace the second value because this is now the new second.
-                } else if (secondKeyCompare == 0){
-                    subtreeRoot.secondValue = value;
-                    // Is it bigger? Add it to the right.
-                } else {
-                    subtreeRoot.right = put(key, value, subtreeRoot.right);
-                }
-            }
-        }
-         */
         return subtreeRoot;
     }
-
 
     @Override
     public void delete(K key) {
@@ -276,9 +242,6 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
                 subtreeRoot.secondValue = null;
                 return subtreeRoot;
             }
-                /*
-                    WARNING: need to check if first key has any children. fix!!
-                 */
 
             if(subtreeRoot.middle == null){
                 TreeNode min = min(subtreeRoot.right);
@@ -299,6 +262,7 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
                 return subtreeRoot;
             }
         }
+
         subtreeRoot.middle = delete(key, subtreeRoot.middle);
         return subtreeRoot;
     }

@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TernaryTreeMapTest extends MyMapTestTemplate {
 
-    /*
+
     private MyMap<Integer, Integer> map;
 
     @BeforeEach
@@ -22,13 +22,11 @@ class TernaryTreeMapTest extends MyMapTestTemplate {
         map = getInstance();
     }
 
-     */
-
     @Override
     protected <K extends Comparable<K>, V> MyMap<K, V> getInstance() {
         return new TernaryTreeMap<>();
     }
-    /*
+
     @Test
     public void asdiuHs(){
         map = getInstance();
@@ -49,7 +47,8 @@ class TernaryTreeMapTest extends MyMapTestTemplate {
 
     @Test
     public void fitteTest(){
-        int n = 50; //if you get failures, you can use lower number to help debugging, eg 5
+
+        int n = 50;
         List<Integer> keys = new ArrayList<>(n);
         for (int i = 0; i < n; i++) {
             keys.add(i);
@@ -61,9 +60,11 @@ class TernaryTreeMapTest extends MyMapTestTemplate {
         for (Integer key : keys) {
             map.put(key, 0);
         }
+
         System.out.println(keys);
 
         assertEquals(keys.size(), map.size());
+
         for (Integer key : keys) {
             assertNotNull(map.get(key));
         }
@@ -79,6 +80,4 @@ class TernaryTreeMapTest extends MyMapTestTemplate {
             assertEquals(size, map.size(), "" + keys);
         }
     }
-
-     */
 }
