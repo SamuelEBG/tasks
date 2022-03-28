@@ -36,19 +36,18 @@ class TernaryTreeMapTest extends MyMapTestTemplate {
         map.put(2, 0);
         map.put(1, 0);
 
-
         map.delete(4);
         map.delete(3);
         map.delete(1);
-        assertEquals(2, map.size());
         map.delete(2);
+        assertEquals(2, map.size());
         map.delete(0);
     }
 
     @Test
     public void fitteTest(){
 
-        int n = 50;
+        int n = 100;
         List<Integer> keys = new ArrayList<>(n);
         for (int i = 0; i < n; i++) {
             keys.add(i);
@@ -61,8 +60,6 @@ class TernaryTreeMapTest extends MyMapTestTemplate {
             map.put(key, 0);
         }
 
-        System.out.println(keys);
-
         assertEquals(keys.size(), map.size());
 
         for (Integer key : keys) {
@@ -73,7 +70,6 @@ class TernaryTreeMapTest extends MyMapTestTemplate {
         Collections.shuffle(keys);
 
         for (Integer key : keys) {
-            System.out.println("deleting key " + key);
             map.delete(key);
             assertNull(map.get(key));
             size--;

@@ -129,6 +129,7 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
         if (subtreeRoot == null) {
             return null;
         }
+
         // First off we start by comparing with the first key.
         int compareFirstKey = key.compareTo(subtreeRoot.firstKey);
             // Is the key smaller than first key? then we iterate down to the left.
@@ -195,15 +196,6 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
                     // Now we delete that smallest middle node
                 subtreeRoot.middle = deleteMin(subtreeRoot.middle);
                 return subtreeRoot;
-                /*
-                if(min.secondKey == null){
-                    subtreeRoot.firstKey = min.firstKey;
-                    subtreeRoot.firstValue = min.firstValue;
-                } else {
-                    subtreeRoot.firstKey = min.secondKey;
-                    subtreeRoot.firstValue = min.secondValue;
-                }
-                 */
             }
         }
 
@@ -347,7 +339,7 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
                     subtreeRoot.secondValue = null;
                     return subtreeRoot;
                 } else {
-                    return null;
+                    return subtreeRoot.left;
                 }
             } else {
                 TreeNode max = max(subtreeRoot.middle);

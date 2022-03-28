@@ -2,6 +2,10 @@ package pg42sg.task05d;
 
 import org.pg4200.les05.MyMapRedBlackTree;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class DrawRedBlackTreeMap<K extends Comparable<K>, V> extends MyMapRedBlackTree<K, V> {
 
     protected <K extends Comparable<K>, V> MyMapRedBlackTree<K, V> getInstance() {
@@ -12,17 +16,20 @@ public class DrawRedBlackTreeMap<K extends Comparable<K>, V> extends MyMapRedBla
 
     public void draw(){
         this.map = getInstance();
-        map.put(0, 0);
-        System.out.println("    " + "(" + map.get(0).toString() + ")");
-        map.put(1, 0);
-        System.out.println("/");
-        System.out.println("(" + map.get(2) + ")");
-        map.put(2, 0);
-        System.out.println("(" + map.get(2).toString() + ")");
-        map.put(3, 0);
-        System.out.println("(" + map.get(3) + ")");
-        map.put(4, 0);
-        map.put(5, 0);
-        System.out.println(map.size());
+
+        int n = 10;
+        List<Integer> keys = new ArrayList<>(n);
+        for (int i = 0; i < n; i++) {
+            keys.add(i);
+        }
+
+        Collections.shuffle(keys);
+
+        for (Integer key : keys) {
+            map.put(key, 0);
+        }
+
+        System.out.println(keys);
+
     }
 }

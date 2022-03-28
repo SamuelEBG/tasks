@@ -50,5 +50,12 @@ public class Main {
         System.out.println(fact(8));
         System.out.println(fact(7));
         System.out.println(fib(6));
+        String s = "my name is Rob";
+        char c = s.charAt(5);
+        System.out.println(c);
+        int i = s.charAt(5);
+        System.out.println(i);
+        int g = -10%3;
+        System.out.println(g);
     }
 }
