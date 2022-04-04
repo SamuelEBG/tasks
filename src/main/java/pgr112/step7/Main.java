@@ -36,6 +36,8 @@ public class Main {
         });
 
 
+        Shape circle = new Circle(Color.red, true,15);
+        circle.getArea();
         // System.out.println(shapeMap.get("3"));
 
         /*
