@@ -13,7 +13,6 @@ public class HashMapLinearProbe<K, V> implements MyHashMap<K, V> {
         // index spot.
     private final int M = 997;
     private int size = 0;
-
         // Every insertion in our HashMap is going to be
         // made into an object, where the key is going to be hashed
         // and determine where in our map we insert the object.
@@ -87,6 +86,7 @@ public class HashMapLinearProbe<K, V> implements MyHashMap<K, V> {
 
     @Override
     public V get(K key) {
+
         int i = index(key);
 
         for(int k = i; data[k] != null; k = (k + 1) % M){
@@ -105,6 +105,7 @@ public class HashMapLinearProbe<K, V> implements MyHashMap<K, V> {
 
     @Override
     public int size() {
+
         return this.size;
     }
 }

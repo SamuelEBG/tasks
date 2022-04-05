@@ -23,6 +23,7 @@ public class Main {
         }else{
             return 1; // Base case
         }
+
     }
 
     static int fib(int n){
@@ -57,5 +58,7 @@ public class Main {
         System.out.println(i);
         int g = -10%3;
         System.out.println(g);
+        String str = "kitten";
+        String res = "";
     }
 }
