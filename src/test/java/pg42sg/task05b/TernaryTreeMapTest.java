@@ -1,32 +1,20 @@
 package pg42sg.task05b;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.pg4200.les05.MyMap;
 import org.pg4200.les05.MyMapTestTemplate;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.pg4200.les05.MyMapTreeBased;
 
 class TernaryTreeMapTest extends MyMapTestTemplate {
 
-
-    private MyMap<Integer, Integer> map;
-
-    @BeforeEach
-    public void initTest() {
-        map = getInstance();
+    protected <K extends Comparable<K>, V> MyMapTreeBased<K, V> getTreeInstance() {
+        return new TernaryTreeMap<>();
     }
 
     @Override
     protected <K extends Comparable<K>, V> MyMap<K, V> getInstance() {
-        return new TernaryTreeMap<>();
+        return getTreeInstance();
     }
-
+ /*
     @Test
     public void asdiuHs(){
         map = getInstance();
@@ -76,4 +64,8 @@ class TernaryTreeMapTest extends MyMapTestTemplate {
             assertEquals(size, map.size(), "" + keys);
         }
     }
+
+
+  */
+
 }
