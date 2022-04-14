@@ -6,7 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class BookRegister {
 
@@ -137,7 +139,7 @@ public class BookRegister {
                 }
                 case "4" -> {
                     System.out.println("Enter a genre to search for books with that genre");
-                    String choice = inputs.next();
+                    String choice = inputs.nextLine();
                     for (Book book : books) {
                         if (choice.equalsIgnoreCase(book.getGenre())) {
                             System.out.println(book);
@@ -146,12 +148,14 @@ public class BookRegister {
                 }
                 case "5" -> {
                     System.out.println("Enter an author to search for books by that author");
-                    String author = inputs.next();
+                    String author = inputs.nextLine();
                     for (Book book : books) {
                         if (author.equalsIgnoreCase(book.getAuthor())) {
                             System.out.println(book);
                         }
                     }
+                    System.out.println("Press enter to show menu again");
+                    inputs.nextLine();
                 }
                 case "6" -> {
                     System.out.println("Search for a book by entering its ISBN");
@@ -251,7 +255,12 @@ public class BookRegister {
         return new ArrayList<>(this.books);
     }
 
-    public ArrayList<Book> booksInGenre(String genre){
+    public List<Book> booksInGenre(String genre){
+
+        return books.stream()
+                .filter(book -> book.getGenre() != genre)
+                .collect(Collectors.toList());
+        /*
         ArrayList<Book> result = new ArrayList<>();
         for(Book b : this.books){
             if(b.getGenre().equalsIgnoreCase(genre)) {
@@ -259,9 +268,15 @@ public class BookRegister {
             }
         }
         return result;
+         */
     }
 
-    public ArrayList<Book> booksByAuthor(String author){
+    public List<Book> booksByAuthor(String author){
+
+        return books.stream()
+                .filter(book -> book.getAuthor() != author)
+                .collect(Collectors.toList());
+        /*
         ArrayList<Book> result = new ArrayList<>();
         for(Book b : this.books){
             if(b.getAuthor().equalsIgnoreCase(author)) {
@@ -269,6 +284,7 @@ public class BookRegister {
             }
         }
         return result;
+         */
     }
 
     public void removeBook(Book book){

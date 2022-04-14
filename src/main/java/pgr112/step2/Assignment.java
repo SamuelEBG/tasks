@@ -17,6 +17,7 @@ public class Assignment{
     }
 
     public String isNumberSmallMediumOrBig(int number){
+
         String result;
         if(number < 100){
             result = "Small";
