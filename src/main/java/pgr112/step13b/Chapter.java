@@ -11,6 +11,7 @@ public class Chapter {
         this.chapterPages = pages;
         this.minutes = pages*3;
     }
+
     @Override
     public String toString(){
         return String.format(
