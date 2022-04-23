@@ -1,6 +1,5 @@
 package pgr112.step13b;
 
-
 import pgr112.step3new.Chapter;
 
 import java.util.ArrayList;
@@ -17,8 +16,8 @@ public class Book {
     private String isbn;
     private String title;
     private String author;
-    private int numberOfPages = 1;
-    private String genre;
+    private int numberOfPages;
+    private Genre genre;
 
     // Method for creating a book, will put pages as 1 if
     // amount of pages is not specified, and title to OTHER.
@@ -30,26 +29,22 @@ public class Book {
         this.isbn = "";
         this.title = "";
         this.author = "";
-        this.numberOfPages = 0;
-        this.genre = "";
+        this.numberOfPages = 3;
+        this.genre = Genre.OTHER;
     }
 
     public Book(String title, String author,int pages){
         this.title = title;
         this.author = author;
-        if(pages > 0){
-            this.numberOfPages = pages;
-        }
-        this.genre = "";
+        this.numberOfPages = Math.max(pages, 3);
+        this.genre = Genre.OTHER;
     }
 
-    public Book(String isbn, String title, String author, int pages, String genre ){
+    public Book(String isbn, String title, String author, int pages, Genre genre ){
         this.isbn = isbn;
         this.title = title;
         this.author = author;
-        if(pages > 0){
-            this.numberOfPages = pages;
-        }
+        this.numberOfPages = Math.max(pages, 3);
         this.genre = genre;
     }
 
@@ -95,11 +90,11 @@ public class Book {
         if(numberOfpages > 0) this.numberOfPages = numberOfpages;
     }
 
-    public String getGenre() {
+    public Genre getGenre() {
         return this.genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Genre genre) {
         this.genre = genre;
     }
 

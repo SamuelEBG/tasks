@@ -1,4 +1,4 @@
-package pgr112.step13;
+package pgr112.step13.shapes;
 
 import java.awt.*;
 

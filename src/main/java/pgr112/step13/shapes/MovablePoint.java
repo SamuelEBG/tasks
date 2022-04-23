@@ -1,4 +1,4 @@
-package pgr112.step13;
+package pgr112.step13.shapes;
 
 public class MovablePoint implements Movable {
 

@@ -1,5 +1,10 @@
 package pgr112.step13;
 
+import pgr112.step13.shapes.Circle;
+import pgr112.step13.shapes.MovablePoint;
+import pgr112.step13.shapes.Shape;
+import pgr112.step13.shapes.Square;
+
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,7 +13,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Program {
-    private final ArrayList<Shape> shapesArray;
+    private final ArrayList<pgr112.step13.shapes.Shape> shapesArray;
 
     public Program(){
         this.shapesArray = new ArrayList<>();
@@ -53,7 +58,7 @@ public class Program {
                 int r = Integer.parseInt(fileReader().get(i+3));
                 int g = Integer.parseInt(fileReader().get(i+4));
                 int b = Integer.parseInt(fileReader().get(i+5));
-                shapesArray.add(new Rectangle(
+                shapesArray.add(new pgr112.step13.shapes.Rectangle(
                         Double.parseDouble(fileReader().get(i+1)),
                         Double.parseDouble(fileReader().get(i+2)),
                         new Color(r, g, b),
@@ -122,7 +127,7 @@ public class Program {
                 boolean filled = filledOrNot();
                 System.out.println("give the rectangle coordinates");
                 MovablePoint topLeft = leftCoordinates();
-                shapesArray.add(new Rectangle(
+                shapesArray.add(new pgr112.step13.shapes.Rectangle(
                         width,
                         length,
                         color,
@@ -219,7 +224,7 @@ public class Program {
                 case "1" -> {
                     System.out.println("Here are the shapes in the array");
                     System.out.println("-------------------------");
-                    for (Shape shape : shapesArray) {
+                    for (pgr112.step13.shapes.Shape shape : shapesArray) {
                         System.out.println(shape);
                     }
                     menu();

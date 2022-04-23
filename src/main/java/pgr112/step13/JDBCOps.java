@@ -3,7 +3,11 @@ package pgr112.step13;
 import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
-import pgr112.step13.Square;
+
+import pgr112.step13.shapes.Circle;
+import pgr112.step13.shapes.MovablePoint;
+import pgr112.step13.shapes.Shape;
+import pgr112.step13.shapes.Square;
 
 public class JDBCOps {
 
@@ -16,7 +20,7 @@ public class JDBCOps {
         }
     }
 
-    public boolean insertShape(Shape shape){
+    public boolean insertShape(pgr112.step13.shapes.Shape shape){
 
         try(Connection con = DriverManager
                 .getConnection("jdbc:mysql://localhost:3306/shapes?useSSL=false", "oopuser", "root")){
@@ -54,19 +58,19 @@ public class JDBCOps {
                         ((Square) shape).getBottomRight() +
                         "')";
                 stmt.executeUpdate(insertSql);
-            } else if (shape instanceof Rectangle) {
+            } else if (shape instanceof pgr112.step13.shapes.Rectangle) {
                 String insertSql = "INSERT INTO rectangle(width, length, area, perimeter, r, g, b, filled, topLeft, bottomRight)"
                         + " VALUES('" +
-                        ((Rectangle) shape).getWidth() + "', '" +
-                        ((Rectangle) shape).getLength() + "', '" +
+                        ((pgr112.step13.shapes.Rectangle) shape).getWidth() + "', '" +
+                        ((pgr112.step13.shapes.Rectangle) shape).getLength() + "', '" +
                         shape.getArea() + "', '" +
                         shape.getPerimeter() + "', '" +
                         shape.getColor().getRed() + "', '" +
                         shape.getColor().getGreen() + "', '" +
                         shape.getColor().getBlue() + "', '" +
                         isFilled + "', '" +
-                        ((Rectangle) shape).getTopLeft() + "', '" +
-                        ((Rectangle) shape).getBottomRight() +
+                        ((pgr112.step13.shapes.Rectangle) shape).getTopLeft() + "', '" +
+                        ((pgr112.step13.shapes.Rectangle) shape).getBottomRight() +
                         "')";
                 stmt.executeUpdate(insertSql);
             }
@@ -77,8 +81,8 @@ public class JDBCOps {
         return true;
     }
 
-    public ArrayList<Shape> getAllShapes(){
-        ArrayList<Shape> shapesFromDb = new ArrayList<>();
+    public ArrayList<pgr112.step13.shapes.Shape> getAllShapes(){
+        ArrayList<pgr112.step13.shapes.Shape> shapesFromDb = new ArrayList<>();
 
         try(Connection con = DriverManager
                 .getConnection("jdbc:mysql://localhost:3306/shapes?useSSL=false", "oopuser", "root")) {
@@ -105,7 +109,7 @@ public class JDBCOps {
             String rectangle = "SELECT * FROM rectangle";
             ResultSet rr = stmt.executeQuery(rectangle);
             while(rr.next()){
-                var r = new Rectangle();
+                var r = new pgr112.step13.shapes.Rectangle();
                 r.setWidth(rr.getDouble("width"));
                 r.setLength(rr.getDouble("length"));
                 r.setColor(new Color(rr.getInt("r"),
@@ -147,7 +151,7 @@ public class JDBCOps {
         return shapesFromDb;
     }
 
-    public ArrayList<Shape> getSquaresByAreaGT(double area){
+    public ArrayList<pgr112.step13.shapes.Shape> getSquaresByAreaGT(double area){
         ArrayList<Shape> areaShapes= new ArrayList<>();
 
         try(Connection con = DriverManager

@@ -8,13 +8,12 @@ public class Book {
     private Genre genre;
     private int numberOfPages;
 
-    public Book (String isbn, String title, String author, int pages){
+    public Book (String isbn, String title, String author, int pages, Genre genre){
         this.isbn = isbn;
         this.title = title;
         this.author = author;
-        if(pages < 1){
-            this.numberOfPages = 1;
-        }
+        this.genre = genre;
+        this.numberOfPages = Math.max(pages, 3);
     }
 
     public int readingTime(){
@@ -59,5 +58,12 @@ public class Book {
 
     public void setNumberOfPages(int numberOfPages) {
         this.numberOfPages = numberOfPages;
+    }
+
+    public Genre getGenre(){
+        return genre;
+    }
+    public void setGenre(Genre genre){
+        this.genre = genre;
     }
 }
