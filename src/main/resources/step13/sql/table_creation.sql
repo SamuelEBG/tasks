@@ -2,16 +2,18 @@ USE Shapes;
 
 CREATE TABLE movablepoints(
     id INT NOT NULL,
-    x INT,
-    y INT,
+    x DOUBLE,
+    y DOUBLE,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE circle(
     id INT NOT NULL AUTO_INCREMENT,
-    radius DOUBLE,
-    color VARCHAR(50),
+    r INT,
+    g INT,
+    b INT,
     filled INT,
+    radius DOUBLE,
     center INT,
     PRIMARY KEY (id),
     CONSTRAINT fk_center
@@ -19,20 +21,40 @@ CREATE TABLE circle(
         REFERENCES movablepoints (id)
 );
 
-CREATE TABLE square(
-
-);
-
 CREATE TABLE rectangle(
+    id INT NOT NULL AUTO_INCREMENT,
+    r INT,
+    g INT,
+    b INT,
+    filled INT,
     width DOUBLE,
     length DOUBLE,
-    area DOUBLE,
-    perimeter DOUBLE,
-    r int,
-    g int,
-    b int,
-    filled BOOLEAN,
-    topLeft VARCHAR(30),
-    bottomRight VARCHAR(30)
+    topLeft INT,
+    bottomRight INT,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_topLeft
+       FOREIGN KEY (topLeft)
+       REFERENCES movablepoints (id),
+    CONSTRAINT fk_bottomRight
+       FOREIGN KEY (bottomRight)
+       REFERENCES movablepoints(id)
+);
+
+CREATE TABLE square(
+    id INT NOT NULL AUTO_INCREMENT,
+    r INT,
+    g INT,
+    b INT,
+    filled INT,
+    sides DOUBLE,
+    topLeft INT,
+    bottomRight INT,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_s_topLeft
+       FOREIGN KEY (topLeft)
+           REFERENCES movablepoints (id),
+    CONSTRAINT fk_s_bottomRight
+       FOREIGN KEY (bottomRight)
+           REFERENCES movablepoints(id)
 );
 

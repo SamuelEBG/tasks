@@ -57,11 +57,6 @@ public class Rectangle extends Shape {
         return String.format("A rectangle with width %s and length %s, coordinates are top left %s, bottom right %s and is a subclass of%s",
                 width, length, topLeft, bottomRight, super.toString());
     }
-    public double getTopLeftX(){return topLeft.getX();}
-    public double getTopLeftY(){return topLeft.getY();}
-    public double getBottomRightX(){return bottomRight.getX();}
-    public double getBottomRightY(){return bottomRight.getY();}
-
     /*
     @Override
     public String toString(){

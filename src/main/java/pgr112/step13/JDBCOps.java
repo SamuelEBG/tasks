@@ -10,7 +10,7 @@ import pgr112.step13.shapes.Shape;
 import pgr112.step13.shapes.Square;
 
 public class JDBCOps {
-
+/*
     public JDBCOps(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -20,10 +20,10 @@ public class JDBCOps {
         }
     }
 
-    public boolean insertShape(pgr112.step13.shapes.Shape shape){
+    public boolean insertShape(Shape shape){
 
         try(Connection con = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/shapes?useSSL=false", "oopuser", "root")){
+                .getConnection("jdbc:mysql://localhost:3306/Shapes?useSSL=false", "samuel", "1234")){
 
             Statement stmt = con.createStatement();
 
@@ -31,7 +31,7 @@ public class JDBCOps {
 
             if (shape instanceof Circle) {
                 System.out.println("inserting circle");
-                String insertSql = "INSERT INTO circle(radius, area, perimeter, r, g, b, filled, center)"
+                String insertSql = "INSERT INTO circle (radius, area, perimeter, r, g, b, filled, center)"
                         + " VALUES('" +
                         ((Circle)shape).getRadius() + "', '" +
                         shape.getArea() + "', '" +
@@ -85,7 +85,7 @@ public class JDBCOps {
         ArrayList<pgr112.step13.shapes.Shape> shapesFromDb = new ArrayList<>();
 
         try(Connection con = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/shapes?useSSL=false", "oopuser", "root")) {
+                .getConnection("jdbc:mysql://localhost:3306/Shapes?useSSL=false", "samuel", "1234")) {
 
             Statement stmt = con.createStatement();
             String circleSql = "SELECT * FROM circle";
@@ -155,7 +155,7 @@ public class JDBCOps {
         ArrayList<Shape> areaShapes= new ArrayList<>();
 
         try(Connection con = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/shapes?useSSL=false", "oopuser", "root")){
+                .getConnection("jdbc:mysql://localhost:3306/Shapes?useSSL=false", "samuel", "1234")){
 
             Statement stmt = con.createStatement();
             String getSquaresByArea = "SELECT * FROM square " +
@@ -181,4 +181,6 @@ public class JDBCOps {
         return areaShapes;
     }
 
+
+ */
 }

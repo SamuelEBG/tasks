@@ -1,5 +1,6 @@
 package pgr112.step13;
 
+import pgr112.step13.dto.CircleDao;
 import pgr112.step13.shapes.Circle;
 import pgr112.step13.shapes.MovablePoint;
 import pgr112.step13.shapes.Shape;
@@ -8,12 +9,13 @@ import pgr112.step13.shapes.Square;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class Program {
-    private final ArrayList<pgr112.step13.shapes.Shape> shapesArray;
+    private final ArrayList<Shape> shapesArray;
 
     public Program(){
         this.shapesArray = new ArrayList<>();
@@ -23,7 +25,7 @@ public class Program {
     public static ArrayList<String> fileReader(){
         ArrayList<String> files = new ArrayList<>();
         try{
-            String filePath = "tasks/src/main/java/pgr112/step13/shapes.txt"; //path to the file that is to be read
+            String filePath = "tasks/src/main/resources/step13/shapes.txt"; //path to the file that is to be read
             File file = new File(filePath); // create new file with that filePath
             Scanner scanner = new Scanner(file); //input the file into a scanner object
 
@@ -140,6 +142,7 @@ public class Program {
             }
         }
     }
+
     public MovablePoint dot(){
         Scanner dot = new Scanner(System.in);
         System.out.println("Enter the centers X coordinate");
@@ -210,49 +213,75 @@ public class Program {
         return new Color(r, g, b);
     }
 
+
+
     public void shapeMover(){
 
     }
 
+    Boolean running = true;
+
+    String menuChoices = """
+                1 - Print all shapes\s
+                2 - Area for all the shapes\s
+                3 - Add a shape\s
+                4 - Modify a shape\s
+                5 - Print all circles\s
+                6 - Print all rectangles\s
+                7 - Print all squares\s
+                8 - Remove a shape\s
+                404 - to exit the program.
+                """;
+
     public void run(){
-        menu();
+        // menu();
+        System.out.println(menuChoices);
         Scanner input = new Scanner(System.in);
-        String choice = "0";
-        while(!choice.equalsIgnoreCase("6")) {
+        String choice;
+        do{
             choice = input.nextLine();
             switch (choice) {
+                case "0" -> System.out.println(menuChoices);
                 case "1" -> {
                     System.out.println("Here are the shapes in the array");
                     System.out.println("-------------------------");
-                    for (pgr112.step13.shapes.Shape shape : shapesArray) {
+                    for (Shape shape : shapesArray) {
                         System.out.println(shape);
                     }
-                    menu();
                 }
                 case "2" -> {
-                    System.out.println("Area for all shapes is " + areaOfShapes());
-                    menu();
+                    for(int i = 0; i < shapesArray.size()-1; i++){
+                        if(shapesArray.get(i) instanceof Circle){
+                            System.out.println(shapesArray.get(i));
+                            CircleDao circleDao = new CircleDao();
+                            try{
+                                circleDao.save((Circle) shapesArray.get(i));
+                                System.out.println("added to db");
+                            } catch (SQLException error){
+                                error.printStackTrace();
+                            }
+                        }
+                    }
                 }
                 case "3" -> {
                     System.out.println("add shape section");
                     addShape();
-                    menu();
                 }
                 case "4" -> {
-                    System.out.println("Move a shape");
+                    System.out.println("Add shapes to database");
                     shapeMover();
-                    menu();
                 }
-                case "6" -> {
-                    System.out.println("Exiting program, ciao maricon");
-                    menu();
+
+                case "exit" -> {
+                    System.out.println("exiting program, au revoir faggot");
+                    running = false;
                 }
                 default -> {
                     System.out.println("That's not a valid input, try again!");
-                    menu();
+                    System.out.println("or type 0 for menu");
                 }
             }
-        }
+        } while(running);
     }
 
     public Integer areaOfShapes(){
@@ -263,7 +292,7 @@ public class Program {
             }
         return result;
     }
-
+    /*
     public void menu(){
         System.out.println("1 - Draw all the shapes");
         System.out.println("2 - Get information on the total area of all the Squares");
@@ -272,4 +301,6 @@ public class Program {
         System.out.println("5 - Export info about all shapes. (Including newly added ones)");
         System.out.println("6 - Exit");
     }
+
+     */
 }

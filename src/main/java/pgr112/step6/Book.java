@@ -25,7 +25,6 @@ public class Book {
         return String.format(
                 "Title: %s - Author: %s - Pages: %s - Genre: %s",
                 this.title, this.author, this.numberOfPages, this.genre);
-
     }
 
     public String getIsbn() {
