@@ -71,9 +71,8 @@ public class MovablePointDao extends ShapeDao<MovablePoint> {
             conn.setAutoCommit(false);
 
             PreparedStatement stmt = conn.prepareStatement(prepapredSelect);
-            // Look for movablepoints with id that is formatted to string in the
-            // setString variable.
-            stmt.setString(1, "%d".formatted(id));
+            // Look for movablepoints with id
+            stmt.setInt(1, id);
             // Execute the query.
             ResultSet resultSet = stmt.executeQuery();
             // If there is a movablePoint (resultSet has a next)
@@ -82,14 +81,13 @@ public class MovablePointDao extends ShapeDao<MovablePoint> {
             if(resultSet.next()){
                 return mapFromResultSet(resultSet);
             }
+            else return null;
             // Else we return null, so that we create a new movablePoint
             // when we return to the DAO that this method was called from first.
-            else return null;
 
         } catch (SQLException error){
             error.printStackTrace();
         }
-
         return null;
     }
 
@@ -99,7 +97,6 @@ public class MovablePointDao extends ShapeDao<MovablePoint> {
         MovablePoint mp = new MovablePoint();
         mp.setX(rs.getInt("x"));
         mp.setY(rs.getInt("y"));
-
         return mp;
     }
 }

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args){
-        var p1 = new Program();
-        p1.run();
-        JDBCOps operations = new JDBCOps();
+        var program = new Program();
+        program.run();
+        // JDBCOps operations = new JDBCOps();
 /*
         var c1 = new Circle(5, Color.RED, true, new MovablePoint(2.0, 2.0));
         var s1 = new Square(5, new Color(25, 25, 25), true, new MovablePoint(7.0, 2.0));

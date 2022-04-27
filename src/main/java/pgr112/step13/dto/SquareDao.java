@@ -84,7 +84,15 @@ public class SquareDao extends ShapeDao<Square> {
 
     @Override
     public void delete(int id) throws SQLException {
+        try(Connection conn = getConnection()){
+            Statement stmt = conn.createStatement();
 
+            String deleteSquare = "DELETE FROM Shapes.square WHERE id = " + id;
+            stmt.executeUpdate(deleteSquare, Statement.RETURN_GENERATED_KEYS);
+
+        } catch (SQLException error){
+            error.printStackTrace();
+        }
     }
 
     @Override

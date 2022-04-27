@@ -1,8 +1,11 @@
 package pgr112.step13;
 
 import pgr112.step13.dto.CircleDao;
+import pgr112.step13.dto.RectangleDao;
+import pgr112.step13.dto.SquareDao;
 import pgr112.step13.shapes.Circle;
 import pgr112.step13.shapes.MovablePoint;
+import pgr112.step13.shapes.Rectangle;
 import pgr112.step13.shapes.Shape;
 import pgr112.step13.shapes.Square;
 
@@ -14,32 +17,120 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
+import static pgr112.step13.ReadAndWriteToFile.readFromFileAndAddToArray;
+
 public class Program {
     private final ArrayList<Shape> shapesArray;
+    private final String filePath = "tasks/src/main/resources/step13/shapes.txt"; //path to the file that is to be read
+    private Boolean running = true;
 
     public Program(){
         this.shapesArray = new ArrayList<>();
-        addShapes();
+        readFromFileAndAddToArray(filePath, shapesArray);
+        addShapesToDb(shapesArray);
     }
 
-    public static ArrayList<String> fileReader(){
-        ArrayList<String> files = new ArrayList<>();
-        try{
-            String filePath = "tasks/src/main/resources/step13/shapes.txt"; //path to the file that is to be read
-            File file = new File(filePath); // create new file with that filePath
-            Scanner scanner = new Scanner(file); //input the file into a scanner object
+    public void addShapesToDb(ArrayList<Shape> shapes){
+        CircleDao circleToDb = new CircleDao();
+        SquareDao squareToDb = new SquareDao();
+        RectangleDao rectangleToDb = new RectangleDao();
 
-            while(scanner.hasNextLine()){
-                files.add(scanner.nextLine());
+        for(int i = 0; i < shapes.size()-1; i++){
+
+            if(shapes.get(i) instanceof Circle){
+                try{
+                    circleToDb.save((Circle)shapes.get(i));
+                } catch(SQLException error){
+                    error.printStackTrace();
+                }
             }
 
-        } catch (FileNotFoundException fnf){
-            System.out.println("File not found");
-            fnf.printStackTrace();
+            if(shapes.get(i) instanceof Square){
+                try{
+                    squareToDb.save((Square)shapes.get(i));
+                } catch (SQLException error){
+                    error.printStackTrace();
+                }
+            }
+
+            if(shapes.get(i) instanceof Rectangle){
+                try{
+                    rectangleToDb.save((Rectangle)shapes.get(i));
+                } catch(SQLException error){
+                    error.printStackTrace();
+                }
+            }
         }
-        return files;
     }
 
+    String menuChoices = """
+                1 - Print all shapes\s
+                2 - Area for all the shapes\s
+                3 - Add a shape\s
+                4 - Modify a shape\s
+                5 - Print all circles\s
+                6 - Print all rectangles\s
+                7 - Print all squares\s
+                8 - Remove a shape\s
+                404 - to exit the program.
+                """;
+
+    public void printAllShapesFromDb(){
+        ArrayList<Shape> result = new ArrayList<>();
+        CircleDao circles = new CircleDao();
+        RectangleDao rectangles = new RectangleDao();
+        SquareDao squares = new SquareDao();
+
+        try{
+            result.addAll(circles.listAll());
+            result.addAll(rectangles.listAll());
+            result.addAll(squares.listAll());
+            result.forEach(System.out :: println);
+        } catch (SQLException error){
+            error.printStackTrace();
+        }
+    }
+
+
+
+    public void run(){
+        // menu();
+        System.out.println(menuChoices);
+        Scanner input = new Scanner(System.in);
+        String choice;
+        do{
+            choice = input.nextLine();
+            switch (choice) {
+                case "0" -> System.out.println(menuChoices);
+                case "1" -> {
+                    System.out.println("Here are the shapes in the Database");
+                    System.out.println("-------------------------");
+                    printAllShapesFromDb();
+                }
+                case "2" -> {
+                    System.out.println("Add a shape");
+                }
+                case "3" -> {
+                    System.out.println("add shape section");
+                    addShape(input);
+                }
+                case "4" -> {
+                    System.out.println("Add shapes to database");
+                }
+
+                case "exit" -> {
+                    System.out.println("exiting program, au revoir faggot");
+                    running = false;
+                }
+                default -> {
+                    System.out.println("That's not a valid input, try again!");
+                    System.out.println("or type 0 for menu");
+                }
+            }
+        } while(running);
+    }
+
+    /*
     public void addShapes(){
         for(int i = 0; i < fileReader().size(); i++) {
             if(fileReader().get(i).equals("Square")){
@@ -85,8 +176,10 @@ public class Program {
         }
     }
 
-    public void addShape(){
-        Scanner input = new Scanner(System.in);
+     */
+
+
+    public void addShape(Scanner input){
         System.out.println("What kind of shape do you want to add?");
         String choice = input.nextLine().toLowerCase(Locale.ROOT);
         switch (choice){
@@ -213,85 +306,6 @@ public class Program {
         return new Color(r, g, b);
     }
 
-
-
-    public void shapeMover(){
-
-    }
-
-    Boolean running = true;
-
-    String menuChoices = """
-                1 - Print all shapes\s
-                2 - Area for all the shapes\s
-                3 - Add a shape\s
-                4 - Modify a shape\s
-                5 - Print all circles\s
-                6 - Print all rectangles\s
-                7 - Print all squares\s
-                8 - Remove a shape\s
-                404 - to exit the program.
-                """;
-
-    public void run(){
-        // menu();
-        System.out.println(menuChoices);
-        Scanner input = new Scanner(System.in);
-        String choice;
-        do{
-            choice = input.nextLine();
-            switch (choice) {
-                case "0" -> System.out.println(menuChoices);
-                case "1" -> {
-                    System.out.println("Here are the shapes in the array");
-                    System.out.println("-------------------------");
-                    for (Shape shape : shapesArray) {
-                        System.out.println(shape);
-                    }
-                }
-                case "2" -> {
-                    for(int i = 0; i < shapesArray.size()-1; i++){
-                        if(shapesArray.get(i) instanceof Circle){
-                            System.out.println(shapesArray.get(i));
-                            CircleDao circleDao = new CircleDao();
-                            try{
-                                circleDao.save((Circle) shapesArray.get(i));
-                                System.out.println("added to db");
-                            } catch (SQLException error){
-                                error.printStackTrace();
-                            }
-                        }
-                    }
-                }
-                case "3" -> {
-                    System.out.println("add shape section");
-                    addShape();
-                }
-                case "4" -> {
-                    System.out.println("Add shapes to database");
-                    shapeMover();
-                }
-
-                case "exit" -> {
-                    System.out.println("exiting program, au revoir faggot");
-                    running = false;
-                }
-                default -> {
-                    System.out.println("That's not a valid input, try again!");
-                    System.out.println("or type 0 for menu");
-                }
-            }
-        } while(running);
-    }
-
-    public Integer areaOfShapes(){
-        System.out.println("running shapes");
-        int result = 0;
-            for (Shape shape : shapesArray) {
-                result += shape.getArea();
-            }
-        return result;
-    }
     /*
     public void menu(){
         System.out.println("1 - Draw all the shapes");

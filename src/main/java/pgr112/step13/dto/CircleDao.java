@@ -124,7 +124,7 @@ public class CircleDao extends ShapeDao<Circle>{
     @Override
     public Circle mapFromResultSet(ResultSet rs) throws SQLException {
         int centerId = rs.getInt("center");
-        MovablePointDao mp = new MovablePointDao();
+        MovablePointDao mp = new MovablePointDao(this.properties);
         MovablePoint center = mp.retrieve(centerId);
 
         // We have to create a new object of circle first, since we cannot

@@ -33,9 +33,9 @@ public class RectangleDao extends ShapeDao<Rectangle>{
             stmt.setInt(2, rectangle.getColor().getGreen());
             stmt.setInt(3, rectangle.getColor().getBlue());
 
-            stmt.setBoolean(3, rectangle.isFilled());
-            stmt.setDouble(4, rectangle.getWidth());
-            stmt.setDouble(5, rectangle.getLength());
+            stmt.setBoolean(4, rectangle.isFilled());
+            stmt.setDouble(5, rectangle.getWidth());
+            stmt.setDouble(6, rectangle.getLength());
 
             MovablePoint topLeft;
             MovablePoint bottomRight;
@@ -55,8 +55,8 @@ public class RectangleDao extends ShapeDao<Rectangle>{
             }
             // Get id from both movablePoint, those will be foreign keys
             // to the movablePoints in the rectangle table.
-            stmt.setInt(6, rectangle.getTopLeft().getId());
-            stmt.setInt(7, rectangle.getBottomRight().getId());
+            stmt.setInt(7, rectangle.getTopLeft().getId());
+            stmt.setInt(8, rectangle.getBottomRight().getId());
 
             stmt.executeUpdate();
             conn.commit();
