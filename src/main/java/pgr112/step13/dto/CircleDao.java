@@ -4,10 +4,7 @@ import pgr112.step13.shapes.Circle;
 import pgr112.step13.shapes.MovablePoint;
 
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -73,13 +70,11 @@ public class CircleDao extends ShapeDao<Circle>{
     @Override
     public ArrayList<Circle> listAll() throws SQLException {
         ArrayList<Circle> result = new ArrayList<>();
-        String getListOfAllCirclesDb = "SELECT * FROM Shapes.circle";
-
         try(Connection conn = getConnection()){
-            conn.setAutoCommit(false);
-            PreparedStatement stmt = conn.prepareStatement(getListOfAllCirclesDb);
+            Statement stmt = conn.createStatement();
+            String getListOfAllCirclesDb = "SELECT * FROM Shapes.circle";
 
-            ResultSet resultSet = stmt.executeQuery();
+            ResultSet resultSet = stmt.executeQuery(getListOfAllCirclesDb);
             while(resultSet.next()){
                 result.add(mapFromResultSet(resultSet));
             }
@@ -106,7 +101,7 @@ public class CircleDao extends ShapeDao<Circle>{
     }
 
     public Circle retrieve(int id) throws SQLException {
-        String preparedSelect = "SELECT * FROM Shapes.movablepoints WHERE id = ?";
+        String preparedSelect = "SELECT * FROM Shapes.circle WHERE id = ?";
         try(Connection conn = getConnection()){
             PreparedStatement stmt = conn.prepareStatement(preparedSelect);
             stmt.setInt(1, id);
@@ -140,6 +135,6 @@ public class CircleDao extends ShapeDao<Circle>{
         circle.setFilled(rs.getBoolean("filled"));
         circle.setRadius(rs.getDouble("radius"));
         circle.setCenter(center);
-        return new Circle();
+        return circle;
     }
 }

@@ -27,7 +27,7 @@ public class Program {
     public Program(){
         this.shapesArray = new ArrayList<>();
         readFromFileAndAddToArray(filePath, shapesArray);
-        addShapesToDb(shapesArray);
+        // addShapesToDb(shapesArray);
     }
 
     public void addShapesToDb(ArrayList<Shape> shapes){
@@ -230,9 +230,7 @@ public class Program {
                         topLeft));
                 System.out.println("Here is your new Shape " + shapesArray.get(shapesArray.size()-1));
             }
-            default -> {
-                System.out.println("thats not a shape, try circle, rectangle or square");
-            }
+            default -> System.out.println("thats not a shape, try circle, rectangle or square");
         }
     }
 

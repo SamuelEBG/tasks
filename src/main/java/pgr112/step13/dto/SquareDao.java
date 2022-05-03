@@ -97,18 +97,17 @@ public class SquareDao extends ShapeDao<Square> {
 
     @Override
     public Square retrieve(int id) throws SQLException {
+        String getSquare = "SELECT * FROM Shapes.square WHERE id = " + id;
 
         try(Connection conn = getConnection()){
             Statement stmt = conn.createStatement();
 
-            String getSquare = "SELECT * FROM Shapes.square WHERE id = " + id;
             ResultSet resultSet = stmt.executeQuery(getSquare);
 
             return mapFromResultSet(resultSet);
         } catch(SQLException error){
             error.printStackTrace();
         }
-
         return null;
     }
 
@@ -130,6 +129,7 @@ public class SquareDao extends ShapeDao<Square> {
         square.setFilled(rs.getBoolean("filled"));
         square.setSide(rs.getDouble("sides"));
         square.setTopLeft(topLeft);
+        square.setBottomRight(bottomRight);
 
         return square;
     }

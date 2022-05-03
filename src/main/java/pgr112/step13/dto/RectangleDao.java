@@ -139,6 +139,7 @@ public class RectangleDao extends ShapeDao<Rectangle>{
         rectanal.setWidth(rs.getDouble("width"));
         rectanal.setLength(rs.getDouble("length"));
         rectanal.setTopLeft(topLeft);
+        rectanal.setBottomRight(bottomRight);
 
         return rectanal;
     }
