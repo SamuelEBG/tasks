@@ -1,30 +1,44 @@
 package pgr112.step13b;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Author {
 
     private int id;
     private String name;
-    private String surName;
-    private Date dateOfBirth;
+    private String surname;
+    private LocalDate dateOfBirth;
+    private String country;
 
     public Author(){
+        this.name = "";
+        this.surname = "";
+        this.dateOfBirth = LocalDate.EPOCH;
+        this.country = "";
     }
 
-    public Author(int id, String name, String surName, Date dateOfBirth){
-        this.id = id;
+    public Author(String name, String surname){
         this.name = name;
-        this.surName = surName;
-        this.dateOfBirth = dateOfBirth;
+        this.surname = surname;
+        this.dateOfBirth = LocalDate.EPOCH;
+        this.country = "";
     }
 
-    public int getId() {return id;}
+    public Author(String name, String surname, LocalDate dateOfBirth, String country){
+        this.name = name;
+        this.surname = surname;
+        this.dateOfBirth = dateOfBirth;
+        this.country = country;
+    }
+
+    public int getId() {return this.id;}
     public void setId(int id) {this.id = id;}
-    public String getName() {return name;}
+    public String getName() {return this.name;}
     public void setName(String name) {this.name = name;}
-    public String getSurName() {return surName;}
-    public void setSurName(String surName) {this.surName = surName;}
-    public Date getDateOfBirth() {return dateOfBirth;}
-    public void setDateOfBirth(Date dateOfBirth) {this.dateOfBirth = dateOfBirth;}
+    public String getSurname() {return this.surname;}
+    public void setSurname(String surname) {this.surname = surname;}
+    public LocalDate getDateOfBirth() {return this.dateOfBirth;}
+    public void setDateOfBirth(LocalDate dateOfBirth) {this.dateOfBirth = dateOfBirth;}
+    public String getCountry() {return this.country;}
+    public void setCountry(String country) {this.country = country;}
 }

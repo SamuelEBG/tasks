@@ -11,6 +11,7 @@ public class Chapter {
         this.chapterPages = pages;
         this.minutes = pages*3;
     }
+
     @Override
     public String toString(){
         return String.format(
@@ -21,9 +22,11 @@ public class Chapter {
     public String getChapterTitle() {return chapterTitle;}
     public void setChapterTitle(String chapterTitle) {this.chapterTitle = chapterTitle;}
     public int getChapterPages() {return chapterPages;}
-    public void setChapterPages(int chapterPages) {this.chapterPages = chapterPages;}
+    public void setChapterPages(int chapterPages) {
+        this.chapterPages = chapterPages;
+        this.minutes = chapterPages*3;
+    }
     public int getReadingTime() {return minutes;}
-    public void setMinutes(int minutes) {this.minutes = minutes;}
 
 }
 

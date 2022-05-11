@@ -60,5 +60,8 @@ public class Main {
         System.out.println(g);
         String str = "kitten";
         String res = "";
+        String hej = "a";
+        int test = hej.charAt(0);
+        System.out.println(test);
     }
 }

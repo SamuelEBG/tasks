@@ -22,7 +22,6 @@ class AllPathsGraphTest {
         graph.addEdge("3","5");
         graph.addEdge("4","5");
 
-
         List<List<String>> paths = graph.findAllPaths("X","5");
         assertEquals(4, paths.size());
         assertTrue(paths.stream().anyMatch(p -> p.size() == 4));

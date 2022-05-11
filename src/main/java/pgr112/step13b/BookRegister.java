@@ -1,13 +1,7 @@
 package pgr112.step13b;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class BookRegister {
@@ -18,29 +12,13 @@ public class BookRegister {
         this.books = new ArrayList<>();
     }
 
-    public int getNumberOfBooks() {
-        int numberOfBooks = 0;
-        for(Book ignored : books){
-            numberOfBooks++;
-        }
-        return numberOfBooks;
-    }
-
-    public void addBook(Book book){
-            books.add(book);
-    }
+    public void addBook(Book book){ books.add(book); }
 
     public ArrayList<Book> allRegisteredBooks(){
-        /*
-        ArrayList<Book> result = new ArrayList<>();
-        for(Book b : this.books){
-            result.add(b);
-        }
-         */
         return new ArrayList<>(this.books);
     }
 
-    public List<Book> booksInGenre(Genre genre){
+    public List<Book> allBooksByGenre(Genre genre){
 
         return books.stream()
                 .filter(book -> book.getGenre() != genre)
@@ -55,13 +33,13 @@ public class BookRegister {
         return result;
          */
     }
-
+    /*
     public List<Book> booksByAuthor(String author){
 
         return books.stream()
                 .filter(book -> book.getAuthor() != author)
                 .collect(Collectors.toList());
-        /*
+
         ArrayList<Book> result = new ArrayList<>();
         for(Book b : this.books){
             if(b.getAuthor().equalsIgnoreCase(author)) {
@@ -69,8 +47,10 @@ public class BookRegister {
             }
         }
         return result;
-         */
+
     }
+
+     */
 
     public void removeBook(Book book){
         // Use the list method .remove if book in parameter exists in books array.
@@ -89,5 +69,9 @@ public class BookRegister {
             }
         }
          */
+    }
+
+    public int getNumberOfBooks() {
+        return books.size();
     }
 }

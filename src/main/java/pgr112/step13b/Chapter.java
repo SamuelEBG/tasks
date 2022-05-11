@@ -2,13 +2,13 @@ package pgr112.step13b;
 
 public class Chapter {
 
-    private String chapterTitle;
-    private int chapterPages;
+    private String title;
+    private int pages;
     private int minutes;
 
     public Chapter(String title, int pages){
-        this.chapterTitle = title;
-        this.chapterPages = pages;
+        this.title = title;
+        this.pages = pages;
         this.minutes = pages*3;
     }
 
@@ -16,15 +16,16 @@ public class Chapter {
     public String toString(){
         return String.format(
                 "%s - Pages: %s - Reading time: %s minutes",
-                this.chapterTitle, this.chapterPages, this.minutes);
+                this.title, this.pages, this.minutes);
     }
 
-    public String getChapterTitle() {return chapterTitle;}
-    public void setChapterTitle(String chapterTitle) {this.chapterTitle = chapterTitle;}
-    public int getChapterPages() {return chapterPages;}
-    public void setChapterPages(int chapterPages) {this.chapterPages = chapterPages;}
+    public String getTitle() {return this.title;}
+    public void setTitle(String title) {this.title = title;}
+    public int getPages() {return this.pages;}
+    public void setPages(int pages) {
+        this.pages = pages;
+        this.minutes = (pages * 3);
+    }
     public int getReadingTime() {return minutes;}
-    public void setMinutes(int minutes) {this.minutes = minutes;}
-
 }
 

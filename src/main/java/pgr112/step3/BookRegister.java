@@ -5,54 +5,75 @@ import java.util.Scanner;
 
 public class BookRegister {
 
-    private ArrayList<Books> books;
-    //private ArrayList<BookSolution> books;
+    private final ArrayList<Books> books;
     private int numberOfBooks;
-
-    public void bookMenu(){
-        displayMenu();
-        BookRegister br = new BookRegister();
-        Scanner inputs = new Scanner(System.in);
-        Scanner userChoices = new Scanner(System.in);
-        int input = inputs.nextInt();
-
-        switch(input){
-            case 1:
-                br.allRegisteredBooks().stream().forEach(System.out::println);
-                System.out.println("Add a book here");
-                Books userBook = new Books();
-                System.out.println("Set an ISBN");
-                userBook.setIsbn(userChoices.next());
-                System.out.println("Choose a title");
-                userBook.setTitle(userChoices.next());
-                System.out.println("Choose an author");
-                userBook.setAuthor(userChoices.next());
-                System.out.println("Set a number of pages");
-                userBook.setNumberOfpages(userChoices.nextInt());
-                System.out.println("Set a genre, write with big letters");
-                userBook.setGenre(Genre.valueOf(userChoices.next()));
-                br.addBook(userBook);
-                System.out.println(br.books.get(0).toString());
-                break;
-        }
-    }
-
-    public void displayMenu(){
-
-        ArrayList<String> menu = new ArrayList<>();
-        menu.add("Add book");
-        menu.add("Print book");
-        menu.add("Exit Program");
-
-        for(int i = 0; i < menu.size(); i ++){
-            System.out.println("" + i + "->" + menu.get(i));
-        }
-    }
+    private boolean running = true;
 
     public BookRegister(){
         this.books = new ArrayList<>();
         this.numberOfBooks = 0;
     }
+
+    public void displayMenu(){
+        ArrayList<String> menu = new ArrayList<>();
+
+        menu.add("Print all books");
+        menu.add("Add book");
+        menu.add("Print books by genre");
+        menu.add("Print books by author");
+        menu.add("Print books by reading time");
+        menu.add("Exit Program");
+
+        for(int i = 0; i < menu.size(); i ++){
+            System.out.println("" + i + " - " + menu.get(i));
+        }
+    }
+
+    String menuChoices = """
+                1 - Print all shapes\s
+                2 - Add a book\s
+                3 - Print books by Genre\s
+                4 - Print books by Author\s
+                5 - Print books by reading time\s
+                6 - Remove book\s
+                0 - Show menu\s
+                exit - to exit the program.
+                """;
+
+    public void bookMenu(){
+        System.out.println(menuChoices);
+        Scanner scan = new Scanner(System.in);
+        String input;
+        do{
+            input = scan.nextLine();
+            switch(input){
+                case "0" -> System.out.println(menuChoices);
+                case "1" ->
+                    books.forEach(System.out::println);
+                case "2" -> {
+                    System.out.println("Add a book here");
+                    addBook(userAddFromScanner(scan));
+                }
+                case "exit" -> {
+                    running = false;
+                    System.out.println("Exiting program, au revoir.");
+                }
+                default -> System.out.println("That's not a valid input, press 0 to show menu or try again.");
+            }
+        } while(running);
+    }
+
+    public Books userAddFromScanner(Scanner scan){
+        String isbn = scan.nextLine();
+        String title = scan.nextLine();
+        String author = scan.next();
+        author += scan.nextLine();
+        int pages = Integer.parseInt(scan.nextLine());
+        Genre genre = Genre.valueOf(scan.nextLine());
+        return new Books(isbn, title, author, pages, genre);
+    }
+
+
 
     public int getNumberOfBooks() {
         return numberOfBooks;

@@ -3,6 +3,8 @@ package pgr112.step3new;
 import java.util.ArrayList;
 
 public class Book {
+
+    private String isbn;
     private String title;
     private String author;
     private int numberOfPages;
@@ -13,6 +15,15 @@ public class Book {
     public void addChapter(Chapter chapter){
         this.chapters.add(chapter);
     }
+
+    public ArrayList<Chapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(ArrayList<Chapter> chapters) {
+        this.chapters = chapters;
+    }
+
     public void allChapters(){
         System.out.println("Chapters for " + this.title);
         for(int i = 0; i < chapters.size();i++){
@@ -28,7 +39,8 @@ public class Book {
         return sum;
     }
 
-    public Book(String title, String author, int pages, Genre genre){
+    public Book(String isbn,String title, String author, int pages, Genre genre){
+        this.isbn = isbn;
         this.title = title;
         this.author = author;
         if(pages > 0){
