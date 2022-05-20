@@ -2,7 +2,7 @@ package pgr112.step6;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Locale;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Program {
@@ -18,6 +18,7 @@ public class Program {
         }catch (FileNotFoundException error){
             error.printStackTrace();
         }
+        menu();
     }
 
     private void readFromFile() throws FileNotFoundException {
@@ -39,7 +40,7 @@ public class Program {
 
     Boolean running = true;
 
-    public void addNewBook(Scanner input){
+    public void addBookFromScanner(Scanner input){
         System.out.println("Enter the ISBN for the new book");
         String isbn = input.nextLine();
         System.out.println("Enter a title");
@@ -56,16 +57,21 @@ public class Program {
         register.addBook( new Book(isbn, title, author, numberOfPages, genre));
     }
 
+    public void editBookFromScanner(Scanner scan){
+        String isbn = scan.nextLine();
+
+    }
+
     public void menu(){
         Scanner input = new Scanner(System.in);
         String menuChoices = """
                 1 - Show all books in the book register\s
                 2 - Add a book\s
                 3 - Modify a book\s
-                4 - hello\s
-                5 - lol\s
-                6 - anus\s
-                404 - to exit the program.
+                4 - Find a book based on author\s
+                5 - Find a book based on genre\s
+                6 - Find a book based on ISBN\s
+                exit - to exit the program.
                 """;
         String choice;
 
@@ -80,9 +86,33 @@ public class Program {
                             "Here are all the " + register.getSize() + " books in the register.");
                     System.out.println("press 0 to show menu again");
                 }
-                case "2" -> {
-                    addNewBook(input);
+                case "2" -> addBookFromScanner(input);
+
+                case "3" -> {
+                    System.out.println("Which book do you want to edit? Specify by ISBN");
+                    editBookFromScanner(input);
                 }
+
+                case "4" -> {
+                    System.out.println("Enter an authors name to find their books");
+                    ArrayList<Book> res = (register.findBooksByAuthor(input.nextLine()));
+                    if(res.isEmpty()){
+                        System.out.println("No books by that author");
+                    } else{
+                        System.out.println(res);
+                    }
+                }
+
+                case "5" -> {
+                    System.out.println("Enter a specific genre and find all books by that genre");
+                    register.findBooksByGenre(input.nextLine());
+                }
+
+                case "6" -> {
+                    System.out.println("Enter the ISBN of the book you want to show");
+                    System.out.println(register.findBooksByIsbn(input.nextLine()));
+                }
+
                 case "404" -> {
                     System.out.println("Exiting program and writing books to file");
                     running = false;

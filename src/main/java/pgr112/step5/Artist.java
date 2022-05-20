@@ -35,7 +35,7 @@ public class Artist {
         System.out.println("---");
     }
 
-    private final String path = "src/main/java/pgr112/step5/opg7.txt";
+    private final String path = "src/main/java/pgr112/step5/artists.txt";
 
     public void scanArtists () throws FileNotFoundException {
         System.out.println("Scanning starting" + "\n");

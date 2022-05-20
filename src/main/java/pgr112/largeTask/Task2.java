@@ -104,7 +104,7 @@ public class Task2 {
     public static String adjectivArray() {
         String rndStr = "";
         try {
-            String adjectives = "src/main/java/pgr112/largeTask/adjectiv.txt";
+            String adjectives = "src/main/java/pgr112/largeTask/adjectives.txt";
             File file = new File(adjectives);
             ArrayList<String> adjectivesArray = new ArrayList<>();
             Scanner scanner = new Scanner(file);

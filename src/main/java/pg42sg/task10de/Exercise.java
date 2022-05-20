@@ -7,6 +7,6 @@ public class Exercise {
     }
 
     public String ExerciseBogdanQuestion(){
-        return "@Bogdan: ";
+        return "@Bogdan: .*(()*((A|a)lgdat)|((A|a)lgorithms)|((A|a)lgorithm)|((P|p)g4200))+.*?";
     }
 }

@@ -31,6 +31,14 @@ public class Author {
         this.country = country;
     }
 
+    @Override
+    public String toString(){
+        return String.format(
+            "Name: %s %s - Date of birth: %s - Country of origin: %s",
+            this.name, this.surname, this.dateOfBirth, this.country
+        );
+    }
+
     public int getId() {return this.id;}
     public void setId(int id) {this.id = id;}
     public String getName() {return this.name;}

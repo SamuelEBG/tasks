@@ -2,15 +2,29 @@ package pgr112.step13b.dto;
 
 import pgr112.step13b.Chapter;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ChapterDao extends BookRegisterDao<Chapter>{
+public class ChapterDao extends BookAbstractDao<Chapter> {
+
+    public ChapterDao(){
+        super();
+    }
 
     @Override
-    public void save(Chapter chapter) throws SQLException {
+    public void create(Chapter chapter) throws SQLException {
+        //language=MySQL
+        String preparedSave = "INSERT INTO chapters(isbn, chapterNumber, title, pages, readingTime)" +
+                "VALUES(?, ?, ?, ?, ?)";
+        try(Connection conn = getConnection()){
 
+
+
+        } catch (SQLException error){
+            error.printStackTrace();
+        }
     }
 
     @Override
@@ -18,7 +32,6 @@ public class ChapterDao extends BookRegisterDao<Chapter>{
 
     }
 
-    @Override
     public Chapter retrieve(int id) throws SQLException {
         return null;
     }

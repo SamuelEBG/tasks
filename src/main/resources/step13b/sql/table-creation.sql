@@ -1,27 +1,29 @@
 USE books;
 
+SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS books;
-
-CREATE TABLE books(
-    id INT NOT NULL AUTO_INCREMENT,
-    isbn char(5),
-    title varChar(100),
-    author varChar(100),
-    chapters int,
-    genre char(20),
-    PRIMARY KEY (id),
-    CONSTRAINT fk_author
-        FOREIGN KEY (author)
-        REFERENCES author (id)
-);
+DROP TABLE IF EXISTS author;
+DROP TABLE IF EXISTS chapters;
 
 CREATE TABLE author(
     id INT NOT NULL AUTO_INCREMENT,
     name varChar(30),
     surname varChar(40),
     dateOfBirth date,
-    birthplace varChar(50),
+    country varChar(50),
     PRIMARY KEY (id)
+);
+
+CREATE TABLE books(
+    isbn char(5) UNIQUE,
+    title varChar(100),
+    author INT,
+    pages int,
+    genre char(20),
+    PRIMARY KEY (isbn),
+    CONSTRAINT fk_author
+        FOREIGN KEY (author)
+        REFERENCES author (id)
 );
 
 CREATE TABLE chapters(
@@ -31,7 +33,10 @@ CREATE TABLE chapters(
     pages smallint,
     readingTime int,
     PRIMARY KEY (isbn, chapterNumber),
-    CONSTRAINT fk_isbn
+    CONSTRAINT fk_isbn_chnr
         FOREIGN KEY (isbn)
         REFERENCES books (isbn)
 );
+
+
+
