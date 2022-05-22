@@ -8,13 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MyArrayListResizableTest extends MyListTestTemplate {
 
-    @Test
-    void add() {
-
-    }
-
     @Override
     protected <T> MyList<T> getNewInstance(Class<T> klass) {
-        return new MyArrayListResizable<>(1);
+        return new MyArrayListResizable<>();
     }
 }

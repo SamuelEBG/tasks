@@ -221,15 +221,17 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
                     tempNode = tempNode.previous;
                     counter--;
                 }
-                tempNode = tempNode.previous;
-                tempNode.next.next = tempNode.next;
+                // tempNode = tempNode.previous;
+                tempNode.previous.next = tempNode.next;
+                // tempNode.next.next = tempNode.next;
+                tempNode.next.previous = tempNode.previous;
                 moveMiddlePrevious();
             } else{
                 while(counter != index-1){
                     tempNode = tempNode.next;
                     counter++;
                 }
-                tempNode.next.next.previous = tempNode;
+                tempNode.next.previous = tempNode;
                 tempNode.next = tempNode.next.next;
                 moveMiddlePrevious();
             }
@@ -253,8 +255,7 @@ public class MyMiddleBidirectionalLinkedList<T> implements MyList<T> {
     }
 
     public int middleTracker(){
-        int middleInt = (int) Math.ceil((size * 0.50)-1);
-        return middleInt;
+        return (int) Math.ceil((size * 0.50)-1);
     }
 
     @Override

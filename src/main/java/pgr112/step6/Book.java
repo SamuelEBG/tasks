@@ -56,7 +56,11 @@ public class Book {
     }
 
     public void setNumberOfPages(int numberOfPages) {
-        this.numberOfPages = numberOfPages;
+        if(numberOfPages < 1){
+            this.numberOfPages = 2;
+        } else{
+            this.numberOfPages = numberOfPages;
+        }
     }
 
     public Genre getGenre(){

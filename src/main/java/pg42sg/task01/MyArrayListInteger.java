@@ -16,18 +16,20 @@ public class MyArrayListInteger{
     }
 
     public Integer get(int index){
+
         if(index < 0 || index >= size){
             System.out.println("Index out of bounds"); // sout for whenever index is out of bounds, eg <-1 or >10
             return null; // returns null for some fucking reason
         }
         return data[index]; //else it returns whatever integer is at that index e.g .get(5)
     }
+
     public void add(Integer value){
         data[size] = value;
         size++;
     }
+
     public int size(){
         return size;
     }
-
 }

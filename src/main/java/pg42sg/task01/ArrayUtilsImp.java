@@ -9,26 +9,23 @@ public class ArrayUtilsImp implements ArrayUtils{
 
     // methods for int max and means are implemented from
     // parent class. checks if array is empty
-    // streams through array gets lowest value as int, returns that int.
+    // streams through array gets the lowest value as int, returns that int.
     @Override
     public int min(int[] array) throws IllegalArgumentException {
         checkArray(array);
-        int asInt = Arrays.stream(array).min().getAsInt();
-        return asInt;
+        return Arrays.stream(array).min().getAsInt();
     }
 
     @Override
     public int max(int[] array) throws IllegalArgumentException {
         checkArray(array);
-        int asInt = Arrays.stream(array).max().getAsInt();
-        return asInt;
+        return Arrays.stream(array).max().getAsInt();
     }
 
     @Override
     public double mean(int[] array) throws IllegalArgumentException {
         checkArray(array);
-        double mean = Arrays.stream(array).average().getAsDouble();
-        return mean;
+        return Arrays.stream(array).average().getAsDouble();
     }
 
     private void checkArray(int[] array){

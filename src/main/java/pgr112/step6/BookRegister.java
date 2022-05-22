@@ -16,8 +16,8 @@ public class BookRegister {
         books.add(book);
     }
 
-    public void allRegisteredBooks(){
-        books.forEach(System.out::println);
+    public ArrayList<Book> allRegisteredBooks(){
+        return books;
     }
 
     public ArrayList<Book> findBooksByAuthor(String author){
@@ -26,14 +26,13 @@ public class BookRegister {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public void findBooksByGenre(String genre){
-        if(EnumUtils.isValidEnum(Genre.class, genre)){
-            books.stream()
+    public ArrayList<Book> findBooksByGenre(String genre){
+        if(!EnumUtils.isValidEnum(Genre.class, genre)){
+            return null;
+        } else {
+            return books.stream()
                     .filter(b -> b.getGenre().equals(Genre.valueOf(genre)))
-                    .collect(Collectors.toCollection(ArrayList::new))
-                    .forEach(System.out::println);
-        } else{
-            System.out.println("No books with that genre");
+                    .collect(Collectors.toCollection(ArrayList::new));
         }
     }
 

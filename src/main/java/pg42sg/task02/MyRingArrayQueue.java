@@ -8,7 +8,7 @@ public class MyRingArrayQueue<T> implements MyQueue<T> {
 
     private int head = -1;
     private int tail = -1;
-    // First constructor with a int parameter for deciding capacity,
+    // First constructor with an int parameter for deciding capacity.
     public MyRingArrayQueue(int capacity) {
         this.data = new Object[capacity]; // Initializes the array with a fixed size.
     }

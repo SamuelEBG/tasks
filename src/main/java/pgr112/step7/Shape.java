@@ -3,7 +3,8 @@ package pgr112.step7;
 import java.awt.Color;
 
 public abstract class Shape {
-    private int id;
+
+    private final int id;
     private Color color;  // variable that is protected within class, but
     private boolean filled; // can still be accessed outside of class.
 
