@@ -15,7 +15,7 @@ public class OptimizedBubbleSort {
         boolean swapped = true; // Use a boolean to activate the while-loop.
             // While the boolean is set to true we will iterate through the array.
         while(swapped){
-                // If we dont enter the comparator if-statement, this false will exit the loop.
+                // If we don't enter the comparator if-statement, this false will exit the loop.
             swapped = false;
             if(!optimized){ // If user has decided to not use the optimized version, we go into this regular version.
                 for(int i = 0; i < array.length - 1; i++){

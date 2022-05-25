@@ -40,22 +40,21 @@ public class ReadAndWriteToFile {
         } catch(FileNotFoundException error){
             error.printStackTrace();
         }
-
     }
 
     public static Square addSquareFromScanner(Scanner scan){
         return new Square(
-                Double.parseDouble(scan.nextLine()),
-                new Color(
-                        Integer.parseInt(scan.nextLine()),
-                        Integer.parseInt(scan.nextLine()),
-                        Integer.parseInt(scan.nextLine())
-                ),
-                Boolean.parseBoolean(scan.nextLine()),
-                new MovablePoint(
-                        Double.parseDouble(scan.nextLine()),
-                        Double.parseDouble(scan.nextLine())
-                )
+            Double.parseDouble(scan.nextLine()),
+            new Color(
+                    Integer.parseInt(scan.nextLine()),
+                    Integer.parseInt(scan.nextLine()),
+                    Integer.parseInt(scan.nextLine())
+            ),
+            Boolean.parseBoolean(scan.nextLine()),
+            new MovablePoint(
+                    Double.parseDouble(scan.nextLine()),
+                    Double.parseDouble(scan.nextLine())
+            )
         );
     }
 
@@ -98,5 +97,4 @@ public class ReadAndWriteToFile {
 
         return circle;
     }
-
 }

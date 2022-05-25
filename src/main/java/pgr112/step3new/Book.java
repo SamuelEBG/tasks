@@ -17,7 +17,7 @@ public class Book {
     }
 
     public ArrayList<Chapter> getChapters() {
-        return chapters;
+        return this.chapters;
     }
 
     public void setChapters(ArrayList<Chapter> chapters) {
@@ -62,6 +62,11 @@ public class Book {
     public void setTitle(String title) {this.title = title;}
     public String getAuthor() {return author;}
     public void setAuthor(String author) {this.author = author;}
-    public int getNumberOfPages() {return numberOfPages;}
+    public int getNumberOfPages() {
+        if(chapters.isEmpty()) return this.numberOfPages;
+        return chapters.stream()
+                .mapToInt(Chapter::getChapterPages)
+                .sum();
+    }
     public void setNumberOfPages(int numberOfPages) {this.numberOfPages = numberOfPages;}
 }

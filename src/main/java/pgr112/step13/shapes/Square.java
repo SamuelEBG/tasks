@@ -4,9 +4,7 @@ import java.awt.*;
 
 public class Square extends Rectangle {
 
-    public Square(){
-        super();
-    }
+    public Square() { super(); }
 
     // When users enters values in constructor, it sends the parameters to the parent class.
     public Square(double side, Color color, boolean filled, MovablePoint topLeft){
@@ -24,31 +22,23 @@ public class Square extends Rectangle {
     }
 
     @Override
-    public double getArea(){return super.getLength() * super.getWidth();}
+    public double getArea() { return (super.getLength() * super.getWidth()); }
     public double getPerimeter(){
-        return (super.getWidth() + super.getLength()) * 2;
+        return ((super.getWidth() + super.getLength()) * 2);
     }
 
     @Override
     public String toString(){
-        return String.format("A square with sides %s coordinates top left %s, and bottom right %s that is a subclass of rectangle with color %s and is filled: %s ",
+        return String.format(
+                "A square with sides %s " +
+                "coordinates top left %s, " +
+                "and bottom right %s " +
+                "that is a subclass of rectangle with color %s " +
+                "and is filled: %s ",
                 super.getWidth(),
                 super.getTopLeft(),
                 super.getBottomRight(),
                 super.getColor(),
                 super.isFilled());
     }
-
-    /*
-    @Override
-    public String toString(){
-        return "This is a square with id: " + this.getId() +
-                " color: " + this.getColor() +
-                " Is it filled: " + this.isFilled() +
-                " Width: " + super.getWidth() +
-                " Length: " + super.getLength() +
-                " Area: " + this.getArea() +
-                " Perimeter: " + this.getPerimeter();
-    }
-    */
 }

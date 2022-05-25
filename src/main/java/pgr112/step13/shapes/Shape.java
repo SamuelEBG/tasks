@@ -3,6 +3,7 @@ package pgr112.step13.shapes;
 import java.awt.*;
 
 public abstract class Shape implements Movable {
+
     private int id;
     private Color color;  // variable that is protected within class, but
     private boolean filled; // can still be accessed outside of class.
@@ -30,16 +31,8 @@ public abstract class Shape implements Movable {
 
     public String toString(){
         if(this.isFilled()){
-            return String.format(
-                    " shape that is filled and has the color " + this.getColor());
+            return " filled shape with the color " + this.getColor();
         }
-        return String.format( " shape that is not filled and has the color " + this.getColor());
-
+        return " empty shape with the color " + this.getColor();
     }
-
-    /*
-    public String toString(){
-        return "Shape. " + this.id + " Color: " + this.color + ", filled " + this.filled + "\n";
-    }
-     */
 }

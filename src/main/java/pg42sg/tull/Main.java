@@ -1,6 +1,8 @@
 package pg42sg.tull;
 
 public class Main {
+
+
     static long fact(int n){ // Enter a integer
         /*
             The algorithm is n! = { n*(n-1)! if n >= 1
@@ -63,5 +65,29 @@ public class Main {
         String hej = "a";
         int test = hej.charAt(0);
         System.out.println(test);
+        System.out.println("-----------------");
+        testingT t1 = new testingT();
+        t1.testThis();
+    }
+
+}
+
+class Course{
+    public String courseName;
+    public String courseId;
+}
+
+class testingT{
+
+    public void testThis(){
+        Course c1 = testC();
+        System.out.println(c1.courseId);
+    }
+
+    public Course testC(){
+        Course course = new Course();
+        course.courseId = "bla";
+        course.courseName = "hooker";
+        return course;
     }
 }

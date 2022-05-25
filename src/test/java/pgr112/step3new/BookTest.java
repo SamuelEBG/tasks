@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BookTest {
 
     BookStorage br;
+    private Book testBook;
 
     @BeforeEach
     void setup(){
@@ -32,7 +33,7 @@ public class BookTest {
 
     @Test
     void addChaptersToABook(){
-        Book testBook = new Book("12345", "test book with chapters", "chapter author", 543, Genre.FANTASY);
+        testBook = new Book("12345", "test book with chapters", "chapter author", 543, Genre.FANTASY);
         Chapter c1 = new Chapter("intro", 20);
         Chapter c2 = new Chapter("middle stuff", 59);
         Chapter c3 = new Chapter("unexpected turnaround", 47);
@@ -47,8 +48,32 @@ public class BookTest {
     }
 
     @Test
+    void testEditChaptersInBook(){
+
+        testBook = new Book("12345", "test book with chapters", "chapter author", 543, Genre.FANTASY);
+        ArrayList<Chapter> chapters = new ArrayList<>();
+
+        Chapter c1 = new Chapter("intro", 20);
+        Chapter c2 = new Chapter("middle stuff", 59);
+        Chapter c3 = new Chapter("unexpected turnaround", 47);
+        Chapter c4 = new Chapter("exciting ending", 80);
+
+        chapters.add(c1);
+        chapters.add(c2);
+        chapters.add(c3);
+        chapters.add(c4);
+
+        testBook.addChapter(c1);
+        assertEquals(1, testBook.getChapters().size());
+
+        testBook.setChapters(chapters);
+        assertEquals(4, testBook.getChapters().size());
+
+    }
+
+    @Test
     void removeChapterInBook(){
-        Book testBook = new Book("12345", "test book with chapters", "chapter author", 543, Genre.FANTASY);
+        testBook = new Book("12345", "test book with chapters", "chapter author", 543, Genre.FANTASY);
         Chapter c1 = new Chapter("intro", 20);
         Chapter c2 = new Chapter("middle stuff", 59);
         Chapter c3 = new Chapter("unexpected turnaround", 47);
@@ -74,7 +99,7 @@ public class BookTest {
 
     @Test
     void updateInfoInChapters(){
-        Book testBook = new Book("12345", "test book with chapters", "chapter author", 543, Genre.FANTASY);
+        testBook = new Book("12345", "test book with chapters", "chapter author", 543, Genre.FANTASY);
         Chapter c1 = new Chapter("intro", 20);
         Chapter c2 = new Chapter("middle stuff", 59);
         Chapter c3 = new Chapter("unexpected turnaround", 47);
@@ -99,8 +124,29 @@ public class BookTest {
     }
 
     @Test
+    void testGetBooksWithReadingTimeLessThan(){
+
+        int readingTimeMinutes = 400;
+
+        ArrayList<Book> res = br.booksWithReadingTimeLessThan(readingTimeMinutes);
+
+        assertTrue(res.get(0).readingTime() < 400);
+        assertTrue(res.get(res.size()-1).readingTime() < 400);
+
+        Chapter ch = new Chapter("Very long chapter", 5000);
+
+        int ac = res.get(0).getChapters().size();
+
+        res.get(0).addChapter(ch);
+
+        assertNotEquals(ac, ac+1);
+
+        assertFalse(res.get(0).readingTime() < 400);
+    }
+
+    @Test
     void updateReadingTimeInBook(){
-        Book testBook = new Book("12345", "test book with chapters", "chapter author", 543, Genre.FANTASY);
+        testBook = new Book("12345", "test book with chapters", "chapter author", 543, Genre.FANTASY);
         Chapter c1 = new Chapter("intro", 20);
         Chapter c2 = new Chapter("middle stuff", 59);
         Chapter c3 = new Chapter("unexpected turnaround", 47);
@@ -124,7 +170,7 @@ public class BookTest {
     void createArrayWithBooksByGenre(){
         // BookStorage br = initializeBookStorage();
 
-        Book testBook = new Book("73625","stupid title", "dumb ass author", 723, Genre.CRIME);
+        testBook = new Book("73625","stupid title", "dumb ass author", 723, Genre.CRIME);
         ArrayList<Book> crimeBooks = br.booksByGenre(testBook.getGenre());
 
         assertEquals(crimeBooks.get(0).getGenre(), Genre.CRIME);
@@ -136,7 +182,7 @@ public class BookTest {
 
     @Test
     void createArrayWithBooksByAuthor(){
-        Book testBook = new Book("81726","im a book", "J.R.R Tolkien", 723, Genre.CRIME);
+        testBook = new Book("81726","im a book", "J.R.R Tolkien", 723, Genre.CRIME);
         ArrayList<Book> booksByTolkien = br.booksByAuthor(testBook.getAuthor());
 
         String author = "J.R.R Tolkien";
@@ -161,7 +207,7 @@ public class BookTest {
 
     @Test
     public void changePagesInBook(){
-        Book testBook = new Book("74635","stupid title", "dumb ass author", 723, Genre.FICTION);
+        testBook = new Book("74635","stupid title", "dumb ass author", 723, Genre.FICTION);
 
         assertEquals(723, testBook.getNumberOfPages());
 
@@ -171,8 +217,8 @@ public class BookTest {
     }
 
     @Test
-    public void changeAuthorInBook(){
-        Book testBook = new Book("12763","50 shades of grey", "J.R.R Tolkien", 723, Genre.FICTION);
+    void changeAuthorInBook(){
+        testBook = new Book("12763","50 shades of grey", "J.R.R Tolkien", 723, Genre.FICTION);
 
         assertEquals("J.R.R Tolkien", testBook.getAuthor());
 
@@ -182,8 +228,17 @@ public class BookTest {
     }
 
     @Test
+    void testChangeTitleInBook(){
+        testBook = new Book("12763","50 shades of grey", "J.R.R Tolkien", 723, Genre.FICTION);
+        String title = "40 shades of white";
+        testBook.setTitle("40 shades of white");
+
+        assertEquals(title, testBook.getTitle());
+    }
+
+    @Test
     void changeGenreInBook(){
-        Book testBook = new Book("99873","50 shades of grey", "J.R.R Tolkien", 723, Genre.FICTION);
+        testBook = new Book("99873","50 shades of grey", "J.R.R Tolkien", 723, Genre.FICTION);
 
         assertEquals(Genre.FICTION, testBook.getGenre());
 
@@ -193,7 +248,33 @@ public class BookTest {
     }
 
     @Test
-    public void amountOfBooksInStorage(){
+    void testNumberOfPagesInBook(){
+        testBook = new Book("77334","Annas kockbok", "Koks Anna", 930, Genre.COOKBOOK);
+        assertEquals(930, testBook.getNumberOfPages());
+        var ch1 = new Chapter("Intro", 50);
+        var ch2 = new Chapter("Pre cum", 20);
+        var ch3 = new Chapter("Halfway done", 59);
+        var ch4 = new Chapter("Almost There", 87);
+        var ch5 = new Chapter("Moneys on the table", 12);
+        var ch6 = new Chapter("can I get your number before you leave?", 1);
+        testBook.addChapter(ch1);
+
+        assertEquals(50, testBook.getNumberOfPages());
+
+        ArrayList<Chapter> restOfChapters = new ArrayList<>();
+        restOfChapters.add(ch2);
+        restOfChapters.add(ch3);
+        restOfChapters.add(ch4);
+        restOfChapters.add(ch5);
+        restOfChapters.add(ch6);
+        testBook.setChapters(restOfChapters);
+        int pages = restOfChapters.stream().mapToInt(Chapter::getChapterPages).sum();
+
+        assertEquals(pages, testBook.getNumberOfPages());
+    }
+
+    @Test
+    void amountOfBooksInStorage(){
 
         ArrayList<Book> tempArray = br.allBooksInStorage();
 

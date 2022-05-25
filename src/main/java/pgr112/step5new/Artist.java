@@ -42,7 +42,7 @@ public class Artist {
     }
 
     public String getArtistName() {
-        return artistName;
+        return this.artistName;
     }
 
     public void setArtistName(String artistName) {
@@ -50,7 +50,7 @@ public class Artist {
     }
 
     public LocalDate getDateOfBirth() {
-        return dateOfBirth;
+        return this.dateOfBirth;
     }
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
@@ -58,7 +58,7 @@ public class Artist {
     }
 
     public String getCity() {
-        return city;
+        return this.city;
     }
 
     public void setCity(String city) {
@@ -66,7 +66,7 @@ public class Artist {
     }
 
     public String getCountry() {
-        return country;
+        return this.country;
     }
 
     public void setCountry(String country) {
@@ -74,7 +74,7 @@ public class Artist {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(String id) {

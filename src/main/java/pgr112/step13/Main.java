@@ -1,5 +1,10 @@
 package pgr112.step13;
 
+import pgr112.step13.shapes.Circle;
+import pgr112.step13.shapes.Rectangle;
+import pgr112.step13.shapes.Shape;
+import pgr112.step13.shapes.Square;
+
 import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -7,7 +12,9 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args){
         var program = new Program();
-        program.run();
+       // program.run();
+
+
         // JDBCOps operations = new JDBCOps();
 /*
         var c1 = new Circle(5, Color.RED, true, new MovablePoint(2.0, 2.0));

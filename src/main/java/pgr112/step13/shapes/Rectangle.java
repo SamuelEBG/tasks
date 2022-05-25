@@ -54,19 +54,14 @@ public class Rectangle extends Shape {
     //String concatenation with String.format
     @Override
     public String toString(){
-        return String.format("A rectangle with width %s and length %s, coordinates are top left %s, bottom right %s and is a subclass of%s",
+        return String.format(
+                "A rectangle with width %s " +
+                "and length %s, " +
+                "coordinates are top left %s, " +
+                "bottom right %s " +
+                "and is a subclass of%s",
                 width, length, topLeft, bottomRight, super.toString());
     }
-    /*
-    @Override
-    public String toString(){
-        return "A rectangle with color" + this.getColor() +
-                " Width: " + this.width +
-                " Length: " + this.length +
-                " top left corner: " + this.topLeft +
-                " bottom right: " + this.bottomRight;
-    }
-     */
 
     @Override
     public void moveUp(double distance) {

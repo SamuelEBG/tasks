@@ -150,7 +150,7 @@ public class Program {
                 case "3" -> {
                     System.out.println("Add artist");
                     artists.add(addArtistFromScanner(input));
-                    System.out.println(artists.get(artists.size()-1) + "\nWas added to the database");
+                    System.out.printf("%s\nWas added to the database%n", artists.get(artists.size() - 1));
                 }
 
                 case "4" -> {

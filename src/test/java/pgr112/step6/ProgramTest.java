@@ -28,6 +28,11 @@ class ProgramTest {
     }
 
     @Test
+    void testReadingTime(){
+
+    }
+
+    @Test
     void createArrayWithBooksByGenre(){
         // BookStorage br = initializeBookStorage();
 
@@ -146,8 +151,6 @@ class ProgramTest {
         testBook.setAuthor(" ");
 
         assertEquals(" ", testBook.getAuthor());
-
-
     }
 
     @Test
