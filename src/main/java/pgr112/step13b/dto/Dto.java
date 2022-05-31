@@ -9,11 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-public abstract class BookAbstractDao<T> {
+public abstract class Dto<T> {
 
     protected Properties properties;
 
-    public BookAbstractDao(){
+    public Dto(){
         this.properties = new Properties();
         try(FileReader reader = new FileReader("tasks/src/main/resources/step13b/pgr112step13b.properties")){
             properties.load(reader);
@@ -30,7 +30,6 @@ public abstract class BookAbstractDao<T> {
     public abstract void create(T t) throws SQLException;
     public abstract void delete(int id) throws SQLException;
     public abstract T mapFromResultSet(ResultSet rs) throws SQLException;
-    public abstract ArrayList<T> listAll() throws SQLException;
 
     public Connection getConnection() throws SQLException{
         return DriverManager.getConnection(

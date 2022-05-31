@@ -6,7 +6,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class AuthorDao extends BookAbstractDao<Author> {
+public class AuthorDao extends Dto<Author> {
 
     public AuthorDao(){
         super();
@@ -127,7 +127,6 @@ public class AuthorDao extends BookAbstractDao<Author> {
          */
     }
 
-    @Override
     public ArrayList<Author> listAll() throws SQLException {
         ArrayList<Author> result = new ArrayList<>();
         String psListAll = "SELECT * FROM author";

@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ChapterDao extends BookAbstractDao<Chapter> {
+public class ChapterDao extends Dto<Chapter> {
 
     public ChapterDao(){
         super();
@@ -38,11 +38,6 @@ public class ChapterDao extends BookAbstractDao<Chapter> {
 
     @Override
     public Chapter mapFromResultSet(ResultSet rs) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Chapter> listAll() throws SQLException {
         return null;
     }
 }

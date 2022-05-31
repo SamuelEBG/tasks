@@ -32,8 +32,8 @@ public class Rectangle extends Shape {
         this.length = length;
         this.topLeft = topLeft;
         this.bottomRight = new MovablePoint(topLeft.getX()+width, topLeft.getY()-length ); //get coordinates from topLeft
-        if(topLeft.getX()>bottomRight.getX()||                                                  //add width to X value, and length to Y value
-                topLeft.getY()< bottomRight.getY()){                                            //to get matching bottom right coordinates.
+        if(topLeft.getX() > bottomRight.getX()||                                                  //add width to X value, and length to Y value
+                topLeft.getY() < bottomRight.getY()){                                            //to get matching bottom right coordinates.
             throw new IllegalArgumentException(
                 String.format("Invalid positioning of rectangle: topLeft:%s, BottomRight:%s",
                         topLeft, bottomRight));

@@ -7,7 +7,7 @@ import pgr112.step13b.Genre;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class BookDao extends BookAbstractDao<Book> {
+public class BookDao extends Dto<Book> {
 
     public BookDao(){
         super();
@@ -75,7 +75,6 @@ public class BookDao extends BookAbstractDao<Book> {
         );
     }
 
-    @Override
     public ArrayList<Book> listAll() throws SQLException {
         ArrayList<Book> result = new ArrayList<>();
         String preparedListAll = "SELECT * FROM books";

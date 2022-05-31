@@ -2,8 +2,8 @@ package pgr112.step13.shapes;
 
 public class MovablePoint implements Movable {
 
-    private double x, y;
     private int id;
+    private double x, y;
 
     public MovablePoint(){
         this.x = 0;
