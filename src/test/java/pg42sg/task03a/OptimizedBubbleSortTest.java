@@ -69,6 +69,28 @@ public class OptimizedBubbleSortTest {
         assertEquals("c", array[2]);
         assertEquals("d", array[3]);
     }
+    
+    @Test
+    public void testNearly(){
+
+        String[] array = {"c", "b", "a", "d", "e", "f"};
+
+        int optimized = sorter.sort(array, new StringComparator(), true);
+
+        array = new String[]{"c", "b", "a", "d", "e", "f"};
+
+        int base = sorter.sort(array, new StringComparator(), false);
+
+        assertTrue(optimized < base);
+        assertTrue(optimized < base/2);
+
+        assertEquals("a", array[0]);
+        assertEquals("b", array[1]);
+        assertEquals("c", array[2]);
+        assertEquals("d", array[3]);
+        assertEquals("e", array[4]);
+        assertEquals("f", array[5]);
+    }
 
     @Test
     public void sortingAlot(){

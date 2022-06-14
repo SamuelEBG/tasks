@@ -2,26 +2,26 @@ package pg42sg.task04c;
 
 import org.pg4200.les03.sort.MySort;
 
+import java.util.stream.IntStream;
+
 public class MixedSort implements MySort {
 
     private final int bubbleLimit = 12;
 
     @Override
     public <T extends Comparable<T>> void sort(T[] array) {
-        // The method exits if the array is not initiated.
-        if (array == null) {
-            return;
-        }
 
-        /* Here we make a buffer array with the same length as the
-        original array, we want to use this array for the sorting algorithm
-        instead of the original array.
+        if (array == null) return;
+
+        /*
+            Here we make a buffer array with the same length as the
+            original array, we want to use this array for the sorting algorithm
+            instead of the original array.
          */
-
         T[] buffer = (T[]) new Comparable[array.length];
 
         /*
-            Use  the low limit, high limit, the original array and the buffer
+            Use the low limit, high limit, the original array and the buffer array
             as parameters in a merge sort method.
             NOTE: The buffer is still just an array with the same length as the original
             array so far, we need to populate it with the elements of the original array.
@@ -39,24 +39,17 @@ public class MixedSort implements MySort {
             bubbleSort(low, high, array);
             return;
         }
-        /*
-            If low is equal or greater than (cannot happen?) high, then the subarea
-            of the array is at the point where it does not need to be sorted.
-        */
-        if (low >= high) {
-            return;
-        }
-        /*
-            Now we need a middle to be able to split the array into 2 parts to sort
-            each part of the array.
-        */
+
+           // If low is = || > than high, then the subarea of the array is at the point where it does not need to be sorted.
+        if (low >= high) return;
+
+          // Now we need a middle to be able to split the array into 2 parts to sort each part of the array.
         int middle = low + (high - low) / 2;
-        /*
-            Splitting array to the left for each recursion,
-            Notice how middle is set to "high" which splits it further down
-        */
+
+          // Splitting array to the left for each recursion. Notice how middle is set to "high" which splits it further down.
         mergesort(low, middle, array, buffer);
         mergesort(middle + 1, high, array, buffer);
+
         /*
             After left half has been divided down to single pieces of arrays
             containing individual elements, we go on to split the array from the middle and upwards.
@@ -68,12 +61,15 @@ public class MixedSort implements MySort {
 
     private <T extends Comparable<T>> void merge(int low, int middle, int high, T[] array, T[] buffer) {
 
+        // if (high + 1 - low >= 0) System.arraycopy(array, low, buffer, low, high + 1 - low);
+        // IntStream.rangeClosed(low, high).forEach(i -> buffer[i] = array[i]);
         for(int i = low; i <= high; i++){
             buffer[i] = array[i];
         }
+
         int i = low; // Iterating through left portion, starting at 0,
         int j = middle + 1; // Iterating through right portion, starting at middle.
-        int k = low; // For original array, starting at 0, this is were we place
+        int k = low; // For original array, starting at 0, this is where we place
                     // The smallest number and keep adding while increasing k.
         /*
             While i, also known as left side if the portion
@@ -119,19 +115,19 @@ public class MixedSort implements MySort {
 
     private <T extends Comparable<T>> void bubbleSort(int low, int high, T[] array) {
         boolean swapped = true;
-        if (high - low < bubbleLimit) {
-            while (swapped) {
-                swapped = false;
-                for (int i = 0; i < high; i++) { // High will always be less than 4.
-                    int j = i + 1;              // Set a index that is +1 from the starting index.
-                                                // This is what we will compare to.
-                    if (array[i].compareTo(array[j]) > 0) { // If index i is greater than j it will perform the swap
-                        T tmp = array[i];
-                        array[i] = array[j];
-                        array[j] = tmp;
 
-                        swapped = true;
-                    }
+        while (swapped) {
+            swapped = false;
+
+            for (int i = 0; i < high; i++) { // High will always be less than 4.
+                int j = i + 1;              // Set a index that is +1 from the starting index.
+                                            // This is what we will compare to.
+                if (array[i].compareTo(array[j]) > 0) { // If index i is greater than j it will perform the swap
+                    T tmp = array[i];
+                    array[i] = array[j];
+                    array[j] = tmp;
+
+                    swapped = true;
                 }
             }
         }

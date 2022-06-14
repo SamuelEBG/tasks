@@ -2,7 +2,8 @@ package pg42sg.task04;
 
 import org.pg4200.ex04.Fibonacci;
 
-public class Task4 implements Fibonacci {
+public class FibonacciImp implements Fibonacci {
+
     @Override
     public int compute(int n) throws IllegalArgumentException {
 

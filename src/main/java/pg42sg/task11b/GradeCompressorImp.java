@@ -27,8 +27,9 @@ public class GradeCompressorImp implements GradeCompressor {
              */
             if(c >= '0' && c <= '9'){
                 id += c;
-            // When ID is stored in the ID variable and we have iterated
-            // through all the digits, we get to the grade.
+            // When ID is stored in the ID variable, and we have iterated
+            // through all the digits, we get to the grade, so no we check for
+            // A-F instead of 0-9.
             } else if(c >= 'A' && c <= 'F'){
                 // First we store the ID, since we have at most 500 students,
                 // we need at most 9 (1024) bits to store the ID,
