@@ -2,33 +2,21 @@ package pg42sg.Eksamen2022;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Ex04 {
-
-    public static void main(String[] args) {
-        Student student = new Student("Harald", "Hadrada", 1066);
-        Student student1 = new Student("Nicolas", "Davout", 1823);
-
-        Program prog = new Program();
-        Course course = new Course();
-        course.students.put(student.studentId, student);
-        System.out.println(course.students.get(student.studentId));
-        course.students.put(student1.studentId, student1);
-        System.out.println(course.students.get(student1.studentId));
-        prog.courses.add(course);
-
-        Ex04(prog).forEach(System.out::println);
-
-    }
-
-    /*
-    Student -> Student.firstName.substring(0) +
-                        Student.lastName.substring(0) +
-                        Student.studentId.toString().substring(2,3) + "@hk.no"
+    /**
+        This solution here is to make a flatmap of the course Array,
+        stream the values in the HashMap students, which will be student objects.
+        We use distinct so we don't have any duplicates of students.
+        Map the student-objects to a String with:
+         - The first letter of the first name
+         - The first letter of the last name
+         - The last 2 digits of the student id.
+         - “@hk.no” – to mark it out as an email address.
+        Methods where put to static for testing purposes and no encapsulation is used since it is not
+        needed for this solution.
      */
-
     public static ArrayList<String> Ex04(Program program){
 
         return program.courses.stream()
@@ -49,7 +37,6 @@ public class Ex04 {
         public ArrayList<Course> getCourses() {
             return courses;
         }
-
     }
 
     public static class Course {
@@ -60,7 +47,6 @@ public class Ex04 {
     }
 
     public static class Student {
-
         public String firstName;
         public String lastName;
         public Integer studentId;

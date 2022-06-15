@@ -1,0 +1,12 @@
+The solution that i was considering would also be using HashMaps to keep track of nodes.
+The runtime performance of the put method in HashMap is O(1), constant time, because you cannot decide where you want to add
+the elements. Delete and get are both between O(1) and O(n), because you could get lucky and get the element
+you are looking for first time, but there is also a possibility that you have to iterate through the entire Map.
+
+By using one of the algorithms we have learned for finding indexes faster, such as a Binary Search Tree,
+we could be able to find connected vertexes with possibly better runtime complexity than O(n), since each time we
+look for connected vertexes or adjacent vertexes, we have to use Maps get method.
+Though Binary Search Trees runtime complexity is at worst, also O(n)
+
+In the case of finding a path between two graphs the worst case scenario would be O(n^2) since we could have to iterate
+through all the nodes of both graphs to find our path if we are unlucky.
