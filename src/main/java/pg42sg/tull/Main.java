@@ -48,6 +48,7 @@ public class Main {
     }
 
     public static void main(String[] args){
+        /*
         System.out.println(fact(10));
         System.out.println(fact(9));
         System.out.println(fact(8));
@@ -68,6 +69,10 @@ public class Main {
         System.out.println("-----------------");
         testingT t1 = new testingT();
         t1.testThis();
+
+         */
+        int id = 44;
+
     }
 
 }

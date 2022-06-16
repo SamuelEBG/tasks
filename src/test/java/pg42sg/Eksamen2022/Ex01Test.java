@@ -19,7 +19,7 @@ class Ex01Test {
         assertTrue("/lessons/src/test/java/org/pg4200/les09/UndirectedGraphTest.java".matches(regex));
         assertTrue("/solutions/src/test/java/org/pg4200/sol10/RegexExampleImpTest.java".matches(regex));
         assertTrue("/solutions/src/test/java/org/pg4200/sol10/RegexExampleImpTest.cpp".matches(regex));
-        assertTrue("/solutions/src/test/java/org/pg4200/sol10/RegexExampleImpTest.kt".matches(regex));
+        assertTrue("/solutions/src/test/java/org/pg4200/sol10/asdTest.kt".matches(regex));
 
         assertFalse("/pg4200algorithms/lessons/src/main/java/org/pg4200/les10/regex/MatcherTest.java".matches(regex));
         assertFalse("/lessons/src/test/java/org/pg4200/les09/UndirectedGraph.java".matches(regex));

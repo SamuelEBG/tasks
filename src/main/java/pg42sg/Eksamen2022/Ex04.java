@@ -8,25 +8,26 @@ public class Ex04 {
     /**
         This solution here is to make a flatmap of the course Array,
         stream the values in the HashMap students, which will be student objects.
-        We use distinct so we don't have any duplicates of students.
+        We use distinct so we don't have any duplicate instances of students.
         Map the student-objects to a String with:
          - The first letter of the first name
          - The first letter of the last name
          - The last 2 digits of the student id.
          - “@hk.no” – to mark it out as an email address.
-        Methods where put to static for testing purposes and no encapsulation is used since it is not
-        needed for this solution.
+        For this task I have assumed that an ID consists of 4 digits, therefor retrieving charAt indexes 2 and 3.
+        I have used getters for the name, last name and id fields.
      */
-    public static ArrayList<String> Ex04(Program program){
+
+    public ArrayList<String> Ex04(Program program){
 
         return program.courses.stream()
                 .flatMap(course -> course.students.values().stream()
                         .distinct())
                 .map(Student ->
-                        String.valueOf(Student.firstName.charAt(0) +
-                        String.valueOf(Student.lastName.charAt(0)) +
-                        String.valueOf(Student.studentId).charAt(2) +
-                        String.valueOf(Student.studentId).charAt(3)) + "hk.no")
+                        String.valueOf(Student.getFirstName().charAt(0) +
+                        String.valueOf(Student.getLastName().charAt(0)) +
+                        String.valueOf(Student.getStudentId()).charAt(2) +
+                        String.valueOf(Student.getStudentId()).charAt(3)) + "hk.no")
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
@@ -55,6 +56,18 @@ public class Ex04 {
             this.firstName = firstName;
             this.lastName = lastName;
             this.studentId = studentId;
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public Integer getStudentId() {
+            return studentId;
         }
     }
 }
